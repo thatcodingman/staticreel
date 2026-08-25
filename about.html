@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>About — StaticReel</title>
+<meta name="description" content="What StaticReel is, how entries get verified, and how to get in touch.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://staticreel.com/about.html">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="StaticReel">
+<meta property="og:title" content="About — StaticReel">
+<meta property="og:image" content="https://staticreel.com/assets/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --void:#0A0C0F;
+    --panel:#14171C;
+    --line:#262B33;
+    --text:#ECEEF1;
+    --text-mid:#A6ACB6;
+    --text-dim:#5E6570;
+    --signal:#00E5C7;
+    --signal-dim:#0B4A44;
+    --font-display:'Space Grotesk',sans-serif;
+    --font-body:'Inter',sans-serif;
+    --font-mono:'JetBrains Mono',monospace;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{background:var(--void);color:var(--text);font-family:var(--font-body);-webkit-font-smoothing:antialiased;}
+  a{color:var(--signal);text-decoration:none;}
+  a:hover{text-decoration:underline;}
+  .wrap{max-width:760px;margin:0 auto;padding:0 32px;}
+  .nav{position:sticky;top:0;z-index:50;background:rgba(10,12,15,0.88);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);}
+  .nav-inner{max-width:1180px;margin:0 auto;padding:0 32px;height:64px;display:flex;align-items:center;justify-content:space-between;}
+  .logo{font-family:var(--font-display);font-weight:700;font-size:19px;letter-spacing:0.02em;display:flex;align-items:center;gap:9px;color:var(--text);text-decoration:none;}
+  .logo-dot{width:8px;height:8px;border-radius:50%;background:var(--signal);box-shadow:0 0 0 3px var(--signal-dim);}
+  .nav-links{display:flex;gap:30px;font-size:14px;color:var(--text-mid);}
+  .nav-links a{color:var(--text-mid);}
+  .nav-links a:hover{color:var(--text);text-decoration:none;}
+  .page-head{padding:56px 0 24px;border-bottom:1px solid var(--line);}
+  .eyebrow{font-family:var(--font-mono);font-size:12px;letter-spacing:0.12em;color:var(--signal);text-transform:uppercase;margin:0 0 14px;}
+  h1{font-family:var(--font-display);font-weight:700;font-size:34px;margin:0 0 12px;}
+  .content{padding:40px 0 80px;line-height:1.75;font-size:15px;color:var(--text-mid);}
+  .content h2{font-family:var(--font-display);font-weight:700;font-size:19px;color:var(--text);margin:36px 0 12px;}
+  .content h2:first-child{margin-top:0;}
+  .content p{margin:0 0 14px;}
+  .status-pill{display:inline-flex;align-items:center;gap:8px;font-family:var(--font-mono);font-size:11.5px;
+    color:var(--signal);border:1px solid var(--signal);padding:5px 12px;border-radius:20px;margin-bottom:24px;}
+  .status-pill span{width:6px;height:6px;border-radius:50%;background:var(--signal);}
+  footer{padding:36px 0 60px;color:var(--text-dim);font-size:12.5px;font-family:var(--font-mono);border-top:1px solid var(--line);
+    display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;max-width:1180px;margin:0 auto;padding-left:32px;padding-right:32px;}
+  .footer-links{display:flex;gap:18px;}
+  .footer-links a{color:var(--text-dim);}
+  .footer-links a:hover{color:var(--text-mid);}
+  @media (max-width:700px){h1{font-size:26px;} .nav-links{display:none;}}
+</style>
+</head>
+<body>
+
+<div class="nav">
+  <div class="nav-inner">
+    <a class="logo" href="index.html"><span class="logo-dot"></span>STATICREEL</a>
+    <div class="nav-links">
+      <a href="index.html#this-week">This week</a>
+      <a href="index.html#leaving">Leaving</a>
+      <a href="index.html#added">Added</a>
+      <a href="index.html#log">Log</a>
+      <a href="about.html">About</a>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+  <div class="page-head">
+    <p class="eyebrow">About</p>
+    <h1>Track the change, don't just report the news.</h1>
+  </div>
+
+  <div class="content">
+    <span class="status-pill"><span></span>Early build — sample data on the homepage</span>
+
+    <h2>What StaticReel does</h2>
+    <p>Netflix, Max, Disney+, and Prime Video all change constantly — titles disappear and appear, prices shift, shows get cancelled or renewed, and account policies change with little to no announcement. StaticReel exists to catch those changes and log them in one place, verified against an official source wherever possible.</p>
+
+    <h2>How verification works</h2>
+    <p>Every entry in the Signal Log carries a status. <strong style="color:var(--text)">Verified</strong> means the change has been confirmed against an official source — a service's own newsroom, press page, help center, or billing page. <strong style="color:var(--text)">Unconfirmed</strong> means the information comes from user reports or unofficial sources that haven't been confirmed by the platform itself. We'd rather label something unconfirmed than overstate our certainty.</p>
+
+    <h2>What's next</h2>
+    <p>The site is currently a homepage prototype with sample data while we build out real weekly research. Coming next: dedicated pages per streaming service, permanent pages per title with full change history, and a "Where is it streaming?" search.</p>
+
+    <h2>Get in touch</h2>
+    <p>Spotted something wrong, or have a change we missed? Reach out at <a href="mailto:hello@staticreel.com">hello@staticreel.com</a>.</p>
+  </div>
+</div>
+
+<footer>
+  <span>StaticReel · homepage concept, interactive preview · not affiliated with Netflix, Max, Disney+ or Amazon</span>
+  <span class="footer-links"><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a></span>
+</footer>
+
+</body>
+</html>
