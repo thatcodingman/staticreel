@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>StaticReel — What changed on streaming</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --void:#0A0C0F;
+    --panel:#14171C;
+    --panel-2:#1B1F26;
+    --line:#262B33;
+    --line-soft:#1D2129;
+    --text:#ECEEF1;
+    --text-mid:#A6ACB6;
+    --text-dim:#5E6570;
+    --signal:#00E5C7;
+    --signal-dim:#0B4A44;
+    --warn:#F5A623;
+    --netflix:#E50914;
+    --max:#9B5CF0;
+    --disney:#1FA2FF;
+    --prime:#00A8E1;
+    --font-display:'Space Grotesk',sans-serif;
+    --font-body:'Inter',sans-serif;
+    --font-mono:'JetBrains Mono',monospace;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--void);
+    color:var(--text);
+    font-family:var(--font-body);
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit;text-decoration:none;}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 32px;}
+
+  /* NAV */
+  .nav{
+    position:sticky;top:0;z-index:50;
+    background:rgba(10,12,15,0.88);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav-inner{
+    max-width:1180px;margin:0 auto;padding:0 32px;
+    height:64px;display:flex;align-items:center;justify-content:space-between;
+  }
+  .logo{
+    font-family:var(--font-display);font-weight:700;font-size:19px;
+    letter-spacing:0.02em;display:flex;align-items:center;gap:9px;
+  }
+  .logo-dot{width:8px;height:8px;border-radius:50%;background:var(--signal);
+    box-shadow:0 0 0 3px var(--signal-dim);animation:pulse 2.4s ease-in-out infinite;}
+  @keyframes pulse{0%,100%{opacity:1;}50%{opacity:0.45;}}
+  .nav-links{display:flex;gap:30px;font-size:14px;color:var(--text-mid);}
+  .nav-links a:hover{color:var(--text);}
+  .nav-links a.active{color:var(--text);}
+
+  /* TICKER */
+  .ticker-bar{
+    background:var(--panel);
+    border-bottom:1px solid var(--line);
+    overflow:hidden;position:relative;height:38px;display:flex;align-items:center;
+  }
+  .ticker-tag{
+    flex:0 0 auto;font-family:var(--font-mono);font-size:11px;font-weight:700;
+    letter-spacing:0.08em;color:var(--void);background:var(--signal);
+    padding:3px 10px;margin-left:16px;border-radius:3px;z-index:2;
+  }
+  .ticker-track-mask{flex:1;overflow:hidden;position:relative;height:100%;}
+  .ticker-track{
+    display:flex;gap:40px;white-space:nowrap;position:absolute;left:0;top:0;height:100%;
+    align-items:center;animation:scroll-left 38s linear infinite;padding-left:24px;
+  }
+  .ticker-track:hover, .ticker-track.paused{animation-play-state:paused;}
+  @keyframes scroll-left{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+  .ticker-item{font-family:var(--font-mono);font-size:12.5px;color:var(--text-mid);
+    display:flex;align-items:center;gap:8px;cursor:pointer;}
+  .ticker-item:hover{color:var(--text);}
+  .ticker-item .plat-dot{width:6px;height:6px;border-radius:50%;flex:0 0 auto;}
+  .ticker-item b{color:var(--text);font-weight:500;}
+
+  /* HERO */
+  .hero{padding:64px 0 40px;border-bottom:1px solid var(--line);}
+  .eyebrow{
+    font-family:var(--font-mono);font-size:12px;letter-spacing:0.12em;
+    color:var(--signal);text-transform:uppercase;margin:0 0 18px;
+  }
+  h1.headline{
+    font-family:var(--font-display);font-weight:700;font-size:44px;line-height:1.12;
+    margin:0 0 16px;max-width:640px;letter-spacing:-0.01em;
+  }
+  .sub{font-size:16px;color:var(--text-mid);max-width:520px;line-height:1.6;margin:0 0 30px;}
+  .mock-note{
+    display:inline-block;font-family:var(--font-mono);font-size:11px;color:var(--text-dim);
+    border:1px solid var(--line);padding:5px 10px;border-radius:4px;
+  }
+  .hero-search{
+    display:flex;align-items:center;gap:10px;max-width:480px;
+    background:var(--panel);border:1px solid var(--line);border-radius:8px;
+    padding:13px 16px;margin:0 0 22px;transition:border-color .15s;
+  }
+  .hero-search:focus-within{border-color:var(--signal);}
+  .hero-search svg{color:var(--text-dim);flex:0 0 auto;}
+  .hero-search input{
+    background:transparent;border:none;outline:none;color:var(--text);
+    font-family:var(--font-body);font-size:14.5px;width:100%;
+  }
+  .hero-search input::placeholder{color:var(--text-dim);}
+
+  /* STAT GRID */
+  .section{padding:52px 0;border-bottom:1px solid var(--line);}
+  .section-head{display:flex;align-items:baseline;justify-content:space-between;
+    margin-bottom:22px;flex-wrap:wrap;gap:10px;}
+  .section-title{font-family:var(--font-display);font-weight:700;font-size:22px;margin:0;
+    display:flex;align-items:center;gap:10px;}
+  .section-title .idx{color:var(--text-dim);font-family:var(--font-mono);font-weight:400;font-size:14px;}
+  .section-sub{font-size:13.5px;color:var(--text-dim);margin:4px 0 0;}
+  .stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;}
+  .stat-card{
+    background:var(--panel);border:1px solid var(--line);border-radius:8px;
+    padding:20px 20px 18px;cursor:pointer;transition:border-color .15s, transform .15s;
+  }
+  .stat-card:hover{border-color:var(--line-soft);transform:translateY(-1px);}
+  .stat-card.active{border-color:var(--signal);}
+  .stat-plat{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:500;
+    color:var(--text-mid);margin-bottom:14px;text-transform:uppercase;letter-spacing:0.04em;}
+  .stat-plat .dot{width:9px;height:9px;border-radius:50%;}
+  .stat-nums{display:flex;align-items:baseline;gap:14px;font-family:var(--font-mono);}
+  .stat-nums .up{color:var(--signal);font-size:26px;font-weight:700;}
+  .stat-nums .down{color:var(--text-dim);font-size:15px;}
+
+  /* FILTER BAR */
+  .filter-bar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:24px;}
+  .chip{
+    font-family:var(--font-mono);font-size:12px;padding:6px 13px;border-radius:20px;
+    border:1px solid var(--line);color:var(--text-mid);cursor:pointer;
+    background:transparent;transition:all .12s;user-select:none;
+  }
+  .chip:hover{border-color:var(--text-dim);color:var(--text);}
+  .chip.active{background:var(--signal);border-color:var(--signal);color:var(--void);font-weight:700;}
+
+  /* CARD GRID (leaving / added) */
+  .card-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;}
+  .item-card{
+    background:var(--panel);border:1px solid var(--line);border-radius:8px;
+    overflow:hidden;transition:opacity .2s, border-color .15s;
+  }
+  .item-card:hover{border-color:var(--line-soft);}
+  .item-card.dimmed{opacity:0.25;pointer-events:none;}
+  .item-thumb{
+    height:96px;display:flex;align-items:center;justify-content:center;
+    font-family:var(--font-display);font-weight:700;font-size:13px;color:var(--text-dim);
+    background:
+      repeating-linear-gradient(135deg, var(--panel-2) 0 10px, var(--panel) 10px 20px);
+    border-bottom:1px solid var(--line);
+  }
+  .item-body{padding:14px 16px 16px;}
+  .item-title{font-size:14.5px;font-weight:500;margin:0 0 6px;}
+  .item-meta{display:flex;align-items:center;justify-content:space-between;
+    font-family:var(--font-mono);font-size:11.5px;color:var(--text-dim);}
+  .item-meta .plat{display:flex;align-items:center;gap:6px;}
+  .item-meta .plat .dot{width:6px;height:6px;border-radius:50%;}
+  .item-meta .date-soon{color:var(--warn);}
+
+  .sort-toggle{font-family:var(--font-mono);font-size:12px;color:var(--text-dim);
+    display:flex;align-items:center;gap:6px;cursor:pointer;}
+  .sort-toggle:hover{color:var(--text-mid);}
+
+  /* SIGNAL LOG */
+  .log-controls{display:flex;gap:12px;align-items:center;margin-bottom:18px;flex-wrap:wrap;}
+  .search-input{
+    background:var(--panel);border:1px solid var(--line);border-radius:6px;
+    padding:9px 12px;color:var(--text);font-family:var(--font-mono);font-size:13px;
+    flex:1;min-width:200px;
+  }
+  .search-input::placeholder{color:var(--text-dim);}
+  .search-input:focus{outline:none;border-color:var(--signal);}
+  .log-list{border:1px solid var(--line);border-radius:8px;overflow:hidden;background:var(--panel);}
+  .log-row{border-bottom:1px solid var(--line);}
+  .log-row:last-child{border-bottom:none;}
+  .log-row.hidden{display:none;}
+  .log-row-main{
+    display:grid;grid-template-columns:88px 100px 1fr 100px 90px 18px;gap:14px;
+    align-items:center;padding:14px 18px;cursor:pointer;transition:background .12s;
+  }
+  .log-row-main:hover{background:var(--panel-2);}
+  .log-date{font-family:var(--font-mono);font-size:12px;color:var(--text-dim);}
+  .log-plat{display:flex;align-items:center;gap:7px;font-size:12px;color:var(--text-mid);}
+  .log-plat .dot{width:7px;height:7px;border-radius:50%;}
+  .log-text{font-size:14px;}
+  .log-text b{font-weight:500;}
+  .log-tag{
+    font-family:var(--font-mono);font-size:10.5px;text-transform:uppercase;
+    letter-spacing:0.04em;color:var(--text-dim);border:1px solid var(--line);
+    padding:3px 8px;border-radius:4px;text-align:center;white-space:nowrap;
+  }
+  .log-chevron{color:var(--text-dim);transition:transform .15s;font-size:12px;text-align:right;}
+  .row-flag{
+    font-family:var(--font-mono);font-size:10.5px;text-transform:uppercase;letter-spacing:0.04em;
+    color:var(--warn);border:1px solid var(--warn);padding:3px 8px;border-radius:4px;
+    text-align:center;white-space:nowrap;
+  }
+  .log-row.open .log-chevron{transform:rotate(180deg);}
+  .log-detail{
+    max-height:0;overflow:hidden;transition:max-height .22s ease;
+    background:var(--void);
+  }
+  .log-row.open .log-detail{max-height:280px;}
+  .log-detail-inner{padding:4px 18px 18px 202px;font-size:13.5px;color:var(--text-mid);
+    line-height:1.6;display:grid;grid-template-columns:1fr 1fr;gap:16px 20px;}
+  .log-detail-inner .col b{display:block;font-size:11px;text-transform:uppercase;
+    letter-spacing:0.06em;color:var(--text-dim);font-family:var(--font-mono);margin-bottom:5px;font-weight:500;}
+  .log-detail-inner .verified-col{grid-column:1 / -1;border-top:1px solid var(--line);padding-top:12px;
+    font-family:var(--font-mono);font-size:12px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
+  .log-detail-inner .verified-col b{color:var(--signal);margin:0;display:inline;text-transform:none;font-size:12px;font-family:var(--font-mono);}
+  .status-badge{
+    font-family:var(--font-mono);font-size:10px;text-transform:uppercase;letter-spacing:0.05em;
+    padding:3px 8px;border-radius:4px;font-weight:700;
+  }
+  .status-badge.verified{color:var(--signal);border:1px solid var(--signal);}
+  .status-badge.unconfirmed{color:var(--warn);border:1px solid var(--warn);}
+  .empty-state{padding:40px;text-align:center;color:var(--text-dim);font-size:13.5px;
+    font-family:var(--font-mono);}
+
+  /* BIGGEST CHANGES */
+  .biggest-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
+  .biggest-card{
+    background:var(--panel);border:1px solid var(--line);border-left:2px solid var(--signal);
+    border-radius:0 8px 8px 0;padding:18px 20px;
+  }
+  .biggest-plat{display:flex;align-items:center;gap:8px;font-family:var(--font-mono);
+    font-size:11.5px;color:var(--text-dim);margin-bottom:10px;text-transform:uppercase;letter-spacing:0.04em;}
+  .biggest-plat .dot{width:7px;height:7px;border-radius:50%;}
+  .biggest-title{font-size:15px;line-height:1.4;margin:0 0 10px;}
+  .biggest-title b{font-weight:500;}
+  .biggest-why{font-size:13px;color:var(--text-mid);line-height:1.55;margin:0;}
+
+  footer{padding:36px 0 60px;color:var(--text-dim);font-size:12.5px;font-family:var(--font-mono);}
+
+  @media (max-width:900px){
+    .stat-grid,.card-grid{grid-template-columns:repeat(2,1fr);}
+    h1.headline{font-size:32px;}
+    .log-row-main{grid-template-columns:1fr;gap:6px;}
+    .log-detail-inner{padding:4px 18px 18px 18px;grid-template-columns:1fr;}
+    .nav-links{display:none;}
+  }
+</style>
+</head>
+<body>
+
+<div class="nav">
+  <div class="nav-inner">
+    <div class="logo"><span class="logo-dot"></span>STATICREEL</div>
+    <div class="nav-links">
+      <a href="#this-week" class="active">This week</a>
+      <a href="#leaving">Leaving</a>
+      <a href="#added">Added</a>
+      <a href="#log">Log</a>
+      <a href="about.html" id="aboutLink">About</a>
+    </div>
+  </div>
+</div>
+
+<div class="ticker-bar">
+  <span class="ticker-tag">SIGNAL</span>
+  <div class="ticker-track-mask">
+    <div class="ticker-track" id="tickerTrack"></div>
+  </div>
+</div>
+
+<div class="wrap">
+  <div class="hero">
+    <p class="eyebrow">The streaming changelog</p>
+    <h1 class="headline">What changed on streaming this week.</h1>
+    <p class="sub">Netflix, Max, Disney+ and Prime Video — tracking what leaves, what's added, and the price, cancellation, renewal, and policy changes we can verify.</p>
+    <div class="hero-search">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input id="heroSearch" placeholder="Search a movie, show, or streaming service…">
+    </div>
+    <span class="mock-note">SAMPLE DATA — layout preview, not live listings</span>
+  </div>
+
+  <div class="section" id="this-week">
+    <div class="section-head">
+      <div>
+        <h3 class="section-title"><span class="idx">01</span>This week</h3>
+        <p class="section-sub">Aug 24–30, 2026 · click a platform to filter the listings below</p>
+      </div>
+    </div>
+    <div class="stat-grid" id="statGrid"></div>
+  </div>
+
+  <div class="section">
+    <div class="section-head">
+      <div>
+        <h3 class="section-title"><span class="idx">02</span>Biggest changes this week</h3>
+        <p class="section-sub">The handful of changes worth knowing about first</p>
+      </div>
+    </div>
+    <div class="biggest-grid" id="biggestGrid"></div>
+  </div>
+
+  <div class="section" id="leaving">
+    <div class="section-head">
+      <div>
+        <h3 class="section-title"><span class="idx">03</span>Leaving soon</h3>
+        <p class="section-sub">Sorted by how much time is left</p>
+      </div>
+      <div class="sort-toggle" id="sortToggle">sort: soonest first <span id="sortArrow">↓</span></div>
+    </div>
+    <div class="card-grid" id="leavingGrid"></div>
+  </div>
+
+  <div class="section" id="added">
+    <div class="section-head">
+      <div>
+        <h3 class="section-title"><span class="idx">04</span>Just added</h3>
+        <p class="section-sub">New this week, across all four services</p>
+      </div>
+    </div>
+    <div class="card-grid" id="addedGrid"></div>
+  </div>
+
+  <div class="section" id="log" style="border-bottom:none;">
+    <div class="section-head">
+      <div>
+        <h3 class="section-title"><span class="idx">05</span>Signal log</h3>
+        <p class="section-sub">Every change, timestamped — expand any row for what changed and why it matters</p>
+      </div>
+    </div>
+    <div class="filter-bar" id="tagFilterBar"></div>
+    <div class="log-list" id="logList"></div>
+  </div>
+
+  <footer>StaticReel · homepage concept, interactive preview · not affiliated with Netflix, Max, Disney+ or Amazon</footer>
+</div>
+
+<script>
+const PLATFORMS = {
+  netflix:{name:'Netflix', color:'#E50914'},
+  max:{name:'Max', color:'#9B5CF0'},
+  disney:{name:'Disney+', color:'#1FA2FF'},
+  prime:{name:'Prime Video', color:'#00A8E1'}
+};
+
+const STATS = {
+  netflix:{added:18, removed:7},
+  max:{added:12, removed:11},
+  disney:{added:9, removed:4},
+  prime:{added:14, removed:8}
+};
+
+const LEAVING = [
+  {title:'The Departed', plat:'netflix', date:'Aug 31', days:6},
+  {title:'Zodiac', plat:'max', date:'Sep 1', days:7},
+  {title:'Coco', plat:'disney', date:'Sep 3', days:9},
+  {title:'The Terminal', plat:'prime', date:'Sep 4', days:10},
+  {title:'Inglourious Basterds', plat:'netflix', date:'Sep 5', days:11},
+  {title:'Ocean\'s Eleven', plat:'max', date:'Sep 6', days:12},
+  {title:'Ratatouille', plat:'disney', date:'Sep 8', days:14},
+  {title:'The Grand Budapest Hotel', plat:'prime', date:'Sep 10', days:16}
+];
+
+const ADDED = [
+  {title:'Cobra Kai: Legacy', plat:'netflix', date:'Aug 26'},
+  {title:'Duster', plat:'max', date:'Aug 25'},
+  {title:'Andor: Season 2 Encore', plat:'disney', date:'Aug 27'},
+  {title:'The Wheel of Time S3', plat:'prime', date:'Aug 24'},
+  {title:'Wednesday: Part 3', plat:'netflix', date:'Aug 29'},
+  {title:'Task', plat:'max', date:'Aug 28'},
+  {title:'Percy Jackson S3', plat:'disney', date:'Aug 30'},
+  {title:'Reacher S4', plat:'prime', date:'Aug 26'}
+];
+
+const TAGS = ['all','cancellation','renewal','new-season','release-date','price','ad-tier','password-policy','free-trial'];
+
+const LOG = [
+  {date:'Aug 25', plat:'netflix', tag:'cancellation', featured:true, verified:'Aug 25', source:'Netflix newsroom', text:'Netflix cancels <b>The Diplomat spinoff</b> after one season', what:'Netflix confirmed the spinoff will not move forward past its first season order.', why:'Ends a title several outlets had listed as a likely multi-season pickup.'},
+  {date:'Aug 25', plat:'max', tag:'price', featured:true, verified:'Aug 25', source:'Max billing page', text:'Max raises ad-free tier by <b>$1/month</b>', what:'The ad-free standard plan increases starting with September billing cycles.', why:'First price move on this tier in over a year; existing subscribers get 30 days notice.'},
+  {date:'Aug 24', plat:'disney', tag:'renewal', verified:'Aug 24', source:'Disney+ press site', text:'Disney+ renews <b>Percy Jackson</b> for a third season', what:'Renewal announced ahead of season 2\'s finale, with production starting in 2027.', why:'Confirms the adaptation continues past its planned two-season arc.'},
+  {date:'Aug 24', plat:'prime', tag:'ad-tier', unconfirmed:true, verified:'Aug 24', source:'User reports on social media, not confirmed by Amazon', text:'Prime Video may be expanding ad load on <b>ad-supported tier</b>', path:'', what:'Multiple viewers report average ad breaks growing from roughly 3.5 to 4 minutes per hour on the base tier.', why:'No official statement from Amazon yet — treat as unconfirmed until a source at Prime Video confirms it.'},
+  {date:'Aug 23', plat:'netflix', tag:'password-policy', featured:true, verified:'Aug 23', source:'Netflix help center', text:'Netflix tightens <b>household verification</b> checks in three more countries', what:'Extra-member verification prompts roll out to Poland, Sweden, and Portugal.', why:'Signals the sharing crackdown is still expanding into markets that were previously exempt.'},
+  {date:'Aug 23', plat:'max', tag:'new-season', verified:'Aug 23', source:'Max press site', text:'Max confirms <b>Duster</b> season 2 release window', what:'Season 2 is set for a Q1 2027 premiere, confirmed via the Max press site.', why:'One of the platform\'s better-reviewed originals gets a firm continuation date.'},
+  {date:'Aug 22', plat:'disney', tag:'release-date', verified:'Aug 22', source:'Disney+ press site', text:'Disney+ pushes <b>Andor</b> anthology special to October', what:'Originally dated for September, the one-off special moved back four weeks.', why:'Second delay for this title this year; no reason given in the official statement.'},
+  {date:'Aug 22', plat:'prime', tag:'free-trial', verified:'Aug 22', source:'Prime Video UK sign-up flow', text:'Prime Video trial shortens from <b>30 to 14 days</b> in the UK', what:'New UK sign-ups now get a 14-day trial window instead of 30.', why:'Brings the UK trial length in line with what US sign-ups have had since spring.'},
+  {date:'Aug 21', plat:'netflix', tag:'price', verified:'Aug 21', source:'Netflix billing page', text:'Netflix\'s ad-supported tier holds steady, no change confirmed', what:'Despite rumors, Netflix confirmed no pricing change to the ad tier this quarter.', why:'Directly contradicts a widely-shared report from earlier in the week.'},
+  {date:'Aug 21', plat:'max', tag:'cancellation', verified:'Aug 21', source:'Trade press reports', text:'Max quietly cancels <b>an unannounced pilot</b> before release', what:'A completed pilot was shelved without a public announcement; confirmed via trade reports.', why:'Rare case of a fully-produced pilot never reaching air.'}
+];
+
+let activePlat = null;
+let activeTag = 'all';
+let sortAsc = true;
+let searchQuery = '';
+
+function dot(color){return `<span class="dot" style="background:${color}"></span>`;}
+
+function renderBiggest(){
+  const featured = LOG.filter(l=>l.featured).slice(0,3);
+  document.getElementById('biggestGrid').innerHTML = featured.map(l=>{
+    const p = PLATFORMS[l.plat];
+    return `<div class="biggest-card">
+      <div class="biggest-plat">${dot(p.color)}${p.name} · ${l.tag.replace(/-/g,' ')}</div>
+      <p class="biggest-title">${l.text}</p>
+      <p class="biggest-why">${l.why}</p>
+    </div>`;
+  }).join('');
+}
+
+function renderTicker(){
+  const items = LOG.slice(0,8).map(l=>{
+    const p = PLATFORMS[l.plat];
+    return `<div class="ticker-item" onclick="jumpToLog('${l.date}','${l.plat}')"><span class="plat-dot" style="background:${p.color}"></span>${l.date} — <b>${p.name}</b> ${l.text.replace(/<\/?b>/g,'')}</div>`;
+  });
+  const html = items.join('') ;
+  document.getElementById('tickerTrack').innerHTML = html + html;
+}
+
+function renderStats(){
+  const grid = document.getElementById('statGrid');
+  grid.innerHTML = Object.keys(PLATFORMS).map(k=>{
+    const p = PLATFORMS[k], s = STATS[k];
+    return `<div class="stat-card" data-plat="${k}" onclick="togglePlat('${k}')">
+      <div class="stat-plat">${dot(p.color)}${p.name}</div>
+      <div class="stat-nums"><span class="up" data-target="${s.added}">0</span><span class="down">−${s.removed} leaving</span></div>
+    </div>`;
+  }).join('');
+  document.querySelectorAll('.stat-nums .up').forEach(el=>{
+    const target = +el.dataset.target;
+    let cur = 0;
+    const step = Math.max(1, Math.round(target/24));
+    const iv = setInterval(()=>{
+      cur += step;
+      if(cur>=target){cur=target; clearInterval(iv);}
+      el.textContent = '+'+cur;
+    },18);
+  });
+}
+
+function matchesSearch(item){
+  if(!searchQuery) return true;
+  const p = PLATFORMS[item.plat];
+  return item.title.toLowerCase().includes(searchQuery) || p.name.toLowerCase().includes(searchQuery);
+}
+
+function itemCard(item, isLeaving){
+  const p = PLATFORMS[item.plat];
+  const dimClass = (activePlat && activePlat!==item.plat) ? 'dimmed' : '';
+  const dateClass = isLeaving && item.days<=7 ? 'date-soon' : '';
+  const initials = item.title.split(' ').slice(0,2).map(w=>w[0]).join('');
+  return `<div class="item-card ${dimClass}" data-plat="${item.plat}">
+    <div class="item-thumb">${initials}</div>
+    <div class="item-body">
+      <p class="item-title">${item.title}</p>
+      <div class="item-meta">
+        <span class="plat">${dot(p.color)}${p.name}</span>
+        <span class="${dateClass}">${isLeaving?'Leaves '+item.date:'Added '+item.date}</span>
+      </div>
+    </div>
+  </div>`;
+}
+
+function renderLeaving(){
+  const sorted = [...LEAVING].filter(matchesSearch).sort((a,b)=> sortAsc ? a.days-b.days : b.days-a.days);
+  const grid = document.getElementById('leavingGrid');
+  grid.innerHTML = sorted.length
+    ? sorted.map(i=>itemCard(i,true)).join('')
+    : '<div class="empty-state">No titles leaving soon match that search.</div>';
+}
+
+function renderAdded(){
+  const filtered = ADDED.filter(matchesSearch);
+  const grid = document.getElementById('addedGrid');
+  grid.innerHTML = filtered.length
+    ? filtered.map(i=>itemCard(i,false)).join('')
+    : '<div class="empty-state">Nothing added this week matches that search.</div>';
+}
+
+function renderTagFilter(){
+  const bar = document.getElementById('tagFilterBar');
+  bar.innerHTML = TAGS.map(t=>`<button class="chip ${t===activeTag?'active':''}" data-tag="${t}" onclick="setTag('${t}')">${t.replace(/-/g,' ')}</button>`).join('');
+}
+
+function renderLog(){
+  const list = document.getElementById('logList');
+  const rows = LOG.filter(l=>{
+    if(activePlat && l.plat!==activePlat) return false;
+    if(activeTag!=='all' && l.tag!==activeTag) return false;
+    if(searchQuery){
+      const hay = (l.text+' '+PLATFORMS[l.plat].name+' '+l.tag).toLowerCase();
+      if(!hay.includes(searchQuery)) return false;
+    }
+    return true;
+  });
+  if(rows.length===0){
+    list.innerHTML = '<div class="empty-state">No signals match that filter. Try clearing the search or platform.</div>';
+    return;
+  }
+  list.innerHTML = rows.map((l,i)=>{
+    const p = PLATFORMS[l.plat];
+    const statusBadge = l.unconfirmed
+      ? `<span class="status-badge unconfirmed">Unconfirmed</span>`
+      : `<span class="status-badge verified">Verified</span>`;
+    const verifiedLine = l.unconfirmed
+      ? `Unconfirmed as of ${l.verified} · ${l.source}`
+      : `Last verified ${l.verified} · ${l.source}`;
+    return `<div class="log-row" id="log-${i}">
+      <div class="log-row-main" onclick="toggleLog(${i})">
+        <span class="log-date">${l.date}</span>
+        <span class="log-plat">${dot(p.color)}${p.name}</span>
+        <span class="log-text">${l.text}</span>
+        <span class="log-tag">${l.tag.replace(/-/g,' ')}</span>
+        ${l.unconfirmed ? '<span class="row-flag">unconfirmed</span>' : '<span></span>'}
+        <span class="log-chevron">▾</span>
+      </div>
+      <div class="log-detail"><div class="log-detail-inner">
+        <div class="col"><b>What changed</b>${l.what}</div>
+        <div class="col"><b>Why it matters</b>${l.why}</div>
+        <div class="col verified-col">${statusBadge}<b>${l.unconfirmed?'Status':'Last verified'}</b>${verifiedLine}</div>
+      </div></div>
+    </div>`;
+  }).join('');
+}
+
+function toggleLog(i){
+  document.getElementById('log-'+i).classList.toggle('open');
+}
+
+function togglePlat(k){
+  activePlat = (activePlat===k) ? null : k;
+  document.querySelectorAll('.stat-card').forEach(c=>{
+    c.classList.toggle('active', c.dataset.plat===activePlat);
+  });
+  renderLeaving();
+  renderAdded();
+  renderLog();
+}
+
+function setTag(t){
+  activeTag = t;
+  renderTagFilter();
+  renderLog();
+}
+
+function jumpToLog(date, plat){
+  togglePlat(plat);
+  document.getElementById('logList').scrollIntoView({behavior:'smooth', block:'center'});
+}
+
+document.getElementById('sortToggle').addEventListener('click', ()=>{
+  sortAsc = !sortAsc;
+  document.getElementById('sortArrow').textContent = sortAsc ? '↓' : '↑';
+  document.querySelector('#sortToggle').firstChild.textContent = sortAsc ? 'sort: soonest first ' : 'sort: furthest out ';
+  renderLeaving();
+});
+
+document.getElementById('heroSearch').addEventListener('input', (e)=>{
+  searchQuery = e.target.value.trim().toLowerCase();
+  renderLeaving();
+  renderAdded();
+  renderLog();
+});
+
+renderTicker();
+renderStats();
+renderBiggest();
+renderLeaving();
+renderAdded();
+renderTagFilter();
+renderLog();
+</script>
+
+</body>
+</html>
