@@ -169,7 +169,15 @@ function exploreCard(t){
   const p = PLATFORMS[t.plat];
   const initials = t.title.split(' ').slice(0,2).map(w=>w[0]).join('');
   const latest = t.events[t.events.length-1];
-  const statusText = latest.type==='leaving' ? 'Leaving soon' : latest.type==='added' ? 'Added this week' : eventTypeLabel(latest.type);
+  let statusText;
+  if(latest.type === 'leaving'){
+    const days = daysUntil(latest.date);
+    statusText = days >= 0 ? `Leaving ${formatDate(latest.date)}` : `Left ${formatDate(latest.date)}`;
+  } else if(latest.type === 'added'){
+    statusText = isAddedThisWeek(latest) ? 'Added this week' : `Added ${formatDate(latest.date)}`;
+  } else {
+    statusText = eventTypeLabel(latest.type);
+  }
   const thumbInner = t.posterUrl
     ? `<img src="${t.posterUrl}" alt="${t.title.replace(/"/g,'&quot;')} poster" loading="lazy">`
     : initials;

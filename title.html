@@ -164,14 +164,19 @@ function renderTitlePage(){
   const latest = record.events[record.events.length - 1];
   const isLeavingLatest = latest.type === 'leaving';
   const days = isLeavingLatest ? daysUntil(latest.date) : null;
-  const urgent = isLeavingLatest && days <= 7;
+  const urgent = isLeavingLatest && days >= 0 && days <= 7;
 
   let statusLine;
   if(isLeavingLatest){
-    const countdown = days<=0 ? 'Leaving today' : days===1 ? 'Leaves tomorrow' : `Leaves in ${days} days`;
+    let countdown;
+    if(days > 1) countdown = `Leaves in ${days} days`;
+    else if(days === 1) countdown = 'Leaves tomorrow';
+    else if(days === 0) countdown = 'Leaving today';
+    else countdown = `Left ${p.name}`;
     statusLine = `${countdown} · ${formatDate(latest.date)}`;
   } else if(latest.type === 'added'){
-    statusLine = `Added to ${p.name} ${formatDate(latest.date)}`;
+    const addedLine = isAddedThisWeek(latest) ? `Added to ${p.name} this week` : `Added to ${p.name}`;
+    statusLine = `${addedLine} · ${formatDate(latest.date)}`;
   } else {
     statusLine = latest.text ? latest.text.replace(/<\/?b>/g,'').replace(/<a[^>]*>|<\/a>/g,'') : `${eventTypeLabel(latest.type)} — ${formatDate(latest.date)}`;
   }
