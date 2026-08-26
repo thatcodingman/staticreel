@@ -436,7 +436,7 @@ let sortAscAdded = false;
 let searchQuery = '';
 
 function renderBiggest(){
-  const featured = LOG.filter(l=>l.featured).slice(0,5);
+  const featured = LOG.filter(l=> l.featured && inCurrentWeek(logDateToISO(l.verified || l.date))).slice(0,5);
   document.getElementById('biggestGrid').innerHTML = featured.map(l=>{
     const p = PLATFORMS[l.plat];
     return `<div class="biggest-card">
@@ -531,7 +531,7 @@ function itemCard(item, isLeaving){
 }
 
 function renderLeaving(){
-  const sorted = [...LEAVING].filter(matchesSearch).sort((a,b)=> sortAsc ? daysUntil(a.date)-daysUntil(b.date) : daysUntil(b.date)-daysUntil(a.date));
+  const sorted = [...LEAVING].filter(isCurrentlyLeavingSoon).filter(matchesSearch).sort((a,b)=> sortAsc ? daysUntil(a.date)-daysUntil(b.date) : daysUntil(b.date)-daysUntil(a.date));
   const grid = document.getElementById('leavingGrid');
   if(sorted.length===0){
     grid.innerHTML = '<div class="empty-state">No titles leaving soon match that search.</div>';
@@ -545,7 +545,7 @@ function renderLeaving(){
 }
 
 function renderAdded(){
-  const filtered = ADDED.filter(matchesSearch)
+  const filtered = ADDED.filter(isAddedThisWeek).filter(matchesSearch)
     .sort((a,b)=> sortAscAdded ? a.date.localeCompare(b.date) : b.date.localeCompare(a.date));
   const grid = document.getElementById('addedGrid');
   if(filtered.length===0){

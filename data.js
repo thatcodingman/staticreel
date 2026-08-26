@@ -61,13 +61,16 @@ function fetchTitleDetails(rawTitle){
           .then(full => {
             if(!full) return null;
             const cast = ((full.credits && full.credits.cast) || []).slice(0, 5).map(c => c.name);
-            const year = (full.release_date || full.first_air_date || '').slice(0, 4);
+            const releaseDate = full.release_date || full.first_air_date || '';
+            const year = releaseDate.slice(0, 4);
             return {
               overview: full.overview || '',
               cast,
               genres: (full.genres || []).map(g => g.name),
               year,
+              releaseDate,
               rating: full.vote_average ? full.vote_average.toFixed(1) : null,
+              voteCount: full.vote_count || null,
               posterUrl: `https://image.tmdb.org/t/p/w300${hit.poster_path}`,
               mediaType: hit.media_type
             };
@@ -128,6 +131,18 @@ function inCurrentWeek(iso){
   const d = new Date(iso+'T00:00:00');
   return d >= WEEK_START && d <= WEEK_END;
 }
+
+// LEAVING and ADDED are append-only across weeks (never wiped, so title
+// history keeps accumulating) — these two decide what the HOMEPAGE shows
+// right now, without touching the underlying data or any title's history.
+function isCurrentlyLeavingSoon(item){
+  const days = daysUntil(item.date);
+  return days >= 0 && days <= 30;
+}
+function isAddedThisWeek(item){
+  return inCurrentWeek(item.date);
+}
+
 function slugify(title){
   return title.toLowerCase()
     .replace(/[—–]/g, '-')
@@ -204,7 +219,7 @@ const ADDED = [
 
 const STATS = {};
 Object.keys(PLATFORMS).forEach(k=>{
-  const addedCount = ADDED.filter(a=>a.plat===k).length;
+  const addedCount = ADDED.filter(a=>a.plat===k && isAddedThisWeek(a)).length;
   const override = STATS_OVERRIDES[k];
   if(override){
     STATS[k] = Object.assign({added: addedCount}, override);

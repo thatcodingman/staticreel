@@ -251,7 +251,7 @@ function serviceItemCard(item, isLeaving){
 }
 
 function renderLeaving(){
-  const items = LEAVING.filter(l=>l.plat===SERVICE_KEY).sort((a,b)=>daysUntil(a.date)-daysUntil(b.date));
+  const items = LEAVING.filter(l=>l.plat===SERVICE_KEY && isCurrentlyLeavingSoon(l)).sort((a,b)=>daysUntil(a.date)-daysUntil(b.date));
   const grid = document.getElementById('leavingGrid');
   grid.innerHTML = items.length
     ? items.map(i=>serviceItemCard(i,true)).join('')
@@ -259,7 +259,7 @@ function renderLeaving(){
 }
 
 function renderAdded(){
-  const items = ADDED.filter(a=>a.plat===SERVICE_KEY)
+  const items = ADDED.filter(a=>a.plat===SERVICE_KEY && isAddedThisWeek(a))
     .sort((a,b)=> sortAscAdded ? a.date.localeCompare(b.date) : b.date.localeCompare(a.date));
   const grid = document.getElementById('addedGrid');
   grid.innerHTML = items.length
