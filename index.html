@@ -116,6 +116,9 @@
     margin:0 0 16px;max-width:640px;letter-spacing:-0.01em;
   }
   .sub{font-size:16px;color:var(--text-mid);max-width:520px;line-height:1.6;margin:0 0 30px;}
+  .updated-line{font-family:var(--font-mono);font-size:12.5px;color:var(--signal);margin:0 0 18px;
+    display:flex;align-items:center;gap:8px;}
+  .updated-line::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--signal);}
   .mock-note{
     display:inline-block;font-family:var(--font-mono);font-size:11px;color:var(--text-dim);
     border:1px solid var(--line);padding:5px 10px;border-radius:4px;
@@ -173,6 +176,7 @@
   }
   .item-card:hover{border-color:var(--line-soft);}
   .item-card.dimmed{opacity:0.25;pointer-events:none;}
+  .item-card.urgent{border-color:var(--warn);}
   .item-thumb{
     height:96px;display:flex;align-items:center;justify-content:center;
     font-family:var(--font-display);font-weight:700;font-size:13px;color:var(--text-dim);
@@ -187,6 +191,13 @@
   .item-meta .plat{display:flex;align-items:center;gap:6px;}
   .item-meta .plat .dot{width:6px;height:6px;border-radius:50%;}
   .item-meta .date-soon{color:var(--warn);}
+  .card-status{display:inline-block;margin-top:8px;font-family:var(--font-mono);font-size:10px;
+    text-transform:uppercase;letter-spacing:0.04em;color:var(--warn);border:1px solid var(--warn);
+    padding:2px 7px;border-radius:4px;}
+  .card-source{display:block;margin-top:8px;font-family:var(--font-mono);font-size:10.5px;
+    color:var(--signal);text-decoration:none;}
+  .card-source:hover{text-decoration:underline;}
+  .card-verified{display:block;margin-top:4px;font-family:var(--font-mono);font-size:10px;color:var(--text-dim);}
 
   .sort-toggle{font-family:var(--font-mono);font-size:12px;color:var(--text-dim);
     display:flex;align-items:center;gap:6px;cursor:pointer;}
@@ -222,10 +233,11 @@
   }
   .log-chevron{color:var(--text-dim);transition:transform .15s;font-size:12px;text-align:right;}
   .row-flag{
-    font-family:var(--font-mono);font-size:10.5px;text-transform:uppercase;letter-spacing:0.04em;
-    color:var(--warn);border:1px solid var(--warn);padding:3px 8px;border-radius:4px;
-    text-align:center;white-space:nowrap;
+    font-family:var(--font-mono);font-size:10px;text-transform:uppercase;letter-spacing:0.04em;
+    padding:3px 8px;border-radius:4px;text-align:center;white-space:nowrap;border:1px solid;
   }
+  .row-flag.verified{color:var(--signal);border-color:var(--signal);}
+  .row-flag.corroborated,.row-flag.unconfirmed{color:var(--warn);border-color:var(--warn);}
   .log-row.open .log-chevron{transform:rotate(180deg);}
   .log-detail{
     max-height:0;overflow:hidden;transition:max-height .22s ease;
@@ -254,9 +266,12 @@
     background:var(--panel);border:1px solid var(--line);border-left:2px solid var(--signal);
     border-radius:0 8px 8px 0;padding:18px 20px;
   }
-  .biggest-plat{display:flex;align-items:center;gap:8px;font-family:var(--font-mono);
+  .biggest-plat{display:flex;align-items:center;justify-content:space-between;gap:8px;font-family:var(--font-mono);
     font-size:11.5px;color:var(--text-dim);margin-bottom:10px;text-transform:uppercase;letter-spacing:0.04em;}
+  .biggest-plat-left{display:flex;align-items:center;gap:8px;}
   .biggest-plat .dot{width:7px;height:7px;border-radius:50%;}
+  .featured-badge{font-family:var(--font-mono);font-size:9.5px;color:var(--signal);
+    border:1px solid var(--signal);padding:2px 6px;border-radius:4px;letter-spacing:0.05em;}
   .biggest-title{font-size:15px;line-height:1.4;margin:0 0 10px;}
   .biggest-title b{font-weight:500;}
   .biggest-why{font-size:13px;color:var(--text-mid);line-height:1.55;margin:0;}
@@ -302,12 +317,13 @@
   <div class="hero">
     <p class="eyebrow">The streaming changelog</p>
     <h1 class="headline">What changed on streaming this week.</h1>
+    <p class="updated-line">Updated Aug 25, 2026</p>
     <p class="sub">Netflix, Max, Disney+ and Prime Video — tracking what leaves, what's added, and the price, cancellation, renewal, and policy changes we can verify.</p>
     <div class="hero-search">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
       <input id="heroSearch" placeholder="Search a movie, show, or streaming service…">
     </div>
-    <span class="mock-note">SAMPLE DATA — layout preview, not live listings</span>
+    <span class="mock-note">RESEARCHED DATA — week of Aug 24–30, 2026 · a few entries still pending sourcing</span>
   </div>
 
   <div class="section" id="this-week">
@@ -376,48 +392,88 @@ const PLATFORMS = {
   prime:{name:'Prime Video', color:'#00A8E1'}
 };
 
-const STATS = {
-  netflix:{added:18, removed:7},
-  max:{added:12, removed:11},
-  disney:{added:9, removed:4},
-  prime:{added:14, removed:8}
+const TODAY = new Date('2026-08-25T00:00:00');
+const WEEK_START = new Date('2026-08-24T00:00:00');
+const WEEK_END = new Date('2026-08-30T23:59:59');
+
+function daysUntil(iso){
+  const d = new Date(iso+'T00:00:00');
+  return Math.round((d - TODAY) / 86400000);
+}
+function formatDate(iso){
+  const d = new Date(iso+'T00:00:00');
+  return d.toLocaleDateString('en-US', {month:'short', day:'numeric'});
+}
+function inCurrentWeek(iso){
+  const d = new Date(iso+'T00:00:00');
+  return d >= WEEK_START && d <= WEEK_END;
+}
+
+const STATS_OVERRIDES = {
+  prime:{removedNote:'removals unverified — not enough sourced data to count this week'}
 };
 
 const LEAVING = [
-  {title:'The Departed', plat:'netflix', date:'Aug 31', days:6},
-  {title:'Zodiac', plat:'max', date:'Sep 1', days:7},
-  {title:'Coco', plat:'disney', date:'Sep 3', days:9},
-  {title:'The Terminal', plat:'prime', date:'Sep 4', days:10},
-  {title:'Inglourious Basterds', plat:'netflix', date:'Sep 5', days:11},
-  {title:'Ocean\'s Eleven', plat:'max', date:'Sep 6', days:12},
-  {title:'Ratatouille', plat:'disney', date:'Sep 8', days:14},
-  {title:'The Grand Budapest Hotel', plat:'prime', date:'Sep 10', days:16}
+  {title:'Going Varsity in Mariachi', plat:'netflix', date:'2026-08-29', status:'unconfirmed'},
+  {title:'Undercover Law', plat:'netflix', date:'2026-08-31', status:'corroborated', source:'What\'s on Netflix', sourceUrl:'https://www.whats-on-netflix.com/leaving-soon/leaving-netflix-august-2026/', verified:'Aug 25'},
+  {title:'Crashing', plat:'netflix', date:'2026-09-01'},
+  {title:'Black Lightning', plat:'netflix', date:'2026-09-01'},
+  {title:'Tokyo Revengers', plat:'max', date:'2026-08-28', status:'unconfirmed'},
+  {title:'Jandino: Whatever It Takes', plat:'netflix', date:'2026-09-09'},
+  {title:'Life', plat:'netflix', date:'2026-09-23'}
 ];
 
 const ADDED = [
-  {title:'Cobra Kai: Legacy', plat:'netflix', date:'Aug 26'},
-  {title:'Duster', plat:'max', date:'Aug 25'},
-  {title:'Andor: Season 2 Encore', plat:'disney', date:'Aug 27'},
-  {title:'The Wheel of Time S3', plat:'prime', date:'Aug 24'},
-  {title:'Wednesday: Part 3', plat:'netflix', date:'Aug 29'},
-  {title:'Task', plat:'max', date:'Aug 28'},
-  {title:'Percy Jackson S3', plat:'disney', date:'Aug 30'},
-  {title:'Reacher S4', plat:'prime', date:'Aug 26'}
+  {title:'M3GAN', plat:'netflix', date:'Aug 24'},
+  {title:'Revival — Season 1', plat:'netflix', date:'Aug 24'},
+  {title:'Stamptown', plat:'netflix', date:'Aug 25', source:'Netflix Tudum', sourceUrl:'https://www.netflix.com/tudum/articles/new-on-netflix', verified:'Aug 25'},
+  {title:'Leanne — Season 2', plat:'netflix', date:'Aug 27', source:'Netflix Tudum', sourceUrl:'https://www.netflix.com/tudum/articles/leanne-morgan-comedy-series-season-2', verified:'Aug 25'},
+  {title:'All the Truth in My Lies', plat:'netflix', date:'Aug 28'},
+  {title:'The Whisper Man', plat:'netflix', date:'Aug 28', source:'Netflix Tudum', sourceUrl:'https://www.netflix.com/tudum/articles/the-whisper-man-release-date-cast-news', verified:'Aug 25'},
+  {title:'Margarita: Make Your Story Count S3', plat:'max', date:'Aug 24'},
+  {title:'Tracked — Season 1', plat:'max', date:'Aug 25'},
+  {title:'1000-lb Roomies — Season 2', plat:'max', date:'Aug 26'},
+  {title:'Bobby\'s Triple Threat — Season 5', plat:'max', date:'Aug 26'},
+  {title:'Homestead Rescue: Intervention', plat:'max', date:'Aug 26'},
+  {title:'Totally \'90s House', plat:'max', date:'Aug 27'},
+  {title:'House Hunters — Season 261', plat:'max', date:'Aug 28'},
+  {title:'The Producer — Season 1', plat:'max', date:'Aug 28'},
+  {title:'Enter Nowhere', plat:'max', date:'Aug 30'},
+  {title:'Holla', plat:'max', date:'Aug 30'},
+  {title:'Knock Knock', plat:'max', date:'Aug 30'},
+  {title:'The Cabin in the Woods', plat:'max', date:'Aug 30'},
+  {title:'The Strangers: Chapter 1', plat:'max', date:'Aug 30'},
+  {title:'The Strangers: Prey at Night', plat:'max', date:'Aug 30'},
+  {title:'Venom: The Last Dance', plat:'disney', date:'Aug 25'},
+  {title:'Miraculous — Season 6', plat:'disney', date:'Aug 26'},
+  {title:'The Simpsons: Yellow Mirror', plat:'disney', date:'Aug 26'},
+  {title:'Project Runway — Season 22', plat:'disney', date:'Aug 27'},
+  {title:'Flex X Cop — Season 2', plat:'disney', date:'Aug 28'},
+  {title:'Flex X Cop — Season 2', plat:'disney', date:'Aug 29'},
+  {title:'The Last Sunrise', plat:'prime', date:'Aug 26'},
+  {title:'Nickel Boys', plat:'prime', date:'Aug 27'}
 ];
+
+const STATS = {};
+Object.keys(PLATFORMS).forEach(k=>{
+  const addedCount = ADDED.filter(a=>a.plat===k).length;
+  const override = STATS_OVERRIDES[k];
+  if(override){
+    STATS[k] = Object.assign({added: addedCount}, override);
+  } else {
+    const removedCount = LEAVING.filter(l=> l.plat===k && l.status!=='unconfirmed' && inCurrentWeek(l.date)).length;
+    STATS[k] = {added: addedCount, removed: removedCount};
+  }
+});
 
 const TAGS = ['all','cancellation','renewal','new-season','release-date','price','ad-tier','password-policy','free-trial'];
 
 const LOG = [
-  {date:'Aug 25', plat:'netflix', tag:'cancellation', featured:true, verified:'Aug 25', source:'Netflix newsroom', text:'Netflix cancels <b>The Diplomat spinoff</b> after one season', what:'Netflix confirmed the spinoff will not move forward past its first season order.', why:'Ends a title several outlets had listed as a likely multi-season pickup.'},
-  {date:'Aug 25', plat:'max', tag:'price', featured:true, verified:'Aug 25', source:'Max billing page', text:'Max raises ad-free tier by <b>$1/month</b>', what:'The ad-free standard plan increases starting with September billing cycles.', why:'First price move on this tier in over a year; existing subscribers get 30 days notice.'},
-  {date:'Aug 24', plat:'disney', tag:'renewal', verified:'Aug 24', source:'Disney+ press site', text:'Disney+ renews <b>Percy Jackson</b> for a third season', what:'Renewal announced ahead of season 2\'s finale, with production starting in 2027.', why:'Confirms the adaptation continues past its planned two-season arc.'},
-  {date:'Aug 24', plat:'prime', tag:'ad-tier', unconfirmed:true, verified:'Aug 24', source:'User reports on social media, not confirmed by Amazon', text:'Prime Video may be expanding ad load on <b>ad-supported tier</b>', path:'', what:'Multiple viewers report average ad breaks growing from roughly 3.5 to 4 minutes per hour on the base tier.', why:'No official statement from Amazon yet — treat as unconfirmed until a source at Prime Video confirms it.'},
-  {date:'Aug 23', plat:'netflix', tag:'password-policy', featured:true, verified:'Aug 23', source:'Netflix help center', text:'Netflix tightens <b>household verification</b> checks in three more countries', what:'Extra-member verification prompts roll out to Poland, Sweden, and Portugal.', why:'Signals the sharing crackdown is still expanding into markets that were previously exempt.'},
-  {date:'Aug 23', plat:'max', tag:'new-season', verified:'Aug 23', source:'Max press site', text:'Max confirms <b>Duster</b> season 2 release window', what:'Season 2 is set for a Q1 2027 premiere, confirmed via the Max press site.', why:'One of the platform\'s better-reviewed originals gets a firm continuation date.'},
-  {date:'Aug 22', plat:'disney', tag:'release-date', verified:'Aug 22', source:'Disney+ press site', text:'Disney+ pushes <b>Andor</b> anthology special to October', what:'Originally dated for September, the one-off special moved back four weeks.', why:'Second delay for this title this year; no reason given in the official statement.'},
-  {date:'Aug 22', plat:'prime', tag:'free-trial', verified:'Aug 22', source:'Prime Video UK sign-up flow', text:'Prime Video trial shortens from <b>30 to 14 days</b> in the UK', what:'New UK sign-ups now get a 14-day trial window instead of 30.', why:'Brings the UK trial length in line with what US sign-ups have had since spring.'},
-  {date:'Aug 21', plat:'netflix', tag:'price', verified:'Aug 21', source:'Netflix billing page', text:'Netflix\'s ad-supported tier holds steady, no change confirmed', what:'Despite rumors, Netflix confirmed no pricing change to the ad tier this quarter.', why:'Directly contradicts a widely-shared report from earlier in the week.'},
-  {date:'Aug 21', plat:'max', tag:'cancellation', verified:'Aug 21', source:'Trade press reports', text:'Max quietly cancels <b>an unannounced pilot</b> before release', what:'A completed pilot was shelved without a public announcement; confirmed via trade reports.', why:'Rare case of a fully-produced pilot never reaching air.'}
+  {date:'Aug 20', plat:'netflix', tag:'cancellation', featured:true, verified:'Aug 25', source:'Netflix Tudum', sourceUrl:'https://www.netflix.com/tudum/articles/new-on-netflix', text:'Netflix confirms <b>Outer Banks</b> Season 5 is the final season', what:'Tudum\'s official August 2026 roundup explicitly describes Season 5, which premiered Aug 20, as "the final season" of Outer Banks.', why:'One of Netflix\'s flagship YA franchises is ending after five seasons — likely the single biggest story of the week.'},
+  {date:'Aug 20', plat:'prime', tag:'renewal', featured:true, verified:'Aug 25', source:'Amazon News (aboutamazon.com)', sourceUrl:'https://www.aboutamazon.com/news/entertainment/sterling-point-series-prime-video', text:'Prime Video renews <b>Sterling Point</b> for Season 2', what:'Amazon confirmed a second season order for Sterling Point.', why:'One of the platform\'s newer originals gets a fast renewal, signaling strong internal confidence.'},
+  {date:'Aug 12', plat:'prime', tag:'renewal', featured:true, verified:'Aug 25', source:'Amazon News (aboutamazon.com)', sourceUrl:'https://www.aboutamazon.com/news/entertainment/prime-video-reacher-how-to-watch', text:'Prime Video\'s <b>Reacher</b> Season 5 renewal confirmed/updated Aug 12', what:'Amazon\'s article confirming Reacher Season 5 was originally published May 11 and updated Aug 12 with streaming details — the renewal itself was not first announced on this date.', why:'Confirms Prime\'s biggest action franchise continues, with Neagley and Terminal List S2 also on the way.'},
+  {date:'Sep 16', plat:'prime', tag:'release-date', verified:'Aug 25', source:'Amazon News (aboutamazon.com)', sourceUrl:'https://www.aboutamazon.com/news/entertainment/watch-neagley-reacher-prime-video', text:'Prime Video sets <b>Neagley</b> premiere for Sep 16', what:'All eight episodes of the Reacher spinoff premiere Sep 16, per Amazon\'s official page.', why:'First concrete date for the spinoff since it was announced, giving fans a target.'},
+  {date:'Oct 21', plat:'prime', tag:'release-date', verified:'Aug 25', source:'Amazon News (aboutamazon.com)', sourceUrl:'https://www.aboutamazon.com/news/entertainment/terminal-list-prime-video-chris-pratt', text:'Prime Video sets <b>The Terminal List: Season 2</b> premiere for Oct 21', what:'All eight episodes premiere Oct 21, per Amazon\'s official page.', why:'One of Prime\'s highest-profile originals returns after a multi-year gap.'}
 ];
 
 let activePlat = null;
@@ -428,11 +484,11 @@ let searchQuery = '';
 function dot(color){return `<span class="dot" style="background:${color}"></span>`;}
 
 function renderBiggest(){
-  const featured = LOG.filter(l=>l.featured).slice(0,3);
+  const featured = LOG.filter(l=>l.featured).slice(0,5);
   document.getElementById('biggestGrid').innerHTML = featured.map(l=>{
     const p = PLATFORMS[l.plat];
     return `<div class="biggest-card">
-      <div class="biggest-plat">${dot(p.color)}${p.name} · ${l.tag.replace(/-/g,' ')}</div>
+      <div class="biggest-plat"><span class="biggest-plat-left">${dot(p.color)}${p.name} · ${l.tag.replace(/-/g,' ')}</span><span class="featured-badge">Featured</span></div>
       <p class="biggest-title">${l.text}</p>
       <p class="biggest-why">${l.why}</p>
     </div>`;
@@ -452,9 +508,10 @@ function renderStats(){
   const grid = document.getElementById('statGrid');
   grid.innerHTML = Object.keys(PLATFORMS).map(k=>{
     const p = PLATFORMS[k], s = STATS[k];
+    const downText = s.removedNote ? s.removedNote : `−${s.removed} leaving`;
     return `<div class="stat-card" data-plat="${k}" onclick="togglePlat('${k}')">
       <div class="stat-plat">${dot(p.color)}${p.name}</div>
-      <div class="stat-nums"><span class="up" data-target="${s.added}">0</span><span class="down">−${s.removed} leaving</span></div>
+      <div class="stat-nums"><span class="up" data-target="${s.added}">0</span><span class="down">${downText}</span></div>
     </div>`;
   }).join('');
   document.querySelectorAll('.stat-nums .up').forEach(el=>{
@@ -478,34 +535,69 @@ function matchesSearch(item){
 function itemCard(item, isLeaving){
   const p = PLATFORMS[item.plat];
   const dimClass = (activePlat && activePlat!==item.plat) ? 'dimmed' : '';
-  const dateClass = isLeaving && item.days<=7 ? 'date-soon' : '';
+  const days = isLeaving ? daysUntil(item.date) : null;
+  const urgent = isLeaving && days<=7;
+  const dateClass = urgent ? 'date-soon' : '';
   const initials = item.title.split(' ').slice(0,2).map(w=>w[0]).join('');
-  return `<div class="item-card ${dimClass}" data-plat="${item.plat}">
+  const statusBadge = item.status==='corroborated'
+    ? '<span class="card-status corroborated" title="Not yet confirmed by an official source">Corroborated</span>'
+    : item.status==='unconfirmed'
+    ? '<span class="card-status corroborated" title="No reliable source located yet">Unconfirmed</span>'
+    : '';
+  const sourceLink = item.sourceUrl
+    ? `<a href="${item.sourceUrl}" target="_blank" rel="noopener" class="card-source">Source: ${item.source} →</a>`
+    : '';
+  const verifiedLine = item.verified
+    ? `<span class="card-verified">Verified ${item.verified}</span>`
+    : '';
+  let dateLabel;
+  if(isLeaving){
+    const countdown = days<=0 ? 'Leaving today' : days===1 ? 'Leaves in 1 day' : `Leaves in ${days} days`;
+    dateLabel = `${countdown} (${formatDate(item.date)})`;
+  } else {
+    dateLabel = 'Added '+item.date;
+  }
+  return `<div class="item-card ${dimClass} ${urgent?'urgent':''}" data-plat="${item.plat}">
     <div class="item-thumb">${initials}</div>
     <div class="item-body">
       <p class="item-title">${item.title}</p>
       <div class="item-meta">
         <span class="plat">${dot(p.color)}${p.name}</span>
-        <span class="${dateClass}">${isLeaving?'Leaves '+item.date:'Added '+item.date}</span>
+        <span class="${dateClass}">${dateLabel}</span>
       </div>
+      ${statusBadge}
+      ${sourceLink}
+      ${verifiedLine}
     </div>
   </div>`;
 }
 
 function renderLeaving(){
-  const sorted = [...LEAVING].filter(matchesSearch).sort((a,b)=> sortAsc ? a.days-b.days : b.days-a.days);
+  const sorted = [...LEAVING].filter(matchesSearch).sort((a,b)=> sortAsc ? daysUntil(a.date)-daysUntil(b.date) : daysUntil(b.date)-daysUntil(a.date));
   const grid = document.getElementById('leavingGrid');
-  grid.innerHTML = sorted.length
-    ? sorted.map(i=>itemCard(i,true)).join('')
-    : '<div class="empty-state">No titles leaving soon match that search.</div>';
+  if(sorted.length===0){
+    grid.innerHTML = '<div class="empty-state">No titles leaving soon match that search.</div>';
+    return;
+  }
+  if(activePlat && !sorted.some(i=>i.plat===activePlat)){
+    grid.innerHTML = `<div class="empty-state">No confirmed removals found for ${PLATFORMS[activePlat].name} this week — we're continuing to monitor this service.</div>`;
+    return;
+  }
+  grid.innerHTML = sorted.map(i=>itemCard(i,true)).join('');
 }
 
 function renderAdded(){
   const filtered = ADDED.filter(matchesSearch);
   const grid = document.getElementById('addedGrid');
-  grid.innerHTML = filtered.length
-    ? filtered.map(i=>itemCard(i,false)).join('')
-    : '<div class="empty-state">Nothing added this week matches that search.</div>';
+  if(filtered.length===0){
+    grid.innerHTML = '<div class="empty-state">Nothing added this week matches that search.</div>';
+    return;
+  }
+  if(activePlat && !filtered.some(i=>i.plat===activePlat)){
+    grid.innerHTML = `<div class="empty-state">No confirmed additions found for ${PLATFORMS[activePlat].name} this week — we're continuing to monitor this service.</div>`;
+    return;
+  }
+  grid.innerHTML = filtered.map(i=>itemCard(i,false)).join('');
 }
 
 function renderTagFilter(){
@@ -525,30 +617,40 @@ function renderLog(){
     return true;
   });
   if(rows.length===0){
-    list.innerHTML = '<div class="empty-state">No signals match that filter. Try clearing the search or platform.</div>';
+    if(activeTag!=='all' && !searchQuery){
+      const tagLabel = activeTag.replace(/-/g,' ');
+      const platLabel = activePlat ? ' for '+PLATFORMS[activePlat].name : '';
+      list.innerHTML = `<div class="empty-state">No confirmed ${tagLabel} changes found${platLabel} this week.</div>`;
+    } else {
+      list.innerHTML = '<div class="empty-state">No signals match that filter. Try clearing the search or platform.</div>';
+    }
     return;
   }
   list.innerHTML = rows.map((l,i)=>{
     const p = PLATFORMS[l.plat];
-    const statusBadge = l.unconfirmed
-      ? `<span class="status-badge unconfirmed">Unconfirmed</span>`
-      : `<span class="status-badge verified">Verified</span>`;
-    const verifiedLine = l.unconfirmed
-      ? `Unconfirmed as of ${l.verified} · ${l.source}`
-      : `Last verified ${l.verified} · ${l.source}`;
+    const tier = l.status || (l.unconfirmed ? 'unconfirmed' : 'verified');
+    const label = tier==='verified' ? 'Verified' : tier==='corroborated' ? 'Corroborated' : 'Unconfirmed';
+    const rowBadge = `<span class="row-flag ${tier}">${label}</span>`;
+    const detailBadge = `<span class="status-badge ${tier==='verified'?'verified':'unconfirmed'}">${label}</span>`;
+    const verifiedLine = tier==='verified'
+      ? `Last verified ${l.verified} · ${l.source}`
+      : `${label} as of ${l.verified} · ${l.source}`;
+    const sourceLink = l.sourceUrl
+      ? ` · <a href="${l.sourceUrl}" target="_blank" rel="noopener" style="color:var(--signal);">View source →</a>`
+      : '';
     return `<div class="log-row" id="log-${i}">
       <div class="log-row-main" onclick="toggleLog(${i})">
         <span class="log-date">${l.date}</span>
         <span class="log-plat">${dot(p.color)}${p.name}</span>
         <span class="log-text">${l.text}</span>
         <span class="log-tag">${l.tag.replace(/-/g,' ')}</span>
-        ${l.unconfirmed ? '<span class="row-flag">unconfirmed</span>' : '<span></span>'}
+        ${rowBadge}
         <span class="log-chevron">▾</span>
       </div>
       <div class="log-detail"><div class="log-detail-inner">
         <div class="col"><b>What changed</b>${l.what}</div>
         <div class="col"><b>Why it matters</b>${l.why}</div>
-        <div class="col verified-col">${statusBadge}<b>${l.unconfirmed?'Status':'Last verified'}</b>${verifiedLine}</div>
+        <div class="col verified-col">${detailBadge}<b>${tier==='verified'?'Last verified':'Status'}</b>${verifiedLine}${sourceLink}</div>
       </div></div>
     </div>`;
   }).join('');
