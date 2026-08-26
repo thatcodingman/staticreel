@@ -394,6 +394,7 @@
         <h3 class="section-title"><span class="idx">04</span>Just added</h3>
         <p class="section-sub">New this week, across all four services</p>
       </div>
+      <div class="sort-toggle" id="addedSortToggle">sort: newest first <span id="addedSortArrow">↓</span></div>
     </div>
     <div class="card-grid" id="addedGrid"></div>
   </div>
@@ -430,6 +431,7 @@ async function loadPosters(){
 let activePlat = null;
 let activeTag = 'all';
 let sortAsc = true;
+let sortAscAdded = false;
 let searchQuery = '';
 
 function renderBiggest(){
@@ -542,7 +544,8 @@ function renderLeaving(){
 }
 
 function renderAdded(){
-  const filtered = ADDED.filter(matchesSearch);
+  const filtered = ADDED.filter(matchesSearch)
+    .sort((a,b)=> sortAscAdded ? a.date.localeCompare(b.date) : b.date.localeCompare(a.date));
   const grid = document.getElementById('addedGrid');
   if(filtered.length===0){
     grid.innerHTML = '<div class="empty-state">Nothing added this week matches that search.</div>';
@@ -655,6 +658,13 @@ document.getElementById('sortToggle').addEventListener('click', ()=>{
   document.getElementById('sortArrow').textContent = sortAsc ? '↓' : '↑';
   document.querySelector('#sortToggle').firstChild.textContent = sortAsc ? 'sort: soonest first ' : 'sort: furthest out ';
   renderLeaving();
+});
+
+document.getElementById('addedSortToggle').addEventListener('click', ()=>{
+  sortAscAdded = !sortAscAdded;
+  document.getElementById('addedSortArrow').textContent = sortAscAdded ? '↑' : '↓';
+  document.querySelector('#addedSortToggle').firstChild.textContent = sortAscAdded ? 'sort: oldest first ' : 'sort: newest first ';
+  renderAdded();
 });
 
 function renderSearchSuggestions(query){

@@ -52,6 +52,18 @@
   .sub{font-size:15px;color:var(--text-mid);max-width:560px;line-height:1.6;margin:0 0 24px;}
 
   .controls{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px;}
+  .explore-search{
+    display:flex;align-items:center;gap:10px;max-width:420px;
+    background:var(--panel);border:1px solid var(--line);border-radius:8px;
+    padding:11px 16px;margin:0 0 18px;transition:border-color .15s;
+  }
+  .explore-search:focus-within{border-color:var(--signal);}
+  .explore-search svg{color:var(--text-dim);flex:0 0 auto;}
+  .explore-search input{
+    background:transparent;border:none;outline:none;color:var(--text);
+    font-family:var(--font-body);font-size:14px;width:100%;
+  }
+  .explore-search input::placeholder{color:var(--text-dim);}
   .chip{font-family:var(--font-mono);font-size:12px;padding:6px 13px;border-radius:20px;border:1px solid var(--line);
     color:var(--text-mid);cursor:pointer;background:transparent;user-select:none;}
   .chip:hover{border-color:var(--text-dim);color:var(--text);}
@@ -112,6 +124,10 @@
     <p class="eyebrow">Browse everything tracked</p>
     <h1>Explore</h1>
     <p class="sub">Every title StaticReel has on file across Netflix, Max, Disney+, and Prime Video — click any title for its full status, verification, and history.</p>
+    <div class="explore-search">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input id="exploreSearch" placeholder="Search titles…" autocomplete="off">
+    </div>
     <div class="controls" id="platFilterBar"></div>
   </div>
 
@@ -129,6 +145,7 @@
 <script src="data.js"></script>
 <script>
 let activePlat = 'all';
+let exploreQuery = '';
 const allTitles = Object.values(TITLES).sort((a,b)=> a.title.localeCompare(b.title));
 
 function setPlat(k){
@@ -165,12 +182,15 @@ function exploreCard(t){
 }
 
 function renderGrid(){
-  const filtered = activePlat==='all' ? allTitles : allTitles.filter(t=>t.plat===activePlat);
+  let filtered = activePlat==='all' ? allTitles : allTitles.filter(t=>t.plat===activePlat);
+  if(exploreQuery){
+    filtered = filtered.filter(t=>t.title.toLowerCase().includes(exploreQuery));
+  }
   document.getElementById('resultCount').textContent = `${filtered.length} title${filtered.length===1?'':'s'}`;
   const grid = document.getElementById('exploreGrid');
   grid.innerHTML = filtered.length
     ? filtered.map(exploreCard).join('')
-    : '<div class="empty-state">Nothing tracked for this service yet.</div>';
+    : `<div class="empty-state">${exploreQuery ? 'No titles match that search.' : 'Nothing tracked for this service yet.'}</div>`;
 }
 
 async function loadPosters(){
@@ -180,6 +200,11 @@ async function loadPosters(){
   }));
   renderGrid();
 }
+
+document.getElementById('exploreSearch').addEventListener('input', (e)=>{
+  exploreQuery = e.target.value.trim().toLowerCase();
+  renderGrid();
+});
 
 renderFilterBar();
 renderGrid();

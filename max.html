@@ -64,6 +64,9 @@
   .section{padding:44px 0;border-bottom:1px solid var(--line);}
   .section:last-child{border-bottom:none;}
   .section-title{font-family:var(--font-display);font-weight:700;font-size:20px;margin:0 0 4px;}
+  .section-head{display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:8px;}
+  .sort-toggle{font-family:var(--font-mono);font-size:12px;color:var(--text-dim);cursor:pointer;user-select:none;}
+  .sort-toggle:hover{color:var(--text-mid);}
   .section-sub{font-size:13px;color:var(--text-dim);margin:0 0 20px;}
 
   .card-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;}
@@ -176,8 +179,10 @@
   </div>
 
   <div class="section" id="added-section">
-    <h2 class="section-title">Just added</h2>
-    <p class="section-sub">New on Max this week</p>
+    <div class="section-head">
+      <div><h2 class="section-title">Just added</h2><p class="section-sub">New on Max this week</p></div>
+      <div class="sort-toggle" id="addedSortToggle">sort: newest first <span id="addedSortArrow">↓</span></div>
+    </div>
     <div class="card-grid" id="addedGrid"></div>
   </div>
 
@@ -198,6 +203,7 @@
 <script>
 const SERVICE_KEY = 'max';
 let activeTag = 'all';
+let sortAscAdded = false;
 
 function renderStats(){
   const s = STATS[SERVICE_KEY];
@@ -253,7 +259,8 @@ function renderLeaving(){
 }
 
 function renderAdded(){
-  const items = ADDED.filter(a=>a.plat===SERVICE_KEY);
+  const items = ADDED.filter(a=>a.plat===SERVICE_KEY)
+    .sort((a,b)=> sortAscAdded ? a.date.localeCompare(b.date) : b.date.localeCompare(a.date));
   const grid = document.getElementById('addedGrid');
   grid.innerHTML = items.length
     ? items.map(i=>serviceItemCard(i,false)).join('')
@@ -306,6 +313,13 @@ async function loadPosters(){
   renderLeaving();
   renderAdded();
 }
+
+document.getElementById('addedSortToggle').addEventListener('click', ()=>{
+  sortAscAdded = !sortAscAdded;
+  document.getElementById('addedSortArrow').textContent = sortAscAdded ? '↑' : '↓';
+  document.querySelector('#addedSortToggle').firstChild.textContent = sortAscAdded ? 'sort: oldest first ' : 'sort: newest first ';
+  renderAdded();
+});
 
 renderStats();
 renderLeaving();
