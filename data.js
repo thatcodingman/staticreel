@@ -112,12 +112,12 @@ const PLATFORMS = {
   prime:{name:'Prime Video', color:'#00A8E1', page:'prime-video.html'}
 };
 
-const TODAY = new Date('2026-08-25T00:00:00');
-const LAST_VERIFICATION_DATE = 'Aug 25, 2026'; // when this week's research pass was actually done —
+const TODAY = new Date('2026-08-31T00:00:00');
+const LAST_VERIFICATION_DATE = 'Aug 31, 2026'; // when this week's research pass was actually done —
                                                  // use this for "when did we check this," never an
                                                  // event's own date (which can be in the future).
-const WEEK_START = new Date('2026-08-24T00:00:00');
-const WEEK_END = new Date('2026-08-30T23:59:59');
+const WEEK_START = new Date('2026-08-31T00:00:00');
+const WEEK_END = new Date('2026-09-06T23:59:59');
 
 function daysUntil(iso){
   const d = new Date(iso+'T00:00:00');
@@ -141,6 +141,11 @@ function isCurrentlyLeavingSoon(item){
 }
 function isAddedThisWeek(item){
   return inCurrentWeek(item.date);
+}
+function isScheduled(item){
+  // True if the item's date hasn't happened yet — distinguishes a title
+  // that's confirmed to arrive from one that's already live on the service.
+  return daysUntil(item.date) > 0;
 }
 
 function slugify(title){
@@ -173,7 +178,9 @@ function linkifyLogText(text){
 }
 
 const STATS_OVERRIDES = {
-  prime:{removedNote:'removals unverified — not enough sourced data to count this week'}
+  max:{removedNote:'no verified Max removal list for this week'},
+  disney:{removedNote:'no verified Disney+ removal list for this week'},
+  prime:{removedNote:'no verified Prime Video removal list for this week'}
 };
 
 const LEAVING = [
@@ -181,6 +188,13 @@ const LEAVING = [
   {title:'Undercover Law', plat:'netflix', date:'2026-08-31', status:'corroborated', source:'What\'s on Netflix', sourceUrl:'https://www.whats-on-netflix.com/leaving-soon/leaving-netflix-august-2026/', verified:'Aug 25'},
   {title:'Crashing', plat:'netflix', date:'2026-09-01'},
   {title:'Black Lightning', plat:'netflix', date:'2026-09-01'},
+  {title:'Creed', plat:'netflix', date:'2026-09-01', source:'Netflix Tudum', sourceUrl:'https://www.netflix.com/tudum/articles/whats-leaving-netflix', verified:'Aug 26'},
+  {title:'Creed II', plat:'netflix', date:'2026-09-01', source:'Netflix Tudum', sourceUrl:'https://www.netflix.com/tudum/articles/whats-leaving-netflix', verified:'Aug 26'},
+  {title:'Creed III', plat:'netflix', date:'2026-09-01', source:'Netflix Tudum', sourceUrl:'https://www.netflix.com/tudum/articles/whats-leaving-netflix', verified:'Aug 26'},
+  {title:'Orphan Black', plat:'netflix', date:'2026-09-01', source:'Netflix Tudum', sourceUrl:'https://www.netflix.com/tudum/articles/whats-leaving-netflix', verified:'Aug 26'},
+  {title:'Here and There (Dito at Doon)', plat:'netflix', date:'2026-09-02', status:'corroborated', source:'What\'s on Netflix', sourceUrl:'https://www.whats-on-netflix.com/leaving-soon/whats-leaving-netflix-in-september-2026/', verified:'Aug 26'},
+  {title:'The Bling Ring', plat:'netflix', date:'2026-09-03', status:'corroborated', source:'What\'s on Netflix', sourceUrl:'https://www.whats-on-netflix.com/leaving-soon/whats-leaving-netflix-in-september-2026/', verified:'Aug 26'},
+  {title:'Ginger & Rosa', plat:'netflix', date:'2026-09-05', status:'corroborated', source:'What\'s on Netflix', sourceUrl:'https://www.whats-on-netflix.com/leaving-soon/whats-leaving-netflix-in-september-2026/', verified:'Aug 26'},
   {title:'Tokyo Revengers', plat:'max', date:'2026-08-28', status:'unconfirmed'},
   {title:'Jandino: Whatever It Takes', plat:'netflix', date:'2026-09-09'},
   {title:'Life', plat:'netflix', date:'2026-09-23'}
@@ -214,7 +228,24 @@ const ADDED = [
   {title:'Flex X Cop — Season 2', plat:'disney', date:'2026-08-28', source:'Disney+ Press', sourceUrl:'https://press.disneyplus.com/news/next-on-disney-plus-august-2026', verified:'Aug 25'},
   {title:'Flex X Cop — Season 2', plat:'disney', date:'2026-08-29', source:'Disney+ Press', sourceUrl:'https://press.disneyplus.com/news/next-on-disney-plus-august-2026', verified:'Aug 25'},
   {title:'The Last Sunrise', plat:'prime', date:'2026-08-26'},
-  {title:'Nickel Boys', plat:'prime', date:'2026-08-27'}
+  {title:'Nickel Boys', plat:'prime', date:'2026-08-27'},
+  {title:'17 Again', plat:'netflix', date:'2026-09-01', status:'corroborated', source:'What\'s on Netflix', sourceUrl:'https://www.whats-on-netflix.com/coming-soon/whats-coming-to-netflix-in-september-2026/', verified:'Aug 26'},
+  {title:'Ready or Not', plat:'netflix', date:'2026-09-01', status:'corroborated', source:'What\'s on Netflix', sourceUrl:'https://www.whats-on-netflix.com/coming-soon/whats-coming-to-netflix-in-september-2026/', verified:'Aug 26'},
+  {title:'Straight Outta Compton', plat:'netflix', date:'2026-09-01', status:'corroborated', source:'What\'s on Netflix', sourceUrl:'https://www.whats-on-netflix.com/coming-soon/whats-coming-to-netflix-in-september-2026/', verified:'Aug 26'},
+  {title:'Lovesick', plat:'netflix', date:'2026-09-02', status:'corroborated', source:'What\'s on Netflix', sourceUrl:'https://www.whats-on-netflix.com/coming-soon/whats-coming-to-netflix-in-september-2026/', verified:'Aug 26'},
+  {title:'Smile 2', plat:'netflix', date:'2026-09-03', status:'corroborated', source:'What\'s on Netflix', sourceUrl:'https://www.whats-on-netflix.com/coming-soon/whats-coming-to-netflix-in-september-2026/', verified:'Aug 26'},
+  {title:'The Gentlemen — Season 2', plat:'netflix', date:'2026-09-03', source:'Netflix (About Netflix)', sourceUrl:'https://about.netflix.com/en/news/netflix-confirms-renewals-for-uk-fan-favourites-and-debuts-trailer-for-the-gentlemen-season-2', verified:'Aug 26'},
+  {title:'Earle Meets World', plat:'netflix', date:'2026-09-04', status:'corroborated', source:'What\'s on Netflix', sourceUrl:'https://www.whats-on-netflix.com/coming-soon/whats-coming-to-netflix-in-september-2026/', verified:'Aug 26'},
+  {title:'Teenage Wasteland', plat:'netflix', date:'2026-09-04', status:'corroborated', source:'What\'s on Netflix', sourceUrl:'https://www.whats-on-netflix.com/coming-soon/whats-coming-to-netflix-in-september-2026/', verified:'Aug 26'},
+  {title:'Poh Cooks Malaysia', plat:'max', date:'2026-09-01', status:'corroborated', source:'One More Game', sourceUrl:'https://onemoregame.ph/2026/08/hbo-max-september-2026-highlights/', verified:'Aug 26'},
+  {title:'Aztec Batman: Clash of Empires', plat:'max', date:'2026-09-04', status:'corroborated', source:'One More Game', sourceUrl:'https://onemoregame.ph/2026/08/hbo-max-september-2026-highlights/', verified:'Aug 26'},
+  {title:'The Runner', plat:'prime', date:'2026-09-02', status:'corroborated', source:'DIRECTV Insider', sourceUrl:'https://www.directv.com/insider/tv-premiere-dates/', verified:'Aug 26'},
+  {title:'The Mandalorian and Grogu', plat:'disney', date:'2026-09-02', status:'corroborated', source:'Williamson Source', sourceUrl:'https://williamsonsource.com/whats-new-on-disney-in-september-2026/', verified:'Aug 26'},
+  {title:'LEGO Star Wars: The Mandalorian', plat:'disney', date:'2026-09-02', status:'corroborated', source:'Williamson Source', sourceUrl:'https://williamsonsource.com/whats-new-on-disney-in-september-2026/', verified:'Aug 26'},
+  {title:'9/11: United We Stand — 25 Years Later', plat:'disney', date:'2026-09-02', status:'corroborated', source:'Williamson Source', sourceUrl:'https://williamsonsource.com/whats-new-on-disney-in-september-2026/', verified:'Aug 26'},
+  {title:'Homicide Squad New Orleans — Season 3', plat:'disney', date:'2026-09-03', status:'corroborated', source:'Williamson Source', sourceUrl:'https://williamsonsource.com/whats-new-on-disney-in-september-2026/', verified:'Aug 26'},
+  {title:'Paranormal State — Seasons 1–2', plat:'disney', date:'2026-09-03', status:'corroborated', source:'Williamson Source', sourceUrl:'https://williamsonsource.com/whats-new-on-disney-in-september-2026/', verified:'Aug 26'},
+  {title:'Spider-Man: Far From Home', plat:'disney', date:'2026-09-04', status:'corroborated', source:'Williamson Source', sourceUrl:'https://williamsonsource.com/whats-new-on-disney-in-september-2026/', verified:'Aug 26'}
 ];
 
 const STATS = {};
@@ -237,7 +268,8 @@ const LOG = [
   {date:'Aug 20', plat:'prime', tag:'renewal', featured:true, verified:'Aug 25', source:'Amazon News (aboutamazon.com)', sourceUrl:'https://www.aboutamazon.com/news/entertainment/sterling-point-series-prime-video', text:'Prime Video renews <b>Sterling Point</b> for Season 2', what:'Amazon confirmed a second season order for Sterling Point.', why:'One of the platform\'s newer originals gets a fast renewal, signaling strong internal confidence.'},
   {date:'Aug 12', plat:'prime', tag:'renewal', featured:true, verified:'Aug 25', source:'Amazon News (aboutamazon.com)', sourceUrl:'https://www.aboutamazon.com/news/entertainment/prime-video-reacher-how-to-watch', text:'Prime Video\'s <b>Reacher</b> Season 5 renewal confirmed/updated Aug 12', what:'Amazon\'s article confirming Reacher Season 5 was originally published May 11 and updated Aug 12 with streaming details — the renewal itself was not first announced on this date.', why:'Confirms Prime\'s biggest action franchise continues, with Neagley and Terminal List S2 also on the way.'},
   {date:'Sep 16', plat:'prime', tag:'release-date', verified:'Aug 25', source:'Amazon News (aboutamazon.com)', sourceUrl:'https://www.aboutamazon.com/news/entertainment/watch-neagley-reacher-prime-video', text:'Prime Video sets <b>Neagley</b> premiere for Sep 16', what:'All eight episodes of the Reacher spinoff premiere Sep 16, per Amazon\'s official page.', why:'First concrete date for the spinoff since it was announced, giving fans a target.'},
-  {date:'Oct 21', plat:'prime', tag:'release-date', verified:'Aug 25', source:'Amazon News (aboutamazon.com)', sourceUrl:'https://www.aboutamazon.com/news/entertainment/terminal-list-prime-video-chris-pratt', text:'Prime Video sets <b>The Terminal List: Season 2</b> premiere for Oct 21', what:'All eight episodes premiere Oct 21, per Amazon\'s official page.', why:'One of Prime\'s highest-profile originals returns after a multi-year gap.'}
+  {date:'Oct 21', plat:'prime', tag:'release-date', verified:'Aug 25', source:'Amazon News (aboutamazon.com)', sourceUrl:'https://www.aboutamazon.com/news/entertainment/terminal-list-prime-video-chris-pratt', text:'Prime Video sets <b>The Terminal List: Season 2</b> premiere for Oct 21', what:'All eight episodes premiere Oct 21, per Amazon\'s official page.', why:'One of Prime\'s highest-profile originals returns after a multi-year gap.'},
+  {date:'Sep 3', plat:'netflix', tag:'new-season', featured:true, verified:'Aug 26', source:'Netflix (About Netflix)', sourceUrl:'https://about.netflix.com/en/news/netflix-confirms-renewals-for-uk-fan-favourites-and-debuts-trailer-for-the-gentlemen-season-2', text:'Netflix confirms <b>The Gentlemen</b> Season 2 premieres Sep 3', what:'Netflix released the full trailer and confirmed Season 2\'s September 3 launch, alongside news of an already-confirmed third season.', why:'Gives fans a firm date for the long-awaited second season.'}
 ];
 
 // ── TITLES: consolidated per-title records for permanent title pages ────
