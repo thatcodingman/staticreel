@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Explore — StaticReel</title>
+<meta name="description" content="Browse everything StaticReel is tracking across Netflix, Max, Disney+, and Prime Video — titles, cast, genres, and current status.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://staticreel.com/explore.html">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="StaticReel">
+<meta property="og:title" content="Explore — StaticReel">
+<meta property="og:image" content="https://staticreel.com/assets/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --void:#0A0C0F;
+    --panel:#14171C;
+    --panel-2:#1B1F26;
+    --line:#262B33;
+    --line-soft:#1D2129;
+    --text:#ECEEF1;
+    --text-mid:#A6ACB6;
+    --text-dim:#5E6570;
+    --signal:#00E5C7;
+    --signal-dim:#0B4A44;
+    --warn:#F5A623;
+    --font-display:'Space Grotesk',sans-serif;
+    --font-body:'Inter',sans-serif;
+    --font-mono:'JetBrains Mono',monospace;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{background:var(--void);color:var(--text);font-family:var(--font-body);-webkit-font-smoothing:antialiased;}
+  a{color:var(--signal);text-decoration:none;}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 32px;}
+  .nav{position:sticky;top:0;z-index:50;background:rgba(10,12,15,0.88);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);}
+  .nav-inner{max-width:1180px;margin:0 auto;padding:0 32px;height:64px;display:flex;align-items:center;justify-content:space-between;}
+  .logo{font-family:var(--font-display);font-weight:700;font-size:19px;letter-spacing:0.02em;display:flex;align-items:center;gap:9px;color:var(--text);text-decoration:none;}
+  .logo-dot{width:8px;height:8px;border-radius:50%;background:var(--signal);box-shadow:0 0 0 3px var(--signal-dim);}
+  .nav-links{display:flex;gap:30px;font-size:14px;color:var(--text-mid);}
+  .nav-links a{color:var(--text-mid);}
+  .nav-links a:hover{color:var(--text);text-decoration:none;}
+  .nav-links a.active{color:var(--text);}
+
+  .hero{padding:52px 0 28px;border-bottom:1px solid var(--line);}
+  .eyebrow{font-family:var(--font-mono);font-size:12px;letter-spacing:0.12em;color:var(--signal);text-transform:uppercase;margin:0 0 14px;}
+  h1{font-family:var(--font-display);font-weight:700;font-size:32px;margin:0 0 12px;}
+  .sub{font-size:15px;color:var(--text-mid);max-width:560px;line-height:1.6;margin:0 0 24px;}
+
+  .controls{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px;}
+  .chip{font-family:var(--font-mono);font-size:12px;padding:6px 13px;border-radius:20px;border:1px solid var(--line);
+    color:var(--text-mid);cursor:pointer;background:transparent;user-select:none;}
+  .chip:hover{border-color:var(--text-dim);color:var(--text);}
+  .chip.active{background:var(--signal);border-color:var(--signal);color:var(--void);font-weight:700;}
+
+  .section{padding:32px 0 60px;}
+  .result-count{font-family:var(--font-mono);font-size:12px;color:var(--text-dim);margin:0 0 18px;}
+  .explore-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;}
+  .explore-card{background:var(--panel);border:1px solid var(--line);border-radius:8px;overflow:hidden;cursor:pointer;
+    transition:border-color .15s,transform .15s;}
+  .explore-card:hover{border-color:var(--line-soft);transform:translateY(-1px);}
+  .explore-thumb{height:150px;display:flex;align-items:center;justify-content:center;font-family:var(--font-display);
+    font-weight:700;font-size:15px;color:var(--text-dim);
+    background:repeating-linear-gradient(135deg, var(--panel-2) 0 10px, var(--panel) 10px 20px);
+    border-bottom:1px solid var(--line);overflow:hidden;}
+  .explore-thumb.has-poster{background:var(--panel);}
+  .explore-thumb img{width:100%;height:100%;object-fit:cover;}
+  .explore-body{padding:12px 14px 14px;}
+  .explore-title{font-size:13px;font-weight:500;margin:0 0 6px;line-height:1.3;
+    display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
+  .explore-meta{display:flex;align-items:center;gap:6px;font-family:var(--font-mono);font-size:10.5px;color:var(--text-dim);}
+  .explore-meta .dot{width:6px;height:6px;border-radius:50%;flex:0 0 auto;}
+
+  .empty-state{padding:40px;text-align:center;color:var(--text-dim);font-size:13.5px;font-family:var(--font-mono);}
+
+  footer{padding:36px 0 60px;color:var(--text-dim);font-size:12.5px;font-family:var(--font-mono);border-top:1px solid var(--line);
+    display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;max-width:1180px;margin:0 auto;padding-left:32px;padding-right:32px;}
+  .footer-links{display:flex;gap:18px;}
+  .footer-links a{color:var(--text-dim);}
+  .footer-links a:hover{color:var(--text-mid);}
+
+  @media (max-width:900px){
+    .explore-grid{grid-template-columns:repeat(3,1fr);}
+    h1{font-size:24px;}
+    .nav-links{display:none;}
+  }
+  @media (max-width:600px){
+    .explore-grid{grid-template-columns:repeat(2,1fr);}
+  }
+</style>
+</head>
+<body>
+
+<div class="nav">
+  <div class="nav-inner">
+    <a class="logo" href="index.html"><span class="logo-dot"></span>STATICREEL</a>
+    <div class="nav-links">
+      <a href="index.html#this-week">This week</a>
+      <a href="explore.html" class="active">Explore</a>
+      <a href="index.html#log">Log</a>
+      <a href="about.html">About</a>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+  <div class="hero">
+    <p class="eyebrow">Browse everything tracked</p>
+    <h1>Explore</h1>
+    <p class="sub">Every title StaticReel has on file across Netflix, Max, Disney+, and Prime Video — click any title for its full status, verification, and history.</p>
+    <div class="controls" id="platFilterBar"></div>
+  </div>
+
+  <div class="section">
+    <p class="result-count" id="resultCount"></p>
+    <div class="explore-grid" id="exploreGrid"></div>
+  </div>
+</div>
+
+<footer>
+  <span>StaticReel · homepage concept, interactive preview · not affiliated with Netflix, Max, Disney+ or Amazon · title artwork provided by <a href="https://www.themoviedb.org/" target="_blank" rel="noopener" style="color:var(--text-dim);">TMDB</a>, not endorsed or certified by TMDB</span>
+  <span class="footer-links"><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a></span>
+</footer>
+
+<script src="data.js"></script>
+<script>
+let activePlat = 'all';
+const allTitles = Object.values(TITLES).sort((a,b)=> a.title.localeCompare(b.title));
+
+function setPlat(k){
+  activePlat = k;
+  renderFilterBar();
+  renderGrid();
+}
+
+function renderFilterBar(){
+  const bar = document.getElementById('platFilterBar');
+  const chips = ['all', ...Object.keys(PLATFORMS)];
+  bar.innerHTML = chips.map(k=>{
+    const label = k==='all' ? 'All services' : PLATFORMS[k].name;
+    return `<button class="chip ${k===activePlat?'active':''}" onclick="setPlat('${k}')">${label}</button>`;
+  }).join('');
+}
+
+function exploreCard(t){
+  const p = PLATFORMS[t.plat];
+  const initials = t.title.split(' ').slice(0,2).map(w=>w[0]).join('');
+  const latest = t.events[t.events.length-1];
+  const statusText = latest.type==='leaving' ? 'Leaving soon' : latest.type==='added' ? 'Added this week' : eventTypeLabel(latest.type);
+  const thumbInner = t.posterUrl
+    ? `<img src="${t.posterUrl}" alt="${t.title.replace(/"/g,'&quot;')} poster" loading="lazy">`
+    : initials;
+  const thumbClass = t.posterUrl ? 'explore-thumb has-poster' : 'explore-thumb';
+  return `<div class="explore-card" onclick="location.href='title.html?t=${t.slug}'">
+    <div class="${thumbClass}">${thumbInner}</div>
+    <div class="explore-body">
+      <p class="explore-title">${t.title}</p>
+      <div class="explore-meta">${dot(p.color)}<span>${p.name} · ${statusText}</span></div>
+    </div>
+  </div>`;
+}
+
+function renderGrid(){
+  const filtered = activePlat==='all' ? allTitles : allTitles.filter(t=>t.plat===activePlat);
+  document.getElementById('resultCount').textContent = `${filtered.length} title${filtered.length===1?'':'s'}`;
+  const grid = document.getElementById('exploreGrid');
+  grid.innerHTML = filtered.length
+    ? filtered.map(exploreCard).join('')
+    : '<div class="empty-state">Nothing tracked for this service yet.</div>';
+}
+
+async function loadPosters(){
+  await Promise.all(allTitles.map(async t => {
+    const url = await fetchPoster(t.title);
+    if(url) t.posterUrl = url;
+  }));
+  renderGrid();
+}
+
+renderFilterBar();
+renderGrid();
+loadPosters();
+</script>
+
+</body>
+</html>

@@ -36,6 +36,43 @@ function fetchPoster(rawTitle){
   return POSTER_CACHE[key];
 }
 
+const DETAILS_CACHE = {}; // title -> Promise<{overview,cast,genres,year,rating,posterUrl}|null>
+
+function fetchTitleDetails(rawTitle){
+  const key = tmdbSearchKey(rawTitle);
+  if(!TMDB_API_KEY || TMDB_API_KEY === 'PASTE_YOUR_TMDB_API_KEY_HERE'){
+    return Promise.resolve(null);
+  }
+  if(!DETAILS_CACHE[key]){
+    const searchUrl = `https://api.themoviedb.org/3/search/multi?api_key=${TMDB_API_KEY}&query=${encodeURIComponent(key)}`;
+    DETAILS_CACHE[key] = fetch(searchUrl)
+      .then(res => res.ok ? res.json() : null)
+      .then(data => {
+        const hit = data && data.results && data.results.find(r => (r.media_type==='movie' || r.media_type==='tv') && r.poster_path);
+        if(!hit) return null;
+        const detailUrl = `https://api.themoviedb.org/3/${hit.media_type}/${hit.id}?api_key=${TMDB_API_KEY}&append_to_response=credits`;
+        return fetch(detailUrl)
+          .then(res => res.ok ? res.json() : null)
+          .then(full => {
+            if(!full) return null;
+            const cast = ((full.credits && full.credits.cast) || []).slice(0, 5).map(c => c.name);
+            const year = (full.release_date || full.first_air_date || '').slice(0, 4);
+            return {
+              overview: full.overview || '',
+              cast,
+              genres: (full.genres || []).map(g => g.name),
+              year,
+              rating: full.vote_average ? full.vote_average.toFixed(1) : null,
+              posterUrl: `https://image.tmdb.org/t/p/w300${hit.poster_path}`,
+              mediaType: hit.media_type
+            };
+          });
+      })
+      .catch(()=>null);
+  }
+  return DETAILS_CACHE[key];
+}
+
 const PLATFORMS = {
   netflix:{name:'Netflix', color:'#E50914', page:'netflix.html'},
   max:{name:'Max', color:'#9B5CF0', page:'max.html'},
@@ -70,6 +107,12 @@ function slugify(title){
 }
 
 function dot(color){return `<span class="dot" style="background:${color}"></span>`;}
+
+function eventTypeLabel(type){
+  if(type==='leaving') return 'Leaving';
+  if(type==='added') return 'Added';
+  return type.charAt(0).toUpperCase() + type.slice(1).replace(/-/g,' ');
+}
 
 const MONTHS = {Jan:'01',Feb:'02',Mar:'03',Apr:'04',May:'05',Jun:'06',Jul:'07',Aug:'08',Sep:'09',Oct:'10',Nov:'11',Dec:'12'};
 function logDateToISO(shortDate){

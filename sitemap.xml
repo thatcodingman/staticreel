@@ -11,6 +11,31 @@
     <priority>0.5</priority>
   </url>
   <url>
+    <loc>https://staticreel.com/explore.html</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://staticreel.com/netflix.html</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://staticreel.com/max.html</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://staticreel.com/disney-plus.html</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://staticreel.com/prime-video.html</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://staticreel.com/privacy.html</loc>
     <changefreq>yearly</changefreq>
     <priority>0.2</priority>

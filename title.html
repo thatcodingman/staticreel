@@ -85,6 +85,12 @@
   .history-source{font-family:var(--font-mono);font-size:11.5px;color:var(--text-dim);}
   .history-source a{color:var(--text-dim);}
 
+  .about-meta{font-family:var(--font-mono);font-size:12.5px;color:var(--signal);margin:0 0 14px;}
+  .about-overview{font-size:14.5px;color:var(--text-mid);line-height:1.7;margin:0 0 14px;}
+  .about-cast{font-size:13.5px;color:var(--text-mid);margin:0;}
+  .about-cast b{color:var(--text-dim);font-family:var(--font-mono);font-size:11px;text-transform:uppercase;
+    letter-spacing:0.05em;font-weight:500;margin-right:6px;}
+
   .empty-note{color:var(--text-dim);font-size:13.5px;font-family:var(--font-mono);}
 
   footer{padding:36px 0 60px;color:var(--text-dim);font-size:12.5px;font-family:var(--font-mono);border-top:1px solid var(--line);
@@ -108,6 +114,7 @@
     <a class="logo" href="index.html"><span class="logo-dot"></span>STATICREEL</a>
     <div class="nav-links">
       <a href="index.html#this-week">This week</a>
+      <a href="explore.html">Explore</a>
       <a href="index.html#leaving">Leaving</a>
       <a href="index.html#added">Added</a>
       <a href="index.html#log">Log</a>
@@ -129,12 +136,6 @@
 
 <script src="data.js"></script>
 <script>
-function eventTypeLabel(type){
-  if(type==='leaving') return 'Leaving';
-  if(type==='added') return 'Added';
-  return type.charAt(0).toUpperCase() + type.slice(1).replace(/-/g,' ');
-}
-
 function eventLabel(ev){
   return `${eventTypeLabel(ev.type)} ${formatDate(ev.date)}`;
 }
@@ -218,6 +219,11 @@ function renderTitlePage(){
       </div>
     </div>
 
+    <div class="section" id="aboutSection" style="display:none;">
+      <h2 class="section-title">About this title</h2>
+      <div id="aboutContent"></div>
+    </div>
+
     <div class="section">
       <h2 class="section-title">Verification</h2>
       <div class="verify-block">${verifyRows}</div>
@@ -230,9 +236,21 @@ function renderTitlePage(){
     </div>
   `;
 
-  fetchPoster(record.title).then(url=>{
-    if(url){
-      document.getElementById('titlePoster').innerHTML = `<img src="${url}" alt="${record.title.replace(/"/g,'&quot;')} poster">`;
+  fetchTitleDetails(record.title).then(details=>{
+    if(!details) return;
+    if(details.posterUrl){
+      document.getElementById('titlePoster').innerHTML = `<img src="${details.posterUrl}" alt="${record.title.replace(/"/g,'&quot;')} poster">`;
+    }
+    if(details.overview || details.cast.length){
+      const bits = [];
+      if(details.year) bits.push(details.year);
+      if(details.genres.length) bits.push(details.genres.join(', '));
+      if(details.rating) bits.push(`★ ${details.rating}/10 (TMDB)`);
+      const metaLine = bits.length ? `<p class="about-meta">${bits.join(' · ')}</p>` : '';
+      const overviewLine = details.overview ? `<p class="about-overview">${details.overview}</p>` : '';
+      const castLine = details.cast.length ? `<p class="about-cast"><b>Starring:</b> ${details.cast.join(', ')}</p>` : '';
+      document.getElementById('aboutContent').innerHTML = metaLine + overviewLine + castLine;
+      document.getElementById('aboutSection').style.display = 'block';
     }
   });
 }
