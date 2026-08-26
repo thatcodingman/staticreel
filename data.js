@@ -44,6 +44,9 @@ const PLATFORMS = {
 };
 
 const TODAY = new Date('2026-08-25T00:00:00');
+const LAST_VERIFICATION_DATE = 'Aug 25, 2026'; // when this week's research pass was actually done —
+                                                 // use this for "when did we check this," never an
+                                                 // event's own date (which can be in the future).
 const WEEK_START = new Date('2026-08-24T00:00:00');
 const WEEK_END = new Date('2026-08-30T23:59:59');
 

@@ -135,6 +135,26 @@
     font-family:var(--font-body);font-size:14.5px;width:100%;
   }
   .hero-search input::placeholder{color:var(--text-dim);}
+  .hero-search-wrap{position:relative;max-width:480px;margin:0 0 22px;}
+  .hero-search-wrap .hero-search{margin:0;}
+  .search-suggestions{
+    position:absolute;top:calc(100% + 6px);left:0;right:0;z-index:40;
+    background:var(--panel);border:1px solid var(--line);border-radius:8px;
+    overflow:hidden;display:none;box-shadow:0 12px 32px rgba(0,0,0,0.4);
+  }
+  .search-suggestions.open{display:block;}
+  .suggestion-item{
+    display:flex;align-items:center;justify-content:space-between;gap:10px;
+    padding:11px 16px;cursor:pointer;border-bottom:1px solid var(--line);
+    font-size:13.5px;color:var(--text);
+  }
+  .suggestion-item:last-child{border-bottom:none;}
+  .suggestion-item:hover{background:var(--panel-2);}
+  .suggestion-item .dot{width:7px;height:7px;border-radius:50%;flex:0 0 auto;}
+  .suggestion-left{display:flex;align-items:center;gap:9px;min-width:0;}
+  .suggestion-left span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+  .suggestion-meta{font-family:var(--font-mono);font-size:10.5px;color:var(--text-dim);flex:0 0 auto;}
+  .suggestion-empty{padding:14px 16px;font-family:var(--font-mono);font-size:12.5px;color:var(--text-dim);}
 
   /* STAT GRID */
   .section{padding:52px 0;border-bottom:1px solid var(--line);}
@@ -323,11 +343,14 @@
   <div class="hero">
     <p class="eyebrow">The streaming changelog</p>
     <h1 class="headline">What changed on streaming this week.</h1>
-    <p class="updated-line">Updated Aug 25, 2026</p>
+    <p class="updated-line" id="updatedLine"></p>
     <p class="sub">Netflix, Max, Disney+ and Prime Video — tracking what leaves, what's added, and the price, cancellation, renewal, and policy changes we can verify.</p>
-    <div class="hero-search">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-      <input id="heroSearch" placeholder="Search a movie, show, or streaming service…">
+    <div class="hero-search-wrap">
+      <div class="hero-search">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input id="heroSearch" placeholder="Search a movie, show, or streaming service…" autocomplete="off">
+      </div>
+      <div class="search-suggestions" id="searchSuggestions"></div>
     </div>
     <span class="mock-note">RESEARCHED DATA — week of Aug 24–30, 2026 · a few entries still pending sourcing</span>
   </div>
@@ -340,7 +363,7 @@
       </div>
     </div>
     <div class="stat-grid" id="statGrid"></div>
-    <div class="data-status-strip">Sources checked: Netflix · Max · Disney+ · Prime Video &nbsp;|&nbsp; Last verification: Aug 25, 2026</div>
+    <div class="data-status-strip" id="dataStatusStrip"></div>
   </div>
 
   <div class="section">
@@ -633,13 +656,76 @@ document.getElementById('sortToggle').addEventListener('click', ()=>{
   renderLeaving();
 });
 
-document.getElementById('heroSearch').addEventListener('input', (e)=>{
+function renderSearchSuggestions(query){
+  const box = document.getElementById('searchSuggestions');
+  if(!query){
+    box.classList.remove('open');
+    box.innerHTML = '';
+    return;
+  }
+
+  const titleMatches = Object.values(TITLES)
+    .filter(t => t.title.toLowerCase().includes(query))
+    .slice(0, 6);
+
+  const platMatches = Object.keys(PLATFORMS)
+    .filter(k => PLATFORMS[k].name.toLowerCase().includes(query))
+    .slice(0, 2);
+
+  if(titleMatches.length === 0 && platMatches.length === 0){
+    box.innerHTML = `<div class="suggestion-empty">No matches in StaticReel's tracked titles or services.</div>`;
+    box.classList.add('open');
+    return;
+  }
+
+  const platRows = platMatches.map(k=>{
+    const p = PLATFORMS[k];
+    return `<div class="suggestion-item" onclick="location.href='${p.page}'">
+      <span class="suggestion-left">${dot(p.color)}<span>${p.name}</span></span>
+      <span class="suggestion-meta">Service page</span>
+    </div>`;
+  }).join('');
+
+  const titleRows = titleMatches.map(t=>{
+    const p = PLATFORMS[t.plat];
+    const latest = t.events[t.events.length-1];
+    const tag = latest.type === 'leaving' ? 'Leaving soon' : latest.type === 'added' ? 'Added' : eventTypeLabelForSearch(latest.type);
+    return `<div class="suggestion-item" onclick="location.href='title.html?t=${t.slug}'">
+      <span class="suggestion-left">${dot(p.color)}<span>${t.title}</span></span>
+      <span class="suggestion-meta">${tag}</span>
+    </div>`;
+  }).join('');
+
+  box.innerHTML = platRows + titleRows;
+  box.classList.add('open');
+}
+
+function eventTypeLabelForSearch(type){
+  return type.charAt(0).toUpperCase() + type.slice(1).replace(/-/g,' ');
+}
+
+const heroSearchInput = document.getElementById('heroSearch');
+heroSearchInput.addEventListener('input', (e)=>{
   searchQuery = e.target.value.trim().toLowerCase();
   renderLeaving();
   renderAdded();
   renderLog();
+  renderSearchSuggestions(searchQuery);
+});
+heroSearchInput.addEventListener('keydown', (e)=>{
+  if(e.key === 'Enter'){
+    const first = document.querySelector('#searchSuggestions .suggestion-item');
+    if(first) first.click();
+  }
+});
+document.addEventListener('click', (e)=>{
+  if(!e.target.closest('.hero-search-wrap')){
+    document.getElementById('searchSuggestions').classList.remove('open');
+  }
 });
 
+document.getElementById('updatedLine').textContent = 'Updated ' + LAST_VERIFICATION_DATE;
+document.getElementById('dataStatusStrip').innerHTML = `Sources checked: Netflix · Max · Disney+ · Prime Video &nbsp;|&nbsp; Last verification: ${LAST_VERIFICATION_DATE}`;
 renderTicker();
 renderStats();
 renderBiggest();
