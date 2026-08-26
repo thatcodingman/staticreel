@@ -10,6 +10,11 @@
 // but don't reuse a key you use for anything sensitive elsewhere.
 const TMDB_API_KEY = 'eb04af0e6f0e7be28a001d6b3e623102';
 
+// ── OMDb integration (optional) ──────────────────────────────────────────
+// Adds IMDb and Rotten Tomatoes scores to title pages, on top of TMDB's
+// own rating. Same public-key caveat as above applies.
+const OMDB_API_KEY = '8a1e8a9d';
+
 const POSTER_CACHE = {}; // title -> Promise<posterUrl|null>, dedupes repeated titles
 
 function tmdbSearchKey(rawTitle){
@@ -71,6 +76,30 @@ function fetchTitleDetails(rawTitle){
       .catch(()=>null);
   }
   return DETAILS_CACHE[key];
+}
+
+const OMDB_CACHE = {}; // title -> Promise<{imdbRating,rtScore}|null>
+
+function fetchOMDbRatings(rawTitle){
+  const key = tmdbSearchKey(rawTitle);
+  if(!OMDB_API_KEY){
+    return Promise.resolve(null);
+  }
+  if(!OMDB_CACHE[key]){
+    const url = `https://www.omdbapi.com/?apikey=${OMDB_API_KEY}&t=${encodeURIComponent(key)}`;
+    OMDB_CACHE[key] = fetch(url)
+      .then(res => res.ok ? res.json() : null)
+      .then(data => {
+        if(!data || data.Response === 'False') return null;
+        const rt = (data.Ratings || []).find(r => r.Source === 'Rotten Tomatoes');
+        return {
+          imdbRating: (data.imdbRating && data.imdbRating !== 'N/A') ? data.imdbRating : null,
+          rtScore: rt ? rt.Value : null
+        };
+      })
+      .catch(()=>null);
+  }
+  return OMDB_CACHE[key];
 }
 
 const PLATFORMS = {

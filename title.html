@@ -236,19 +236,25 @@ function renderTitlePage(){
     </div>
   `;
 
-  fetchTitleDetails(record.title).then(details=>{
-    if(!details) return;
-    if(details.posterUrl){
+  Promise.all([fetchTitleDetails(record.title), fetchOMDbRatings(record.title)]).then(([details, omdb])=>{
+    if(details && details.posterUrl){
       document.getElementById('titlePoster').innerHTML = `<img src="${details.posterUrl}" alt="${record.title.replace(/"/g,'&quot;')} poster">`;
     }
-    if(details.overview || details.cast.length){
-      const bits = [];
+    const bits = [];
+    if(details){
       if(details.year) bits.push(details.year);
       if(details.genres.length) bits.push(details.genres.join(', '));
-      if(details.rating) bits.push(`★ ${details.rating}/10 (TMDB)`);
+      if(details.rating) bits.push(`TMDB ★ ${details.rating}/10`);
+    }
+    if(omdb){
+      if(omdb.imdbRating) bits.push(`IMDb ★ ${omdb.imdbRating}/10`);
+      if(omdb.rtScore) bits.push(`RT ${omdb.rtScore}`);
+    }
+    const hasContent = (details && (details.overview || details.cast.length)) || bits.length;
+    if(hasContent){
       const metaLine = bits.length ? `<p class="about-meta">${bits.join(' · ')}</p>` : '';
-      const overviewLine = details.overview ? `<p class="about-overview">${details.overview}</p>` : '';
-      const castLine = details.cast.length ? `<p class="about-cast"><b>Starring:</b> ${details.cast.join(', ')}</p>` : '';
+      const overviewLine = (details && details.overview) ? `<p class="about-overview">${details.overview}</p>` : '';
+      const castLine = (details && details.cast.length) ? `<p class="about-cast"><b>Starring:</b> ${details.cast.join(', ')}</p>` : '';
       document.getElementById('aboutContent').innerHTML = metaLine + overviewLine + castLine;
       document.getElementById('aboutSection').style.display = 'block';
     }
