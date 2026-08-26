@@ -145,6 +145,8 @@
   .section-title .idx{color:var(--text-dim);font-family:var(--font-mono);font-weight:400;font-size:14px;}
   .section-sub{font-size:13.5px;color:var(--text-dim);margin:4px 0 0;}
   .stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;}
+  .data-status-strip{margin-top:14px;font-family:var(--font-mono);font-size:11.5px;color:var(--text-dim);
+    padding:10px 16px;border:1px solid var(--line);border-radius:6px;background:var(--panel);}
   .stat-card{
     background:var(--panel);border:1px solid var(--line);border-radius:8px;
     padding:20px 20px 18px;cursor:pointer;transition:border-color .15s, transform .15s;
@@ -334,6 +336,7 @@
       </div>
     </div>
     <div class="stat-grid" id="statGrid"></div>
+    <div class="data-status-strip">Sources checked: Netflix · Max · Disney+ · Prime Video &nbsp;|&nbsp; Last verification: Aug 25, 2026</div>
   </div>
 
   <div class="section">
@@ -430,26 +433,26 @@ const ADDED = [
   {title:'Leanne — Season 2', plat:'netflix', date:'Aug 27', source:'Netflix Tudum', sourceUrl:'https://www.netflix.com/tudum/articles/leanne-morgan-comedy-series-season-2', verified:'Aug 25'},
   {title:'All the Truth in My Lies', plat:'netflix', date:'Aug 28'},
   {title:'The Whisper Man', plat:'netflix', date:'Aug 28', source:'Netflix Tudum', sourceUrl:'https://www.netflix.com/tudum/articles/the-whisper-man-release-date-cast-news', verified:'Aug 25'},
-  {title:'Margarita: Make Your Story Count S3', plat:'max', date:'Aug 24'},
+  {title:'Margarita: Make Your Story Count S3', plat:'max', date:'Aug 24', source:'WBD Pressroom', sourceUrl:'https://press.wbd.com/us/media-release/whats-new-hbo-max-august-1', verified:'Aug 25'},
   {title:'Tracked — Season 1', plat:'max', date:'Aug 25'},
-  {title:'1000-lb Roomies — Season 2', plat:'max', date:'Aug 26'},
-  {title:'Bobby\'s Triple Threat — Season 5', plat:'max', date:'Aug 26'},
-  {title:'Homestead Rescue: Intervention', plat:'max', date:'Aug 26'},
-  {title:'Totally \'90s House', plat:'max', date:'Aug 27'},
-  {title:'House Hunters — Season 261', plat:'max', date:'Aug 28'},
-  {title:'The Producer — Season 1', plat:'max', date:'Aug 28'},
-  {title:'Enter Nowhere', plat:'max', date:'Aug 30'},
-  {title:'Holla', plat:'max', date:'Aug 30'},
-  {title:'Knock Knock', plat:'max', date:'Aug 30'},
-  {title:'The Cabin in the Woods', plat:'max', date:'Aug 30'},
-  {title:'The Strangers: Chapter 1', plat:'max', date:'Aug 30'},
-  {title:'The Strangers: Prey at Night', plat:'max', date:'Aug 30'},
-  {title:'Venom: The Last Dance', plat:'disney', date:'Aug 25'},
-  {title:'Miraculous — Season 6', plat:'disney', date:'Aug 26'},
-  {title:'The Simpsons: Yellow Mirror', plat:'disney', date:'Aug 26'},
-  {title:'Project Runway — Season 22', plat:'disney', date:'Aug 27'},
-  {title:'Flex X Cop — Season 2', plat:'disney', date:'Aug 28'},
-  {title:'Flex X Cop — Season 2', plat:'disney', date:'Aug 29'},
+  {title:'1000-lb Roomies — Season 2', plat:'max', date:'Aug 26', source:'WBD Pressroom', sourceUrl:'https://press.wbd.com/us/media-release/whats-new-hbo-max-august-1', verified:'Aug 25'},
+  {title:'Bobby\'s Triple Threat — Season 5', plat:'max', date:'Aug 26', source:'WBD Pressroom', sourceUrl:'https://press.wbd.com/us/media-release/whats-new-hbo-max-august-1', verified:'Aug 25'},
+  {title:'Homestead Rescue: Intervention', plat:'max', date:'Aug 26', source:'WBD Pressroom', sourceUrl:'https://press.wbd.com/us/media-release/whats-new-hbo-max-august-1', verified:'Aug 25'},
+  {title:'Totally \'90s House', plat:'max', date:'Aug 27', source:'WBD Pressroom', sourceUrl:'https://press.wbd.com/us/media-release/whats-new-hbo-max-august-1', verified:'Aug 25'},
+  {title:'House Hunters — Season 261', plat:'max', date:'Aug 28', source:'WBD Pressroom', sourceUrl:'https://press.wbd.com/us/media-release/whats-new-hbo-max-august-1', verified:'Aug 25'},
+  {title:'The Producer — Season 1', plat:'max', date:'Aug 28', source:'WBD Pressroom', sourceUrl:'https://press.wbd.com/us/media-release/whats-new-hbo-max-august-1', verified:'Aug 25'},
+  {title:'Enter Nowhere', plat:'max', date:'Aug 30', source:'WBD Pressroom', sourceUrl:'https://press.wbd.com/us/media-release/whats-new-hbo-max-august-1', verified:'Aug 25'},
+  {title:'Holla', plat:'max', date:'Aug 30', source:'WBD Pressroom', sourceUrl:'https://press.wbd.com/us/media-release/whats-new-hbo-max-august-1', verified:'Aug 25'},
+  {title:'Knock Knock', plat:'max', date:'Aug 30', source:'WBD Pressroom', sourceUrl:'https://press.wbd.com/us/media-release/whats-new-hbo-max-august-1', verified:'Aug 25'},
+  {title:'The Cabin in the Woods', plat:'max', date:'Aug 30', source:'WBD Pressroom', sourceUrl:'https://press.wbd.com/us/media-release/whats-new-hbo-max-august-1', verified:'Aug 25'},
+  {title:'The Strangers: Chapter 1', plat:'max', date:'Aug 30', source:'WBD Pressroom', sourceUrl:'https://press.wbd.com/us/media-release/whats-new-hbo-max-august-1', verified:'Aug 25'},
+  {title:'The Strangers: Prey at Night', plat:'max', date:'Aug 30', source:'WBD Pressroom', sourceUrl:'https://press.wbd.com/us/media-release/whats-new-hbo-max-august-1', verified:'Aug 25'},
+  {title:'Venom: The Last Dance', plat:'disney', date:'Aug 25', source:'Disney+ Press', sourceUrl:'https://press.disneyplus.com/news/next-on-disney-plus-august-2026', verified:'Aug 25'},
+  {title:'Miraculous — Season 6', plat:'disney', date:'Aug 26', source:'Disney+ Press', sourceUrl:'https://press.disneyplus.com/news/next-on-disney-plus-august-2026', verified:'Aug 25'},
+  {title:'The Simpsons: Yellow Mirror', plat:'disney', date:'Aug 26', source:'Disney+ Press', sourceUrl:'https://press.disneyplus.com/news/next-on-disney-plus-august-2026', verified:'Aug 25'},
+  {title:'Project Runway — Season 22', plat:'disney', date:'Aug 27', source:'Disney+ Press', sourceUrl:'https://press.disneyplus.com/news/next-on-disney-plus-august-2026', verified:'Aug 25'},
+  {title:'Flex X Cop — Season 2', plat:'disney', date:'Aug 28', source:'Disney+ Press', sourceUrl:'https://press.disneyplus.com/news/next-on-disney-plus-august-2026', verified:'Aug 25'},
+  {title:'Flex X Cop — Season 2', plat:'disney', date:'Aug 29', source:'Disney+ Press', sourceUrl:'https://press.disneyplus.com/news/next-on-disney-plus-august-2026', verified:'Aug 25'},
   {title:'The Last Sunrise', plat:'prime', date:'Aug 26'},
   {title:'Nickel Boys', plat:'prime', date:'Aug 27'}
 ];
@@ -469,6 +472,7 @@ Object.keys(PLATFORMS).forEach(k=>{
 const TAGS = ['all','cancellation','renewal','new-season','release-date','price','ad-tier','password-policy','free-trial'];
 
 const LOG = [
+  {date:'Aug 24', plat:'netflix', tag:'renewal', verified:'Aug 25', source:'Netflix Tudum', sourceUrl:'https://www.netflix.com/tudum/articles/the-gentlemen-season-3-release-date-cast-news', text:'Netflix renews <b>The Gentlemen</b> for Season 3 ahead of Season 2\'s premiere', what:'Netflix confirmed a third season before Season 2 (streaming Sept 3) has even released.', why:'An early renewal signals strong internal confidence in the show ahead of its next season debut.'},
   {date:'Aug 20', plat:'netflix', tag:'cancellation', featured:true, verified:'Aug 25', source:'Netflix Tudum', sourceUrl:'https://www.netflix.com/tudum/articles/new-on-netflix', text:'Netflix confirms <b>Outer Banks</b> Season 5 is the final season', what:'Tudum\'s official August 2026 roundup explicitly describes Season 5, which premiered Aug 20, as "the final season" of Outer Banks.', why:'One of Netflix\'s flagship YA franchises is ending after five seasons — likely the single biggest story of the week.'},
   {date:'Aug 20', plat:'prime', tag:'renewal', featured:true, verified:'Aug 25', source:'Amazon News (aboutamazon.com)', sourceUrl:'https://www.aboutamazon.com/news/entertainment/sterling-point-series-prime-video', text:'Prime Video renews <b>Sterling Point</b> for Season 2', what:'Amazon confirmed a second season order for Sterling Point.', why:'One of the platform\'s newer originals gets a fast renewal, signaling strong internal confidence.'},
   {date:'Aug 12', plat:'prime', tag:'renewal', featured:true, verified:'Aug 25', source:'Amazon News (aboutamazon.com)', sourceUrl:'https://www.aboutamazon.com/news/entertainment/prime-video-reacher-how-to-watch', text:'Prime Video\'s <b>Reacher</b> Season 5 renewal confirmed/updated Aug 12', what:'Amazon\'s article confirming Reacher Season 5 was originally published May 11 and updated Aug 12 with streaming details — the renewal itself was not first announced on this date.', why:'Confirms Prime\'s biggest action franchise continues, with Neagley and Terminal List S2 also on the way.'},
@@ -496,9 +500,9 @@ function renderBiggest(){
 }
 
 function renderTicker(){
-  const items = LOG.slice(0,8).map(l=>{
+  const items = LOG.slice(0,8).map((l, idx)=>{
     const p = PLATFORMS[l.plat];
-    return `<div class="ticker-item" onclick="jumpToLog('${l.date}','${l.plat}')"><span class="plat-dot" style="background:${p.color}"></span>${l.date} — <b>${p.name}</b> ${l.text.replace(/<\/?b>/g,'')}</div>`;
+    return `<div class="ticker-item" onclick="jumpToLog(${idx})"><span class="plat-dot" style="background:${p.color}"></span>${l.date} — <b>${p.name}</b> ${l.text.replace(/<\/?b>/g,'')}</div>`;
   });
   const html = items.join('') ;
   document.getElementById('tickerTrack').innerHTML = html + html;
@@ -552,7 +556,7 @@ function itemCard(item, isLeaving){
     : '';
   let dateLabel;
   if(isLeaving){
-    const countdown = days<=0 ? 'Leaving today' : days===1 ? 'Leaves in 1 day' : `Leaves in ${days} days`;
+    const countdown = days<=0 ? 'Leaving today' : days===1 ? 'Leaves tomorrow' : `Leaves in ${days} days`;
     dateLabel = `${countdown} (${formatDate(item.date)})`;
   } else {
     dateLabel = 'Added '+item.date;
@@ -607,15 +611,17 @@ function renderTagFilter(){
 
 function renderLog(){
   const list = document.getElementById('logList');
-  const rows = LOG.filter(l=>{
-    if(activePlat && l.plat!==activePlat) return false;
-    if(activeTag!=='all' && l.tag!==activeTag) return false;
-    if(searchQuery){
-      const hay = (l.text+' '+PLATFORMS[l.plat].name+' '+l.tag).toLowerCase();
-      if(!hay.includes(searchQuery)) return false;
-    }
-    return true;
-  });
+  const rows = LOG
+    .map((l, idx)=>({l, idx}))
+    .filter(({l})=>{
+      if(activePlat && l.plat!==activePlat) return false;
+      if(activeTag!=='all' && l.tag!==activeTag) return false;
+      if(searchQuery){
+        const hay = (l.text+' '+PLATFORMS[l.plat].name+' '+l.tag).toLowerCase();
+        if(!hay.includes(searchQuery)) return false;
+      }
+      return true;
+    });
   if(rows.length===0){
     if(activeTag!=='all' && !searchQuery){
       const tagLabel = activeTag.replace(/-/g,' ');
@@ -626,7 +632,7 @@ function renderLog(){
     }
     return;
   }
-  list.innerHTML = rows.map((l,i)=>{
+  list.innerHTML = rows.map(({l, idx})=>{
     const p = PLATFORMS[l.plat];
     const tier = l.status || (l.unconfirmed ? 'unconfirmed' : 'verified');
     const label = tier==='verified' ? 'Verified' : tier==='corroborated' ? 'Corroborated' : 'Unconfirmed';
@@ -638,8 +644,8 @@ function renderLog(){
     const sourceLink = l.sourceUrl
       ? ` · <a href="${l.sourceUrl}" target="_blank" rel="noopener" style="color:var(--signal);">View source →</a>`
       : '';
-    return `<div class="log-row" id="log-${i}">
-      <div class="log-row-main" onclick="toggleLog(${i})">
+    return `<div class="log-row" id="log-${idx}">
+      <div class="log-row-main" onclick="toggleLog(${idx})">
         <span class="log-date">${l.date}</span>
         <span class="log-plat">${dot(p.color)}${p.name}</span>
         <span class="log-text">${l.text}</span>
@@ -676,9 +682,21 @@ function setTag(t){
   renderLog();
 }
 
-function jumpToLog(date, plat){
-  togglePlat(plat);
-  document.getElementById('logList').scrollIntoView({behavior:'smooth', block:'center'});
+function jumpToLog(logIndex){
+  activePlat = null;
+  activeTag = 'all';
+  searchQuery = '';
+  document.getElementById('heroSearch').value = '';
+  document.querySelectorAll('.stat-card').forEach(c=>c.classList.remove('active'));
+  renderTagFilter();
+  renderLeaving();
+  renderAdded();
+  renderLog();
+  const row = document.getElementById('log-'+logIndex);
+  if(row){
+    row.classList.add('open');
+    row.scrollIntoView({behavior:'smooth', block:'center'});
+  }
 }
 
 document.getElementById('sortToggle').addEventListener('click', ()=>{
