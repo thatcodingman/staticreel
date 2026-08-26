@@ -37,10 +37,10 @@ function fetchPoster(rawTitle){
 }
 
 const PLATFORMS = {
-  netflix:{name:'Netflix', color:'#E50914'},
-  max:{name:'Max', color:'#9B5CF0'},
-  disney:{name:'Disney+', color:'#1FA2FF'},
-  prime:{name:'Prime Video', color:'#00A8E1'}
+  netflix:{name:'Netflix', color:'#E50914', page:'netflix.html'},
+  max:{name:'Max', color:'#9B5CF0', page:'max.html'},
+  disney:{name:'Disney+', color:'#1FA2FF', page:'disney-plus.html'},
+  prime:{name:'Prime Video', color:'#00A8E1', page:'prime-video.html'}
 };
 
 const TODAY = new Date('2026-08-25T00:00:00');
@@ -64,6 +64,22 @@ function slugify(title){
     .replace(/[—–]/g, '-')
     .replace(/[^a-z0-9]+/g, '-')
     .replace(/(^-|-$)/g, '');
+}
+
+function dot(color){return `<span class="dot" style="background:${color}"></span>`;}
+
+const MONTHS = {Jan:'01',Feb:'02',Mar:'03',Apr:'04',May:'05',Jun:'06',Jul:'07',Aug:'08',Sep:'09',Oct:'10',Nov:'11',Dec:'12'};
+function logDateToISO(shortDate){
+  // Converts "Aug 24" (LOG's display format) to "2026-08-24" for consistent sorting/formatting
+  const [mon, day] = shortDate.split(' ');
+  const mm = MONTHS[mon];
+  const dd = day.padStart(2, '0');
+  return mm ? `2026-${mm}-${dd}` : shortDate;
+}
+
+function linkifyLogText(text){
+  // Wraps the bolded title name in a link to its title page, preserving the bold
+  return text.replace(/<b>(.*?)<\/b>/, (m, name) => `<b><a href="title.html?t=${slugify(name)}">${name}</a></b>`);
 }
 
 const STATS_OVERRIDES = {
@@ -137,7 +153,9 @@ const LOG = [
 // ── TITLES: consolidated per-title records for permanent title pages ────
 // Groups LEAVING + ADDED entries by slug so a title with multiple dates
 // (e.g. a show airing on two different days this week) gets one page with
-// a real multi-entry history, instead of colliding or losing data.
+// a real multi-entry history, instead of colliding or losing data. Also
+// pulls titles named in the Signal Log (e.g. a renewal or cancellation)
+// so those get pages too, even though they're not in LEAVING/ADDED.
 function buildTitles(){
   const map = {};
   function addEvent(item, type){
@@ -149,6 +167,23 @@ function buildTitles(){
   }
   LEAVING.forEach(item => addEvent(item, 'leaving'));
   ADDED.forEach(item => addEvent(item, 'added'));
+  LOG.forEach(entry => {
+    const m = entry.text.match(/<b>(.*?)<\/b>/);
+    if(!m) return;
+    const titleName = m[1];
+    addEvent({
+      title: titleName,
+      plat: entry.plat,
+      date: logDateToISO(entry.date),
+      source: entry.source,
+      sourceUrl: entry.sourceUrl,
+      verified: entry.verified,
+      status: entry.status,
+      text: entry.text,
+      what: entry.what,
+      why: entry.why
+    }, entry.tag);
+  });
   Object.values(map).forEach(t=>{
     t.events.sort((a,b)=> a.date.localeCompare(b.date));
   });

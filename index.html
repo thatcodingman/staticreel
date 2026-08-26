@@ -159,6 +159,7 @@
   .stat-nums{display:flex;align-items:baseline;gap:14px;font-family:var(--font-mono);}
   .stat-nums .up{color:var(--signal);font-size:26px;font-weight:700;}
   .stat-nums .down{color:var(--text-dim);font-size:15px;}
+  .stat-page-link{display:block;margin-top:12px;font-family:var(--font-mono);font-size:11px;color:var(--signal);}
 
   /* FILTER BAR */
   .filter-bar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:24px;}
@@ -407,15 +408,13 @@ let activeTag = 'all';
 let sortAsc = true;
 let searchQuery = '';
 
-function dot(color){return `<span class="dot" style="background:${color}"></span>`;}
-
 function renderBiggest(){
   const featured = LOG.filter(l=>l.featured).slice(0,5);
   document.getElementById('biggestGrid').innerHTML = featured.map(l=>{
     const p = PLATFORMS[l.plat];
     return `<div class="biggest-card">
       <div class="biggest-plat"><span class="biggest-plat-left">${dot(p.color)}${p.name} · ${l.tag.replace(/-/g,' ')}</span><span class="featured-badge">Featured</span></div>
-      <p class="biggest-title">${l.text}</p>
+      <p class="biggest-title">${linkifyLogText(l.text)}</p>
       <p class="biggest-why">${l.why}</p>
     </div>`;
   }).join('');
@@ -438,6 +437,7 @@ function renderStats(){
     return `<div class="stat-card" data-plat="${k}" onclick="togglePlat('${k}')">
       <div class="stat-plat">${dot(p.color)}${p.name}</div>
       <div class="stat-nums"><span class="up" data-target="${s.added}">0</span><span class="down">${downText}</span></div>
+      <a href="${p.page}" class="stat-page-link" onclick="event.stopPropagation()">Full ${p.name} page →</a>
     </div>`;
   }).join('');
   document.querySelectorAll('.stat-nums .up').forEach(el=>{
@@ -575,7 +575,7 @@ function renderLog(){
       <div class="log-row-main" onclick="toggleLog(${idx})">
         <span class="log-date">${l.date}</span>
         <span class="log-plat">${dot(p.color)}${p.name}</span>
-        <span class="log-text">${l.text}</span>
+        <span class="log-text">${linkifyLogText(l.text)}</span>
         <span class="log-tag">${l.tag.replace(/-/g,' ')}</span>
         ${rowBadge}
         <span class="log-chevron">▾</span>

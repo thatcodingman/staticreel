@@ -129,11 +129,14 @@
 
 <script src="data.js"></script>
 <script>
-function dot(color){return `<span class="dot" style="background:${color}"></span>`;}
+function eventTypeLabel(type){
+  if(type==='leaving') return 'Leaving';
+  if(type==='added') return 'Added';
+  return type.charAt(0).toUpperCase() + type.slice(1).replace(/-/g,' ');
+}
 
 function eventLabel(ev){
-  const tagLabel = ev.type === 'leaving' ? 'Leaving' : 'Added';
-  return `${tagLabel} ${formatDate(ev.date)}`;
+  return `${eventTypeLabel(ev.type)} ${formatDate(ev.date)}`;
 }
 
 function statusTierOf(ev){
@@ -166,12 +169,11 @@ function renderTitlePage(){
   if(isLeavingLatest){
     const countdown = days<=0 ? 'Leaving today' : days===1 ? 'Leaves tomorrow' : `Leaves in ${days} days`;
     statusLine = `${countdown} · ${formatDate(latest.date)}`;
-  } else {
+  } else if(latest.type === 'added'){
     statusLine = `Added to ${p.name} ${formatDate(latest.date)}`;
+  } else {
+    statusLine = latest.text ? latest.text.replace(/<\/?b>/g,'').replace(/<a[^>]*>|<\/a>/g,'') : `${eventTypeLabel(latest.type)} — ${formatDate(latest.date)}`;
   }
-
-  const tier = statusTierOf(latest);
-  const tierLabel = tier==='verified' ? 'Verified' : tier==='corroborated' ? 'Corroborated' : 'Unconfirmed';
 
   document.title = `${record.title} — StaticReel`;
   document.getElementById('pageDesc').setAttribute('content', `${record.title} on ${p.name} — current status, verification, and change history tracked by StaticReel.`);
@@ -191,13 +193,17 @@ function renderTitlePage(){
   const historyItems = record.events.slice().reverse().map(ev=>{
     const t = statusTierOf(ev);
     const label = t==='verified' ? 'Verified' : t==='corroborated' ? 'Corroborated' : 'Unconfirmed';
-    const verb = ev.type === 'leaving' ? 'Leaving' : 'Added';
     const sourceBit = ev.sourceUrl
       ? `<a href="${ev.sourceUrl}" target="_blank" rel="noopener">${ev.source} →</a>`
       : (ev.source || 'No source on file');
+    const mainLine = ev.text
+      ? ev.text.replace(/<\/?b>/g,'').replace(/<a[^>]*>|<\/a>/g,'')
+      : `${eventTypeLabel(ev.type)} on ${p.name}`;
+    const whyLine = ev.why ? `<p class="history-text" style="color:var(--text-mid);font-size:13px;margin-top:6px;">${ev.why}</p>` : '';
     return `<div class="history-item">
       <div class="history-date">${formatDate(ev.date)}</div>
-      <p class="history-text">${verb} on ${p.name} — ${label}</p>
+      <p class="history-text">${mainLine} — ${label}</p>
+      ${whyLine}
       <div class="history-source">${sourceBit}${ev.verified ? ' · verified '+ev.verified : ''}</div>
     </div>`;
   }).join('');
@@ -206,7 +212,7 @@ function renderTitlePage(){
     <div class="title-head">
       <div class="title-poster" id="titlePoster">${record.title.split(' ').slice(0,2).map(w=>w[0]).join('')}</div>
       <div class="title-info">
-        <div class="plat-pill">${dot(p.color)}${p.name} <span class="tag-pill">${record.events.length > 1 ? record.events.length+' tracked events' : '1 tracked event'}</span></div>
+        <div class="plat-pill">${dot(p.color)}<a href="${p.page}" style="color:inherit;">${p.name}</a> <span class="tag-pill">${record.events.length > 1 ? record.events.length+' tracked events' : '1 tracked event'}</span></div>
         <h1>${record.title}</h1>
         <p class="status-line ${urgent?'urgent':''}">${statusLine}</p>
       </div>
