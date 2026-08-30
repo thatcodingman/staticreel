@@ -247,12 +247,13 @@
   }
   .stat-card:hover{border-color:var(--line-soft);transform:translateY(-2px);}
   .stat-card.active{border-color:var(--signal);}
-  .stat-plat{display:flex;align-items:center;justify-content:space-between;gap:8px;font-size:13px;font-weight:500;
+  .stat-plat{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:500;
     color:var(--text-mid);margin-bottom:14px;text-transform:uppercase;letter-spacing:0.04em;}
   .stat-plat-left{display:flex;align-items:center;gap:8px;}
   .stat-plat .dot{width:9px;height:9px;border-radius:50%;}
-  .stat-activity{display:flex;align-items:center;gap:5px;font-family:var(--font-mono);font-size:9px;
-    color:var(--signal);letter-spacing:0.04em;text-transform:none;}
+  .stat-activity{font-family:var(--font-mono);font-size:10px;color:var(--text-dim);
+    letter-spacing:0.02em;text-transform:none;font-weight:400;}
+  .stat-activity b{color:var(--signal);font-weight:400;}
   .stat-nums{display:flex;align-items:baseline;gap:14px;font-family:var(--font-mono);}
   .stat-nums .up{color:var(--signal);font-size:32px;font-weight:700;}
   .stat-nums .down{color:var(--text-dim);font-size:15px;}
@@ -581,10 +582,10 @@ function renderStats(){
     const downText = s.removedNote ? s.removedNote : `−${s.removed} leaving`;
     const hasActivity = LOG.some(l => l.plat===k && inCurrentWeek(logDateToISO(l.date)));
     const activityBadge = hasActivity
-      ? '<span class="stat-activity"><span class="live-dot"></span>Active</span>'
+      ? '<span class="stat-activity"> · <b>●</b> Active</span>'
       : '';
     return `<div class="stat-card" data-plat="${k}" onclick="togglePlat('${k}')">
-      <div class="stat-plat"><span class="stat-plat-left">${dot(p.color)}${p.name}</span>${activityBadge}</div>
+      <div class="stat-plat">${dot(p.color)}${p.name}${activityBadge}</div>
       <div class="stat-nums"><span class="up" data-target="${s.added}">0</span><span class="down">${downText}</span></div>
       <a href="${p.page}" class="stat-page-link" onclick="event.stopPropagation()">Full ${p.name} page →</a>
     </div>`;
