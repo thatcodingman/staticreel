@@ -101,6 +101,10 @@
     letter-spacing:0.08em;color:var(--void);background:var(--signal);
     padding:3px 10px;margin-left:16px;border-radius:3px;z-index:2;
   }
+  .ticker-live{
+    flex:0 0 auto;display:flex;align-items:center;gap:6px;font-family:var(--font-mono);
+    font-size:10px;letter-spacing:0.08em;color:var(--text-dim);margin-left:12px;z-index:2;
+  }
   .ticker-track-mask{flex:1;overflow:hidden;position:relative;height:100%;}
   .ticker-track{
     display:flex;gap:40px;white-space:nowrap;position:absolute;left:0;top:0;height:100%;
@@ -115,7 +119,36 @@
   .ticker-item b{color:var(--text);font-weight:500;}
 
   /* HERO */
-  .hero{padding:64px 0 40px;border-bottom:1px solid var(--line);}
+  .hero{padding:56px 0 28px;border-bottom:1px solid var(--line);
+    display:grid;grid-template-columns:1fr 320px;gap:48px;align-items:start;}
+  .hero-main{min-width:0;}
+  .live-panel{
+    background:var(--panel);border:1px solid var(--line);border-radius:10px;
+    padding:16px;margin-top:8px;
+  }
+  .live-panel-head{
+    font-family:var(--font-mono);font-size:11px;letter-spacing:0.1em;color:var(--signal);
+    text-transform:uppercase;display:flex;align-items:center;gap:8px;margin-bottom:14px;
+  }
+  .live-dot{width:6px;height:6px;border-radius:50%;background:var(--signal);
+    box-shadow:0 0 0 3px var(--signal-dim);animation:pulse 2.4s ease-in-out infinite;}
+  .live-panel-list{display:flex;flex-direction:column;gap:12px;}
+  .live-item{
+    display:block;padding-bottom:12px;border-bottom:1px solid var(--line);
+    cursor:pointer;transition:opacity .15s;
+  }
+  .live-item:last-child{border-bottom:none;padding-bottom:0;}
+  .live-item:hover{opacity:0.75;}
+  .live-item-top{display:flex;align-items:center;gap:7px;margin-bottom:5px;}
+  .live-item-top .dot{width:6px;height:6px;border-radius:50%;flex:0 0 auto;}
+  .live-item-plat{font-family:var(--font-mono);font-size:10.5px;color:var(--text-dim);
+    text-transform:uppercase;letter-spacing:0.04em;}
+  .live-item-text{font-size:13px;color:var(--text);line-height:1.4;margin:0 0 4px;}
+  .live-item-date{font-family:var(--font-mono);font-size:10.5px;color:var(--text-dim);}
+  @media (max-width:900px){
+    .hero{grid-template-columns:1fr;}
+    .live-panel{margin-top:24px;}
+  }
   .eyebrow{
     font-family:var(--font-mono);font-size:12px;letter-spacing:0.12em;
     color:var(--signal);text-transform:uppercase;margin:0 0 18px;
@@ -167,6 +200,7 @@
 
   /* STAT GRID */
   .section{padding:52px 0;border-bottom:1px solid var(--line);}
+  #this-week{padding-top:36px;}
   .section-head{display:flex;align-items:baseline;justify-content:space-between;
     margin-bottom:22px;flex-wrap:wrap;gap:10px;}
   .section-title{font-family:var(--font-display);font-weight:700;font-size:22px;margin:0;
@@ -345,6 +379,7 @@
 
 <div class="ticker-bar">
   <span class="ticker-tag">SIGNAL</span>
+  <span class="ticker-live"><span class="live-dot"></span>LIVE</span>
   <div class="ticker-track-mask">
     <div class="ticker-track" id="tickerTrack"></div>
   </div>
@@ -352,18 +387,24 @@
 
 <div class="wrap">
   <div class="hero">
-    <p class="eyebrow">The streaming changelog</p>
-    <h1 class="headline">What changed on streaming this week.</h1>
-    <p class="updated-line" id="updatedLine"></p>
-    <p class="sub">Netflix, Max, Disney+ and Prime Video — tracking what leaves, what's added, and the price, cancellation, renewal, and policy changes we can verify.</p>
-    <div class="hero-search-wrap">
-      <div class="hero-search">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-        <input id="heroSearch" placeholder="Search a movie, show, or streaming service…" autocomplete="off">
+    <div class="hero-main">
+      <p class="eyebrow">The streaming changelog</p>
+      <h1 class="headline">What changed on streaming this week.</h1>
+      <p class="updated-line" id="updatedLine"></p>
+      <p class="sub">Netflix, Max, Disney+ and Prime Video — tracking what leaves, what's added, and the price, cancellation, renewal, and policy changes we can verify.</p>
+      <div class="hero-search-wrap">
+        <div class="hero-search">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          <input id="heroSearch" placeholder="Search a movie, show, or streaming service…" autocomplete="off">
+        </div>
+        <div class="search-suggestions" id="searchSuggestions"></div>
       </div>
-      <div class="search-suggestions" id="searchSuggestions"></div>
+      <span class="mock-note">RESEARCHED DATA — week of Aug 31–Sep 6, 2026 · Max/Prime/Disney+ removals not yet verified</span>
     </div>
-    <span class="mock-note">RESEARCHED DATA — week of Aug 31–Sep 6, 2026 · Max/Prime/Disney+ removals not yet verified</span>
+    <div class="live-panel">
+      <div class="live-panel-head"><span class="live-dot"></span>LIVE CHANGES</div>
+      <div class="live-panel-list" id="livePanelList"></div>
+    </div>
   </div>
 
   <div class="section" id="this-week">
@@ -463,6 +504,23 @@ function renderTicker(){
   });
   const html = items.join('') ;
   document.getElementById('tickerTrack').innerHTML = html + html;
+}
+
+function renderLivePanel(){
+  const sorted = [...LOG]
+    .map((l, idx) => ({l, idx}))
+    .sort((a,b) => logDateToISO(b.l.verified || b.l.date).localeCompare(logDateToISO(a.l.verified || a.l.date)));
+  const top = sorted.slice(0, 5);
+  document.getElementById('livePanelList').innerHTML = top.map(({l, idx})=>{
+    const p = PLATFORMS[l.plat];
+    const plainText = l.text.replace(/<\/?b>/g,'').replace(/<a[^>]*>|<\/a>/g,'');
+    const dateLabel = l.verified ? `Verified ${l.verified}` : l.date;
+    return `<div class="live-item" onclick="jumpToLog(${idx})">
+      <div class="live-item-top">${dot(p.color)}<span class="live-item-plat">${p.name} · ${l.tag.replace(/-/g,' ')}</span></div>
+      <p class="live-item-text">${plainText}</p>
+      <span class="live-item-date">${dateLabel}</span>
+    </div>`;
+  }).join('');
 }
 
 function renderStats(){
@@ -751,6 +809,7 @@ document.addEventListener('click', (e)=>{
 document.getElementById('updatedLine').textContent = 'Updated ' + LAST_VERIFICATION_DATE;
 document.getElementById('dataStatusStrip').innerHTML = `Sources checked: Netflix · Max · Disney+ · Prime Video &nbsp;|&nbsp; Last verification: ${LAST_VERIFICATION_DATE}`;
 renderTicker();
+renderLivePanel();
 renderStats();
 renderBiggest();
 renderLeaving();
