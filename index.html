@@ -103,7 +103,8 @@
   }
   .ticker-live{
     flex:0 0 auto;display:flex;align-items:center;gap:6px;font-family:var(--font-mono);
-    font-size:10px;letter-spacing:0.08em;color:var(--text-dim);margin-left:12px;z-index:2;
+    font-size:10px;letter-spacing:0.08em;color:var(--text-dim);margin:0 20px 0 12px;
+    padding-right:20px;border-right:1px solid var(--line);z-index:2;
   }
   .ticker-track-mask{flex:1;overflow:hidden;position:relative;height:100%;}
   .ticker-track{
@@ -113,15 +114,17 @@
   .ticker-track:hover, .ticker-track.paused{animation-play-state:paused;}
   @keyframes scroll-left{from{transform:translateX(0);}to{transform:translateX(-50%);}}
   .ticker-item{font-family:var(--font-mono);font-size:12.5px;color:var(--text-mid);
-    display:flex;align-items:center;gap:8px;cursor:pointer;}
+    display:flex;align-items:center;gap:9px;cursor:pointer;}
   .ticker-item:hover{color:var(--text);}
   .ticker-item .plat-dot{width:6px;height:6px;border-radius:50%;flex:0 0 auto;}
-  .ticker-item b{color:var(--text);font-weight:500;}
+  .ticker-item .ti-sep{color:var(--text-dim);}
+  .ticker-item .ti-text{color:var(--text-mid);}
+  .ticker-item .ti-date{color:var(--text-dim);font-size:11px;}
 
   /* HERO */
-  .hero{padding:56px 0 28px;border-bottom:1px solid var(--line);
-    display:grid;grid-template-columns:1fr 320px;gap:48px;align-items:start;}
-  .hero-main{min-width:0;}
+  .hero{padding:48px 0 16px;border-bottom:1px solid var(--line);
+    display:grid;grid-template-columns:1fr 320px;gap:32px;align-items:start;}
+  .hero-main{min-width:0;max-width:600px;}
   .live-panel{
     background:var(--panel);border:1px solid var(--line);border-radius:10px;
     padding:16px;margin-top:8px;
@@ -145,6 +148,9 @@
     text-transform:uppercase;letter-spacing:0.04em;}
   .live-item-text{font-size:13px;color:var(--text);line-height:1.4;margin:0 0 4px;}
   .live-item-date{font-family:var(--font-mono);font-size:10.5px;color:var(--text-dim);}
+  .live-view-all{display:block;text-align:center;font-family:var(--font-mono);font-size:11.5px;
+    color:var(--signal);padding-top:4px;}
+  .live-view-all:hover{text-decoration:underline;}
   @media (max-width:900px){
     .hero{grid-template-columns:1fr;}
     .live-panel{margin-top:24px;}
@@ -157,7 +163,7 @@
     font-family:var(--font-display);font-weight:700;font-size:44px;line-height:1.12;
     margin:0 0 16px;max-width:640px;letter-spacing:-0.01em;
   }
-  .sub{font-size:16px;color:var(--text-mid);max-width:520px;line-height:1.6;margin:0 0 30px;}
+  .sub{font-size:16px;color:var(--text-mid);max-width:520px;line-height:1.6;margin:0 0 22px;}
   .updated-line{font-family:var(--font-mono);font-size:12.5px;color:var(--signal);margin:0 0 18px;
     display:flex;align-items:center;gap:8px;}
   .updated-line::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--signal);}
@@ -170,7 +176,7 @@
     background:var(--panel);border:1px solid var(--line);border-radius:8px;
     padding:13px 16px;margin:0 0 22px;transition:border-color .15s;
   }
-  .hero-search:focus-within{border-color:var(--signal);}
+  .hero-search:focus-within{border-color:var(--signal);box-shadow:0 0 0 3px var(--signal-dim);}
   .hero-search svg{color:var(--text-dim);flex:0 0 auto;}
   .hero-search input{
     background:transparent;border:none;outline:none;color:var(--text);
@@ -200,7 +206,7 @@
 
   /* STAT GRID */
   .section{padding:52px 0;border-bottom:1px solid var(--line);}
-  #this-week{padding-top:36px;}
+  #this-week{padding-top:24px;}
   .section-head{display:flex;align-items:baseline;justify-content:space-between;
     margin-bottom:22px;flex-wrap:wrap;gap:10px;}
   .section-title{font-family:var(--font-display);font-weight:700;font-size:22px;margin:0;
@@ -395,7 +401,7 @@
       <div class="hero-search-wrap">
         <div class="hero-search">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-          <input id="heroSearch" placeholder="Search a movie, show, or streaming service…" autocomplete="off">
+          <input id="heroSearch" placeholder="Search titles, platforms, or changes…" autocomplete="off">
         </div>
         <div class="search-suggestions" id="searchSuggestions"></div>
       </div>
@@ -500,7 +506,8 @@ function renderBiggest(){
 function renderTicker(){
   const items = LOG.slice(0,8).map((l, idx)=>{
     const p = PLATFORMS[l.plat];
-    return `<div class="ticker-item" onclick="jumpToLog(${idx})"><span class="plat-dot" style="background:${p.color}"></span>${l.date} — <b>${p.name}</b> ${l.text.replace(/<\/?b>/g,'')}</div>`;
+    const plainText = l.text.replace(/<\/?b>/g,'');
+    return `<div class="ticker-item" onclick="jumpToLog(${idx})"><span class="plat-dot" style="background:${p.color}"></span><span class="ti-text">${plainText}</span><span class="ti-sep">·</span><span class="ti-date">${l.date}</span></div>`;
   });
   const html = items.join('') ;
   document.getElementById('tickerTrack').innerHTML = html + html;
@@ -510,8 +517,8 @@ function renderLivePanel(){
   const sorted = [...LOG]
     .map((l, idx) => ({l, idx}))
     .sort((a,b) => logDateToISO(b.l.verified || b.l.date).localeCompare(logDateToISO(a.l.verified || a.l.date)));
-  const top = sorted.slice(0, 5);
-  document.getElementById('livePanelList').innerHTML = top.map(({l, idx})=>{
+  const top = sorted.slice(0, 4);
+  const items = top.map(({l, idx})=>{
     const p = PLATFORMS[l.plat];
     const plainText = l.text.replace(/<\/?b>/g,'').replace(/<a[^>]*>|<\/a>/g,'');
     const dateLabel = l.verified ? `Verified ${l.verified}` : l.date;
@@ -521,6 +528,8 @@ function renderLivePanel(){
       <span class="live-item-date">${dateLabel}</span>
     </div>`;
   }).join('');
+  const viewAll = `<a class="live-view-all" href="#log">View all changes →</a>`;
+  document.getElementById('livePanelList').innerHTML = items + viewAll;
 }
 
 function renderStats(){
