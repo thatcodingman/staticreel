@@ -94,12 +94,16 @@
   .ticker-bar{
     background:var(--panel);
     border-bottom:1px solid var(--line);
-    overflow:hidden;position:relative;height:38px;display:flex;align-items:center;
+    overflow:hidden;position:relative;height:38px;
+  }
+  .ticker-bar-inner{
+    max-width:1180px;margin:0 auto;padding:0 32px;height:100%;
+    display:flex;align-items:center;
   }
   .ticker-tag{
     flex:0 0 auto;font-family:var(--font-mono);font-size:11px;font-weight:700;
     letter-spacing:0.08em;color:var(--void);background:var(--signal);
-    padding:3px 10px;margin-left:16px;border-radius:3px;z-index:2;
+    padding:3px 10px;border-radius:3px;z-index:2;
   }
   .ticker-live{
     flex:0 0 auto;display:flex;align-items:center;gap:6px;font-family:var(--font-mono);
@@ -128,7 +132,7 @@
 
   /* HERO */
   .hero{padding:48px 0 16px;border-bottom:1px solid var(--line);
-    display:grid;grid-template-columns:1fr 320px;gap:32px;align-items:start;}
+    display:grid;grid-template-columns:1fr 450px;gap:32px;align-items:start;}
   .hero-main{min-width:0;max-width:600px;}
   .live-panel{
     background:var(--panel);border:1px solid var(--line);border-radius:10px;
@@ -231,6 +235,8 @@
     display:flex;align-items:center;gap:10px;}
   .section-title .idx{color:var(--text-dim);font-family:var(--font-mono);font-weight:400;font-size:14px;}
   .section-sub{font-size:13.5px;color:var(--text-dim);margin:4px 0 0;}
+  .section-meta{font-family:var(--font-mono);font-size:11px;color:var(--text-dim);
+    border:1px solid var(--line);padding:5px 12px;border-radius:20px;align-self:flex-start;}
   .stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;}
   .data-status-strip{margin-top:14px;font-family:var(--font-mono);font-size:11.5px;color:var(--text-dim);
     padding:10px 16px;border:1px solid var(--line);border-radius:6px;background:var(--panel);}
@@ -406,10 +412,12 @@
 </div>
 
 <div class="ticker-bar">
-  <span class="ticker-tag">SIGNAL</span>
-  <span class="ticker-live"><span class="live-dot"></span>LIVE</span>
-  <div class="ticker-track-mask">
-    <div class="ticker-track" id="tickerTrack"></div>
+  <div class="ticker-bar-inner">
+    <span class="ticker-tag">SIGNAL</span>
+    <span class="ticker-live"><span class="live-dot"></span>LIVE</span>
+    <div class="ticker-track-mask">
+      <div class="ticker-track" id="tickerTrack"></div>
+    </div>
   </div>
 </div>
 
@@ -441,6 +449,7 @@
         <h3 class="section-title"><span class="idx">01</span>This week</h3>
         <p class="section-sub">Aug 31–Sep 6, 2026 · click a platform to filter the listings below</p>
       </div>
+      <span class="section-meta">4 platforms tracked</span>
     </div>
     <div class="stat-grid" id="statGrid"></div>
     <div class="data-status-strip" id="dataStatusStrip"></div>
