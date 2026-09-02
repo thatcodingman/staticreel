@@ -112,7 +112,7 @@ const PLATFORMS = {
   prime:{name:'Prime Video', color:'#00A8E1', page:'prime-video.html'}
 };
 
-const TODAY = new Date('2026-08-26T00:00:00');
+const TODAY = new Date('2026-09-02T00:00:00');
 const LAST_VERIFICATION_DATE = 'Aug 26, 2026'; // when this week's research pass was actually done —
                                                  // use this for "when did we check this," never an
                                                  // event's own date (which can be in the future).
