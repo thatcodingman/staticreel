@@ -528,7 +528,17 @@ let sortAscAdded = false;
 let searchQuery = '';
 
 function renderBiggest(){
-  const featured = LOG.filter(l=> l.featured && inCurrentWeek(logDateToISO(l.date))).slice(0,5);
+  // Show an entry as "this week's" if EITHER the event itself falls in the
+  // current week (e.g. a premiere happening now) OR it was freshly verified
+  // this week (e.g. a Dec premiere date confirmed today) — either one is
+  // genuinely "this week's news," and relying on just one check misses cases
+  // where research happens ahead of the event or the event is far out.
+  const featured = LOG.filter(l=>{
+    if(!l.featured) return false;
+    const eventInWeek = inCurrentWeek(logDateToISO(l.date));
+    const verifiedInWeek = l.verified && inCurrentWeek(logDateToISO(l.verified));
+    return eventInWeek || verifiedInWeek;
+  }).slice(0,5);
   document.getElementById('biggestGrid').innerHTML = featured.map(l=>{
     const p = PLATFORMS[l.plat];
     return `<div class="biggest-card">

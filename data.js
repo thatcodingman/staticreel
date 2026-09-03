@@ -113,7 +113,7 @@ const PLATFORMS = {
 };
 
 const TODAY = new Date('2026-09-02T00:00:00');
-const LAST_VERIFICATION_DATE = 'Aug 26, 2026'; // when this week's research pass was actually done —
+const LAST_VERIFICATION_DATE = 'Sep 2, 2026'; // when this week's research pass was actually done —
                                                  // use this for "when did we check this," never an
                                                  // event's own date (which can be in the future).
 const WEEK_START = new Date('2026-08-31T00:00:00');
@@ -197,7 +197,11 @@ const LEAVING = [
   {title:'Ginger & Rosa', plat:'netflix', date:'2026-09-05', status:'corroborated', source:'What\'s on Netflix', sourceUrl:'https://www.whats-on-netflix.com/leaving-soon/whats-leaving-netflix-in-september-2026/', verified:'Aug 26'},
   {title:'Tokyo Revengers', plat:'max', date:'2026-08-28', status:'unconfirmed'},
   {title:'Jandino: Whatever It Takes', plat:'netflix', date:'2026-09-09'},
-  {title:'Life', plat:'netflix', date:'2026-09-23'}
+  {title:'Life', plat:'netflix', date:'2026-09-23'},
+  {title:'Poor Things', plat:'netflix', date:'2026-09-07', source:'Netflix Tudum', sourceUrl:'https://www.netflix.com/tudum/articles/whats-leaving-netflix', verified:'Sep 2'},
+  {title:'Bombshell', plat:'netflix', date:'2026-09-10', source:'Netflix Tudum', sourceUrl:'https://www.netflix.com/tudum/articles/whats-leaving-netflix', verified:'Sep 2'},
+  {title:'Nashville — Seasons 1–6', plat:'netflix', date:'2026-09-15', source:'Netflix Tudum', sourceUrl:'https://www.netflix.com/tudum/articles/whats-leaving-netflix', verified:'Sep 2'},
+  {title:'Vice', plat:'prime', date:'2026-09-04', status:'corroborated', source:'Exclaim!', sourceUrl:'https://exclaim.ca/film/article/here-s-what-s-leaving-prime-video-in-september-2026', verified:'Sep 2'}
 ];
 
 const ADDED = [
@@ -232,20 +236,22 @@ const ADDED = [
   {title:'17 Again', plat:'netflix', date:'2026-09-01', status:'corroborated', source:'What\'s on Netflix', sourceUrl:'https://www.whats-on-netflix.com/coming-soon/whats-coming-to-netflix-in-september-2026/', verified:'Aug 26'},
   {title:'Ready or Not', plat:'netflix', date:'2026-09-01', status:'corroborated', source:'What\'s on Netflix', sourceUrl:'https://www.whats-on-netflix.com/coming-soon/whats-coming-to-netflix-in-september-2026/', verified:'Aug 26'},
   {title:'Straight Outta Compton', plat:'netflix', date:'2026-09-01', status:'corroborated', source:'What\'s on Netflix', sourceUrl:'https://www.whats-on-netflix.com/coming-soon/whats-coming-to-netflix-in-september-2026/', verified:'Aug 26'},
-  {title:'Lovesick', plat:'netflix', date:'2026-09-02', status:'corroborated', source:'What\'s on Netflix', sourceUrl:'https://www.whats-on-netflix.com/coming-soon/whats-coming-to-netflix-in-september-2026/', verified:'Aug 26'},
+  {title:'Lovesick', plat:'netflix', date:'2026-09-02', source:'Netflix Tudum', sourceUrl:'https://www.netflix.com/tudum/articles/new-on-netflix', verified:'Sep 2'},
   {title:'Smile 2', plat:'netflix', date:'2026-09-03', status:'corroborated', source:'What\'s on Netflix', sourceUrl:'https://www.whats-on-netflix.com/coming-soon/whats-coming-to-netflix-in-september-2026/', verified:'Aug 26'},
   {title:'The Gentlemen — Season 2', plat:'netflix', date:'2026-09-03', source:'Netflix (About Netflix)', sourceUrl:'https://about.netflix.com/en/news/netflix-confirms-renewals-for-uk-fan-favourites-and-debuts-trailer-for-the-gentlemen-season-2', verified:'Aug 26'},
   {title:'Earle Meets World', plat:'netflix', date:'2026-09-04', status:'corroborated', source:'What\'s on Netflix', sourceUrl:'https://www.whats-on-netflix.com/coming-soon/whats-coming-to-netflix-in-september-2026/', verified:'Aug 26'},
   {title:'Teenage Wasteland', plat:'netflix', date:'2026-09-04', status:'corroborated', source:'What\'s on Netflix', sourceUrl:'https://www.whats-on-netflix.com/coming-soon/whats-coming-to-netflix-in-september-2026/', verified:'Aug 26'},
   {title:'Poh Cooks Malaysia', plat:'max', date:'2026-09-01', status:'corroborated', source:'One More Game', sourceUrl:'https://onemoregame.ph/2026/08/hbo-max-september-2026-highlights/', verified:'Aug 26'},
   {title:'Aztec Batman: Clash of Empires', plat:'max', date:'2026-09-04', status:'corroborated', source:'One More Game', sourceUrl:'https://onemoregame.ph/2026/08/hbo-max-september-2026-highlights/', verified:'Aug 26'},
-  {title:'The Runner', plat:'prime', date:'2026-09-02', status:'corroborated', source:'DIRECTV Insider', sourceUrl:'https://www.directv.com/insider/tv-premiere-dates/', verified:'Aug 26'},
-  {title:'The Mandalorian and Grogu', plat:'disney', date:'2026-09-02', status:'corroborated', source:'Williamson Source', sourceUrl:'https://williamsonsource.com/whats-new-on-disney-in-september-2026/', verified:'Aug 26'},
-  {title:'LEGO Star Wars: The Mandalorian', plat:'disney', date:'2026-09-02', status:'corroborated', source:'Williamson Source', sourceUrl:'https://williamsonsource.com/whats-new-on-disney-in-september-2026/', verified:'Aug 26'},
+  {title:'The Runner', plat:'prime', date:'2026-09-02', source:'Amazon News (aboutamazon.com)', sourceUrl:'https://www.aboutamazon.com/news/entertainment/prime-video-september-films-shows-sports-2026', verified:'Sep 2'},
+  {title:'The Mandalorian and Grogu', plat:'disney', date:'2026-09-02', source:'Disney+ Press', sourceUrl:'https://press.disneyplus.com/news/next-on-disney-plus-september-2026', verified:'Sep 2'},
+  {title:'LEGO Star Wars: The Mandalorian', plat:'disney', date:'2026-09-02', source:'Disney+ Press', sourceUrl:'https://press.disneyplus.com/news/next-on-disney-plus-september-2026', verified:'Sep 2'},
   {title:'9/11: United We Stand — 25 Years Later', plat:'disney', date:'2026-09-02', status:'corroborated', source:'Williamson Source', sourceUrl:'https://williamsonsource.com/whats-new-on-disney-in-september-2026/', verified:'Aug 26'},
   {title:'Homicide Squad New Orleans — Season 3', plat:'disney', date:'2026-09-03', status:'corroborated', source:'Williamson Source', sourceUrl:'https://williamsonsource.com/whats-new-on-disney-in-september-2026/', verified:'Aug 26'},
   {title:'Paranormal State — Seasons 1–2', plat:'disney', date:'2026-09-03', status:'corroborated', source:'Williamson Source', sourceUrl:'https://williamsonsource.com/whats-new-on-disney-in-september-2026/', verified:'Aug 26'},
-  {title:'Spider-Man: Far From Home', plat:'disney', date:'2026-09-04', status:'corroborated', source:'Williamson Source', sourceUrl:'https://williamsonsource.com/whats-new-on-disney-in-september-2026/', verified:'Aug 26'}
+  {title:'Spider-Man: Far From Home', plat:'disney', date:'2026-09-04', status:'corroborated', source:'Williamson Source', sourceUrl:'https://williamsonsource.com/whats-new-on-disney-in-september-2026/', verified:'Aug 26'},
+  {title:'Turning Point: Generation 9/11', plat:'netflix', date:'2026-09-02', source:'Netflix Tudum', sourceUrl:'https://www.netflix.com/tudum/articles/new-on-netflix', verified:'Sep 2'},
+  {title:'1000-lb Sisters — Season 9', plat:'max', date:'2026-09-02', status:'corroborated', source:'TheWrap', sourceUrl:'https://www.thewrap.com/creative-content/what-to-watch/everything-new-on-streaming-september-2026/', verified:'Sep 2'}
 ];
 
 const STATS = {};
@@ -269,7 +275,8 @@ const LOG = [
   {date:'Aug 12', plat:'prime', tag:'renewal', featured:true, verified:'Aug 25', source:'Amazon News (aboutamazon.com)', sourceUrl:'https://www.aboutamazon.com/news/entertainment/prime-video-reacher-how-to-watch', text:'Prime Video\'s <b>Reacher</b> Season 5 renewal confirmed/updated Aug 12', what:'Amazon\'s article confirming Reacher Season 5 was originally published May 11 and updated Aug 12 with streaming details — the renewal itself was not first announced on this date.', why:'Confirms Prime\'s biggest action franchise continues, with Neagley and Terminal List S2 also on the way.'},
   {date:'Sep 16', plat:'prime', tag:'release-date', verified:'Aug 25', source:'Amazon News (aboutamazon.com)', sourceUrl:'https://www.aboutamazon.com/news/entertainment/watch-neagley-reacher-prime-video', text:'Prime Video sets <b>Neagley</b> premiere for Sep 16', what:'All eight episodes of the Reacher spinoff premiere Sep 16, per Amazon\'s official page.', why:'First concrete date for the spinoff since it was announced, giving fans a target.'},
   {date:'Oct 21', plat:'prime', tag:'release-date', verified:'Aug 25', source:'Amazon News (aboutamazon.com)', sourceUrl:'https://www.aboutamazon.com/news/entertainment/terminal-list-prime-video-chris-pratt', text:'Prime Video sets <b>The Terminal List: Season 2</b> premiere for Oct 21', what:'All eight episodes premiere Oct 21, per Amazon\'s official page.', why:'One of Prime\'s highest-profile originals returns after a multi-year gap.'},
-  {date:'Sep 3', plat:'netflix', tag:'new-season', featured:true, verified:'Aug 26', source:'Netflix (About Netflix)', sourceUrl:'https://about.netflix.com/en/news/netflix-confirms-renewals-for-uk-fan-favourites-and-debuts-trailer-for-the-gentlemen-season-2', text:'Netflix confirms <b>The Gentlemen</b> Season 2 premieres Sep 3', what:'Netflix released the full trailer and confirmed Season 2\'s September 3 launch, alongside news of an already-confirmed third season.', why:'Gives fans a firm date for the long-awaited second season.'}
+  {date:'Sep 3', plat:'netflix', tag:'new-season', featured:true, verified:'Aug 26', source:'Netflix (About Netflix)', sourceUrl:'https://about.netflix.com/en/news/netflix-confirms-renewals-for-uk-fan-favourites-and-debuts-trailer-for-the-gentlemen-season-2', text:'Netflix confirms <b>The Gentlemen</b> Season 2 premieres Sep 3', what:'Netflix released the full trailer and confirmed Season 2\'s September 3 launch, alongside news of an already-confirmed third season.', why:'Gives fans a firm date for the long-awaited second season.'},
+  {date:'Dec 9', plat:'prime', tag:'release-date', featured:true, verified:'Sep 2', source:'Amazon News (aboutamazon.com)', sourceUrl:'https://www.aboutamazon.com/news/entertainment/maxton-hall-prime-video', text:'Prime Video sets <b>Maxton Hall</b> Season 3 premiere for Dec 9, confirmed as the final season', what:'Amazon confirmed the third and final season of Maxton Hall premieres December 9, 2026, concluding Ruby and James\' story.', why:'Gives fans a confirmed final-season date for one of Prime Video\'s most successful international originals.'}
 ];
 
 // ── TITLES: consolidated per-title records for permanent title pages ────
