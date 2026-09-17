@@ -113,11 +113,11 @@ const PLATFORMS = {
 };
 
 const TODAY = new Date('2026-09-13T00:00:00');
-const LAST_VERIFICATION_DATE = 'Sep 2, 2026'; // when this week's research pass was actually done —
+const LAST_VERIFICATION_DATE = 'Sep 16, 2026'; // when this week's research pass was actually done —
                                                  // use this for "when did we check this," never an
                                                  // event's own date (which can be in the future).
-const WEEK_START = new Date('2026-08-31T00:00:00');
-const WEEK_END = new Date('2026-09-06T23:59:59');
+const WEEK_START = new Date('2026-09-07T00:00:00');
+const WEEK_END = new Date('2026-09-20T23:59:59');
 
 function daysUntil(iso){
   const d = new Date(iso+'T00:00:00');
@@ -201,7 +201,9 @@ const LEAVING = [
   {title:'Poor Things', plat:'netflix', date:'2026-09-07', source:'Netflix Tudum', sourceUrl:'https://www.netflix.com/tudum/articles/whats-leaving-netflix', verified:'Sep 2'},
   {title:'Bombshell', plat:'netflix', date:'2026-09-10', source:'Netflix Tudum', sourceUrl:'https://www.netflix.com/tudum/articles/whats-leaving-netflix', verified:'Sep 2'},
   {title:'Nashville — Seasons 1–6', plat:'netflix', date:'2026-09-15', source:'Netflix Tudum', sourceUrl:'https://www.netflix.com/tudum/articles/whats-leaving-netflix', verified:'Sep 2'},
-  {title:'Vice', plat:'prime', date:'2026-09-04', status:'corroborated', source:'Exclaim!', sourceUrl:'https://exclaim.ca/film/article/here-s-what-s-leaving-prime-video-in-september-2026', verified:'Sep 2'}
+  {title:'Vice', plat:'prime', date:'2026-09-04', status:'corroborated', source:'Exclaim!', sourceUrl:'https://exclaim.ca/film/article/here-s-what-s-leaving-prime-video-in-september-2026', verified:'Sep 2'},
+  {title:'Lopez vs. Lopez — Seasons 1–2', plat:'netflix', date:'2026-09-18', source:'Netflix Tudum', sourceUrl:'https://www.netflix.com/tudum/articles/whats-leaving-netflix', verified:'Sep 13'},
+  {title:'Anatomy of a Fall', plat:'netflix', date:'2026-09-23', source:'Netflix Tudum', sourceUrl:'https://www.netflix.com/tudum/articles/whats-leaving-netflix', verified:'Sep 13'}
 ];
 
 const ADDED = [
@@ -251,7 +253,50 @@ const ADDED = [
   {title:'Paranormal State — Seasons 1–2', plat:'disney', date:'2026-09-03', status:'corroborated', source:'Williamson Source', sourceUrl:'https://williamsonsource.com/whats-new-on-disney-in-september-2026/', verified:'Aug 26'},
   {title:'Spider-Man: Far From Home', plat:'disney', date:'2026-09-04', status:'corroborated', source:'Williamson Source', sourceUrl:'https://williamsonsource.com/whats-new-on-disney-in-september-2026/', verified:'Aug 26'},
   {title:'Turning Point: Generation 9/11', plat:'netflix', date:'2026-09-02', source:'Netflix Tudum', sourceUrl:'https://www.netflix.com/tudum/articles/new-on-netflix', verified:'Sep 2'},
-  {title:'1000-lb Sisters — Season 9', plat:'max', date:'2026-09-02', status:'corroborated', source:'TheWrap', sourceUrl:'https://www.thewrap.com/creative-content/what-to-watch/everything-new-on-streaming-september-2026/', verified:'Sep 2'}
+  {title:'1000-lb Sisters — Season 9', plat:'max', date:'2026-09-02', status:'corroborated', source:'TheWrap', sourceUrl:'https://www.thewrap.com/creative-content/what-to-watch/everything-new-on-streaming-september-2026/', verified:'Sep 2'},
+  {title:'Stavros Halkias: Uncle Stav', plat:'netflix', date:'2026-09-08', source:'Netflix Tudum', sourceUrl:'https://www.netflix.com/tudum/articles/new-on-netflix', verified:'Sep 13'},
+  {title:'Untold Mr. T: I Pity The Fool', plat:'netflix', date:'2026-09-08', source:'Netflix Tudum', sourceUrl:'https://www.netflix.com/tudum/articles/new-on-netflix', verified:'Sep 13'},
+  {title:'Prom Night', plat:'netflix', date:'2026-09-09', source:'Netflix Tudum', sourceUrl:'https://www.netflix.com/tudum/articles/new-on-netflix', verified:'Sep 13'},
+  {title:'Why Did I Get Married Again?', plat:'netflix', date:'2026-09-09', source:'Netflix Tudum', sourceUrl:'https://www.netflix.com/tudum/articles/new-on-netflix', verified:'Sep 13'},
+  {title:'Call My Agent! The Movie', plat:'netflix', date:'2026-09-10', source:'Netflix Tudum', sourceUrl:'https://www.netflix.com/tudum/articles/new-on-netflix', verified:'Sep 13'},
+  {title:'Crew Girl', plat:'netflix', date:'2026-09-10', source:'Netflix Tudum', sourceUrl:'https://www.netflix.com/tudum/articles/new-on-netflix', verified:'Sep 13'},
+  {title:'The Perfect Lie', plat:'netflix', date:'2026-09-10', source:'Netflix Tudum', sourceUrl:'https://www.netflix.com/tudum/articles/new-on-netflix', verified:'Sep 13'},
+  {title:'We Don\'t Live Here Anymore', plat:'netflix', date:'2026-09-10', source:'Netflix Tudum', sourceUrl:'https://www.netflix.com/tudum/articles/new-on-netflix', verified:'Sep 13'},
+  {title:'Go Team!', plat:'netflix', date:'2026-09-11', source:'Netflix Tudum', sourceUrl:'https://www.netflix.com/tudum/articles/new-on-netflix', verified:'Sep 13'},
+  {title:'Physical 100: Italy', plat:'netflix', date:'2026-09-11', source:'Netflix Tudum', sourceUrl:'https://www.netflix.com/tudum/articles/new-on-netflix', verified:'Sep 13'},
+  {title:'Stolen Heartbeats', plat:'netflix', date:'2026-09-11', source:'Netflix Tudum', sourceUrl:'https://www.netflix.com/tudum/articles/new-on-netflix', verified:'Sep 13'},
+  {title:'Tribeca 25', plat:'netflix', date:'2026-09-11', source:'Netflix Tudum', sourceUrl:'https://www.netflix.com/tudum/articles/new-on-netflix', verified:'Sep 13'},
+  {title:'Gabby\'s Dollhouse — Season 14', plat:'netflix', date:'2026-09-14', source:'Netflix Tudum', sourceUrl:'https://www.netflix.com/tudum/articles/new-on-netflix', verified:'Sep 13'},
+  {title:'Jo Koy: Blue in the Face', plat:'netflix', date:'2026-09-15', source:'Netflix Tudum', sourceUrl:'https://www.netflix.com/tudum/articles/new-on-netflix', verified:'Sep 13'},
+  {title:'The Doll', plat:'netflix', date:'2026-09-16', source:'Netflix Tudum', sourceUrl:'https://www.netflix.com/tudum/articles/new-on-netflix', verified:'Sep 13'},
+  {title:'The Fixers', plat:'netflix', date:'2026-09-17', source:'Netflix Tudum', sourceUrl:'https://www.netflix.com/tudum/articles/new-on-netflix', verified:'Sep 13'},
+  {title:'Monster: The Lizzie Borden Story', plat:'netflix', date:'2026-09-17', source:'Netflix Tudum', sourceUrl:'https://www.netflix.com/tudum/articles/new-on-netflix', verified:'Sep 13'},
+  {title:'Not a Stranger', plat:'netflix', date:'2026-09-17', source:'Netflix Tudum', sourceUrl:'https://www.netflix.com/tudum/articles/new-on-netflix', verified:'Sep 13'},
+  {title:'Plastic Beauty', plat:'netflix', date:'2026-09-17', source:'Netflix Tudum', sourceUrl:'https://www.netflix.com/tudum/articles/new-on-netflix', verified:'Sep 13'},
+  {title:'Stranger Things: Tales From \'85 — Season 2', plat:'netflix', date:'2026-09-17', source:'Netflix Tudum', sourceUrl:'https://www.netflix.com/tudum/articles/new-on-netflix', verified:'Sep 13'},
+  {title:'Best of the Best', plat:'netflix', date:'2026-09-18', source:'Netflix Tudum', sourceUrl:'https://www.netflix.com/tudum/articles/new-on-netflix', verified:'Sep 13'},
+  {title:'Pokémon Horizons — Part 4', plat:'netflix', date:'2026-09-18', source:'Netflix Tudum', sourceUrl:'https://www.netflix.com/tudum/articles/new-on-netflix', verified:'Sep 13'},
+  {title:'Stop! That! Train!', plat:'netflix', date:'2026-09-20', source:'Netflix Tudum', sourceUrl:'https://www.netflix.com/tudum/articles/new-on-netflix', verified:'Sep 13'},
+  {title:'Chad Powers — Season 2', plat:'disney', date:'2026-09-03', source:'Disney+ Press', sourceUrl:'https://press.disneyplus.com/news/next-on-disney-plus-september-2026', verified:'Sep 13'},
+  {title:'Made in Korea — Season 2', plat:'disney', date:'2026-09-09', source:'Disney+ Press', sourceUrl:'https://press.disneyplus.com/news/next-on-disney-plus-september-2026', verified:'Sep 13'},
+  {title:'The Secret Lives of Mormon Wives — Season 5', plat:'disney', date:'2026-09-10', status:'corroborated', source:'Multiple third-party reports', sourceUrl:'https://www.tomsguide.com/entertainment/streaming/how-to-watch-the-secret-lives-of-mormon-wives-season-5-online-from-anywhere', verified:'Sep 13'},
+  {title:'Kraven the Hunter', plat:'disney', date:'2026-09-13', source:'Disney+ Press', sourceUrl:'https://press.disneyplus.com/news/next-on-disney-plus-september-2026', verified:'Sep 13'},
+  {title:'Dancing with the Stars — Season 35', plat:'disney', date:'2026-09-15', source:'Disney+ Press', sourceUrl:'https://press.disneyplus.com/news/next-on-disney-plus-september-2026', verified:'Sep 13'},
+  {title:'Minimum Security', plat:'disney', date:'2026-09-16', source:'Disney+ Press', sourceUrl:'https://press.disneyplus.com/news/next-on-disney-plus-september-2026', verified:'Sep 13'},
+  {title:'PLAVE Asia Tour [DASH: Quantum Leap]', plat:'disney', date:'2026-09-16', source:'Disney+ Press', sourceUrl:'https://press.disneyplus.com/news/next-on-disney-plus-september-2026', verified:'Sep 13'},
+  {title:'Unexpected Loves', plat:'disney', date:'2026-09-16', source:'Disney+ Press', sourceUrl:'https://press.disneyplus.com/news/next-on-disney-plus-september-2026', verified:'Sep 13'},
+  {title:'Booked: First Day In — Season 4', plat:'disney', date:'2026-09-17', source:'Disney+ Press', sourceUrl:'https://press.disneyplus.com/news/next-on-disney-plus-september-2026', verified:'Sep 13'},
+  {title:'Magicampers: Shorts — Season 2', plat:'disney', date:'2026-09-18', source:'Disney+ Press', sourceUrl:'https://press.disneyplus.com/news/next-on-disney-plus-september-2026', verified:'Sep 13'},
+  {title:'Drawn Together', plat:'prime', date:'2026-09-09', source:'Amazon News (aboutamazon.com)', sourceUrl:'https://www.aboutamazon.com/news/entertainment/prime-video-september-films-shows-sports-2026', verified:'Sep 13'},
+  {title:'Bombshell', plat:'prime', date:'2026-09-10', source:'Amazon News (aboutamazon.com)', sourceUrl:'https://www.aboutamazon.com/news/entertainment/prime-video-september-films-shows-sports-2026', verified:'Sep 13'},
+  {title:'A Love Other Than Yours', plat:'prime', date:'2026-09-12', source:'Amazon News (aboutamazon.com)', sourceUrl:'https://www.aboutamazon.com/news/entertainment/prime-video-september-films-shows-sports-2026', verified:'Sep 13'},
+  {title:'Neagley', plat:'prime', date:'2026-09-16', source:'Amazon News (aboutamazon.com)', sourceUrl:'https://www.aboutamazon.com/news/entertainment/watch-neagley-reacher-prime-video', verified:'Sep 13'},
+  {title:'The Howard Stern Show', plat:'max', date:'2026-09-17', source:'WBD Pressroom', sourceUrl:'https://press.wbd.com/us/media-release/hbo-max-brings-howard-stern-show-streaming-debuting-september-17', verified:'Sep 13'},
+  {title:'NFL Melbourne Game: 49ers vs. Rams', plat:'netflix', date:'2026-09-10', source:'Netflix Tudum', sourceUrl:'https://www.netflix.com/tudum/features/nfl-on-netflix-schedule', verified:'Sep 16'},
+  {title:'A Killer Story', plat:'max', date:'2026-09-10', source:'WBD Pressroom', sourceUrl:'https://press.wbd.com/us/media-release/hbo-original-documentary-series-killer-story-debuts-september-10', verified:'Sep 16'},
+  {title:'Halloween Wars — Season 16', plat:'max', date:'2026-09-14', source:'Food Network', sourceUrl:'https://www.foodnetwork.com/shows/articles/food-network-serves-up-a-frightful-fall-season-2026', verified:'Sep 16'},
+  {title:'Halloween Baking Championship — Season 12', plat:'max', date:'2026-09-15', source:'Food Network', sourceUrl:'https://www.foodnetwork.com/shows/articles/food-network-serves-up-a-frightful-fall-season-2026', verified:'Sep 16'},
+  {title:'Youth', plat:'max', date:'2026-09-20', source:'WBD Pressroom', sourceUrl:'https://press.wbd.com/us/media-release/hbo-original-comedy-series-youth-sharon-horgan-debuts-september-20', verified:'Sep 16'}
 ];
 
 const STATS = {};
@@ -276,7 +321,12 @@ const LOG = [
   {date:'Sep 16', plat:'prime', tag:'release-date', verified:'Aug 25', source:'Amazon News (aboutamazon.com)', sourceUrl:'https://www.aboutamazon.com/news/entertainment/watch-neagley-reacher-prime-video', text:'Prime Video sets <b>Neagley</b> premiere for Sep 16', what:'All eight episodes of the Reacher spinoff premiere Sep 16, per Amazon\'s official page.', why:'First concrete date for the spinoff since it was announced, giving fans a target.'},
   {date:'Oct 21', plat:'prime', tag:'release-date', verified:'Aug 25', source:'Amazon News (aboutamazon.com)', sourceUrl:'https://www.aboutamazon.com/news/entertainment/terminal-list-prime-video-chris-pratt', text:'Prime Video sets <b>The Terminal List: Season 2</b> premiere for Oct 21', what:'All eight episodes premiere Oct 21, per Amazon\'s official page.', why:'One of Prime\'s highest-profile originals returns after a multi-year gap.'},
   {date:'Sep 3', plat:'netflix', tag:'new-season', featured:true, verified:'Aug 26', source:'Netflix (About Netflix)', sourceUrl:'https://about.netflix.com/en/news/netflix-confirms-renewals-for-uk-fan-favourites-and-debuts-trailer-for-the-gentlemen-season-2', text:'Netflix confirms <b>The Gentlemen</b> Season 2 premieres Sep 3', what:'Netflix released the full trailer and confirmed Season 2\'s September 3 launch, alongside news of an already-confirmed third season.', why:'Gives fans a firm date for the long-awaited second season.'},
-  {date:'Dec 9', plat:'prime', tag:'release-date', featured:true, verified:'Sep 2', source:'Amazon News (aboutamazon.com)', sourceUrl:'https://www.aboutamazon.com/news/entertainment/maxton-hall-prime-video', text:'Prime Video sets <b>Maxton Hall</b> Season 3 premiere for Dec 9, confirmed as the final season', what:'Amazon confirmed the third and final season of Maxton Hall premieres December 9, 2026, concluding Ruby and James\' story.', why:'Gives fans a confirmed final-season date for one of Prime Video\'s most successful international originals.'}
+  {date:'Dec 9', plat:'prime', tag:'release-date', featured:true, verified:'Sep 2', source:'Amazon News (aboutamazon.com)', sourceUrl:'https://www.aboutamazon.com/news/entertainment/maxton-hall-prime-video', text:'Prime Video sets <b>Maxton Hall</b> Season 3 premiere for Dec 9, confirmed as the final season', what:'Amazon confirmed the third and final season of Maxton Hall premieres December 9, 2026, concluding Ruby and James\' story.', why:'Gives fans a confirmed final-season date for one of Prime Video\'s most successful international originals.'},
+  {date:'Sep 17', plat:'netflix', tag:'new-season', featured:true, verified:'Sep 13', source:'Netflix Tudum', sourceUrl:'https://www.netflix.com/tudum/articles/new-on-netflix', text:'<b>Stranger Things: Tales From \'85</b> Season 2 premieres Sep 17', what:'Netflix confirmed the animated spinoff\'s second season, following the gang uncovering ghostly apparitions and strange creatures.', why:'Extends one of Netflix\'s flagship franchises with a new animated installment.'},
+  {date:'Sep 17', plat:'netflix', tag:'new-season', verified:'Sep 13', source:'Netflix Tudum', sourceUrl:'https://www.netflix.com/tudum/articles/new-on-netflix', text:'<b>Monster: The Lizzie Borden Story</b> premieres Sep 17', what:'Netflix confirmed the next installment of the Monster anthology, starring Ella Beatty as the accused axe murderer.', why:'Continues Ryan Murphy\'s high-profile true-crime anthology series.'},
+  {date:'Sep 17', plat:'max', tag:'new-season', featured:true, verified:'Sep 13', source:'WBD Pressroom', sourceUrl:'https://press.wbd.com/us/media-release/hbo-max-brings-howard-stern-show-streaming-debuting-september-17', text:'<b>The Howard Stern Show</b> debuts globally on HBO Max Sep 17', what:'HBO Max partnered with Stern\'s production company and SiriusXM to release weekly filmed episodes, debuting worldwide Sep 17 with new episodes every Thursday.', why:'A major first-time streaming deal bringing one of radio\'s biggest names to HBO Max.'},
+  {date:'Sep 11', plat:'prime', tag:'renewal', verified:'Sep 13', source:'Amazon News (aboutamazon.com)', sourceUrl:'https://www.aboutamazon.com/news/entertainment/off-campus-hockey-series-prime-video', text:'<b>Off Campus</b> officially renewed for Season 2', what:'Amazon updated its announcement confirming Off Campus has been renewed for a second season.', why:'Confirms the hockey series will continue after its debut season.'},
+  {date:'Sep 20', plat:'max', tag:'new-season', featured:true, verified:'Sep 16', source:'WBD Pressroom', sourceUrl:'https://press.wbd.com/us/media-release/hbo-original-comedy-series-youth-sharon-horgan-debuts-september-20', text:'<b>Youth</b> premieres on HBO Max Sep 20', what:'HBO confirmed the Sharon Horgan comedy premieres its first two episodes Sunday, Sep 20 at 10pm ET/PT, with new episodes weekly through a Nov 1 finale.', why:'A notable new HBO Original starring and created by Sharon Horgan (Bad Sisters, Catastrophe).'}
 ];
 
 // ── TITLES: consolidated per-title records for permanent title pages ────
