@@ -112,12 +112,26 @@ const PLATFORMS = {
   prime:{name:'Prime Video', color:'#00A8E1', page:'prime-video.html'}
 };
 
-const TODAY = new Date('2026-09-13T00:00:00');
-const LAST_VERIFICATION_DATE = 'Sep 16, 2026'; // when this week's research pass was actually done —
+// TODAY now reads the visitor's real clock — no more manually bumping this
+// every few days. It's normalized to local midnight so day-based math
+// (daysUntil, isCurrentlyLeavingSoon, etc.) stays exact.
+const TODAY = new Date();
+TODAY.setHours(0, 0, 0, 0);
+
+const LAST_VERIFICATION_DATE = 'Oct 1, 2026'; // when this week's research pass was actually done —
                                                  // use this for "when did we check this," never an
                                                  // event's own date (which can be in the future).
-const WEEK_START = new Date('2026-09-07T00:00:00');
-const WEEK_END = new Date('2026-09-20T23:59:59');
+                                                 // Update this by hand each time you add new entries —
+                                                 // it's a record of your work, not something to compute.
+
+// WEEK_START/WEEK_END now auto-track a rolling 14-day window ending today,
+// instead of a fixed month range you had to edit every update. This is
+// what drives "added this week" badges and the homepage stats — adjust
+// the "14" below if you want a wider or narrower window.
+const WEEK_WINDOW_DAYS = 14;
+const WEEK_END = new Date(TODAY.getTime());
+WEEK_END.setHours(23, 59, 59, 999);
+const WEEK_START = new Date(TODAY.getTime() - (WEEK_WINDOW_DAYS - 1) * 86400000);
 
 function daysUntil(iso){
   const d = new Date(iso+'T00:00:00');
@@ -203,7 +217,23 @@ const LEAVING = [
   {title:'Nashville — Seasons 1–6', plat:'netflix', date:'2026-09-15', source:'Netflix Tudum', sourceUrl:'https://www.netflix.com/tudum/articles/whats-leaving-netflix', verified:'Sep 2'},
   {title:'Vice', plat:'prime', date:'2026-09-04', status:'corroborated', source:'Exclaim!', sourceUrl:'https://exclaim.ca/film/article/here-s-what-s-leaving-prime-video-in-september-2026', verified:'Sep 2'},
   {title:'Lopez vs. Lopez — Seasons 1–2', plat:'netflix', date:'2026-09-18', source:'Netflix Tudum', sourceUrl:'https://www.netflix.com/tudum/articles/whats-leaving-netflix', verified:'Sep 13'},
-  {title:'Anatomy of a Fall', plat:'netflix', date:'2026-09-23', source:'Netflix Tudum', sourceUrl:'https://www.netflix.com/tudum/articles/whats-leaving-netflix', verified:'Sep 13'}
+  {title:'Anatomy of a Fall', plat:'netflix', date:'2026-09-23', source:'Netflix Tudum', sourceUrl:'https://www.netflix.com/tudum/articles/whats-leaving-netflix', verified:'Sep 13'},
+  {title:'Dawson\'s Creek', plat:'netflix', date:'2026-10-03', source:'Netflix Tudum', sourceUrl:'https://www.netflix.com/tudum/articles/whats-leaving-netflix', verified:'Oct 1'},
+  {title:'Nurse Jackie', plat:'netflix', date:'2026-10-07', source:'Netflix Tudum', sourceUrl:'https://www.netflix.com/tudum/articles/whats-leaving-netflix', verified:'Oct 1'},
+  {title:'Poldark', plat:'netflix', date:'2026-10-08', source:'Netflix Tudum', sourceUrl:'https://www.netflix.com/tudum/articles/whats-leaving-netflix', verified:'Oct 1'},
+  {title:'The Hunger Games', plat:'netflix', date:'2026-10-14', source:'Netflix Tudum', sourceUrl:'https://www.netflix.com/tudum/articles/whats-leaving-netflix', verified:'Oct 1'},
+  {title:'The Hunger Games: Catching Fire', plat:'netflix', date:'2026-10-14', source:'Netflix Tudum', sourceUrl:'https://www.netflix.com/tudum/articles/whats-leaving-netflix', verified:'Oct 1'},
+  {title:'The Hunger Games: Mockingjay - Part 1', plat:'netflix', date:'2026-10-14', source:'Netflix Tudum', sourceUrl:'https://www.netflix.com/tudum/articles/whats-leaving-netflix', verified:'Oct 1'},
+  {title:'The Hunger Games: Mockingjay - Part 2', plat:'netflix', date:'2026-10-14', source:'Netflix Tudum', sourceUrl:'https://www.netflix.com/tudum/articles/whats-leaving-netflix', verified:'Oct 1'},
+  {title:'The Hunger Games: The Ballad of Songbirds and Snakes', plat:'netflix', date:'2026-10-14', source:'Netflix Tudum', sourceUrl:'https://www.netflix.com/tudum/articles/whats-leaving-netflix', verified:'Oct 1'},
+  {title:'Deadwind', plat:'netflix', date:'2026-10-29', source:'Netflix Tudum', sourceUrl:'https://www.netflix.com/tudum/articles/whats-leaving-netflix', verified:'Oct 1'},
+  {title:'A Dog\'s Purpose', plat:'netflix', date:'2026-10-01', status:'corroborated', source:'Forbes', sourceUrl:'https://www.forbes.com/sites/erikkain/2026/09/30/15-great-movies-leaving-netflix-this-week/', verified:'Oct 1'},
+  {title:'A League of Their Own', plat:'netflix', date:'2026-10-01', status:'corroborated', source:'Forbes', sourceUrl:'https://www.forbes.com/sites/erikkain/2026/09/30/15-great-movies-leaving-netflix-this-week/', verified:'Oct 1'},
+  {title:'Apollo 13', plat:'netflix', date:'2026-10-01', status:'corroborated', source:'Forbes', sourceUrl:'https://www.forbes.com/sites/erikkain/2026/09/30/15-great-movies-leaving-netflix-this-week/', verified:'Oct 1'},
+  {title:'Clueless', plat:'netflix', date:'2026-10-01', status:'corroborated', source:'Forbes', sourceUrl:'https://www.forbes.com/sites/erikkain/2026/09/30/15-great-movies-leaving-netflix-this-week/', verified:'Oct 1'},
+  {title:'Fargo', plat:'netflix', date:'2026-10-01', status:'corroborated', source:'Forbes', sourceUrl:'https://www.forbes.com/sites/erikkain/2026/09/30/15-great-movies-leaving-netflix-this-week/', verified:'Oct 1'},
+  {title:'Ghostbusters', plat:'netflix', date:'2026-10-01', status:'corroborated', source:'Forbes', sourceUrl:'https://www.forbes.com/sites/erikkain/2026/09/30/15-great-movies-leaving-netflix-this-week/', verified:'Oct 1'},
+  {title:'Gone Girl', plat:'netflix', date:'2026-10-01', status:'corroborated', source:'Forbes', sourceUrl:'https://www.forbes.com/sites/erikkain/2026/09/30/15-great-movies-leaving-netflix-this-week/', verified:'Oct 1'}
 ];
 
 const ADDED = [
@@ -296,7 +326,35 @@ const ADDED = [
   {title:'A Killer Story', plat:'max', date:'2026-09-10', source:'WBD Pressroom', sourceUrl:'https://press.wbd.com/us/media-release/hbo-original-documentary-series-killer-story-debuts-september-10', verified:'Sep 16'},
   {title:'Halloween Wars — Season 16', plat:'max', date:'2026-09-14', source:'Food Network', sourceUrl:'https://www.foodnetwork.com/shows/articles/food-network-serves-up-a-frightful-fall-season-2026', verified:'Sep 16'},
   {title:'Halloween Baking Championship — Season 12', plat:'max', date:'2026-09-15', source:'Food Network', sourceUrl:'https://www.foodnetwork.com/shows/articles/food-network-serves-up-a-frightful-fall-season-2026', verified:'Sep 16'},
-  {title:'Youth', plat:'max', date:'2026-09-20', source:'WBD Pressroom', sourceUrl:'https://press.wbd.com/us/media-release/hbo-original-comedy-series-youth-sharon-horgan-debuts-september-20', verified:'Sep 16'}
+  {title:'Youth', plat:'max', date:'2026-09-20', source:'WBD Pressroom', sourceUrl:'https://press.wbd.com/us/media-release/hbo-original-comedy-series-youth-sharon-horgan-debuts-september-20', verified:'Sep 16'},
+  {title:'Tyler Perry\'s Doing Life', plat:'netflix', date:'2026-10-02', source:'Netflix', sourceUrl:'https://www.whats-on-netflix.com/news/doing-life-tyler-perry-netflix-movie-release-date/', verified:'Oct 1'},
+  {title:'Who Is Martin Mull?', plat:'netflix', date:'2026-10-07', source:'Netflix', sourceUrl:'https://www.movieinsider.com/m25719/who-is-martin-mull', verified:'Oct 1'},
+  {title:'The Diplomat — Season 4', plat:'netflix', date:'2026-10-15', status:'corroborated', source:'TVLine', sourceUrl:'https://www.tvline.com/2258224/the-diplomat-season-4-trailer-netflix/', verified:'Oct 1'},
+  {title:'Norm: The Tale of Norm Macdonald', plat:'netflix', date:'2026-10-16', source:'Netflix', sourceUrl:'https://eyecrave.net/news/norm-the-tale-of-norm-macdonald-judd-apatow-documentary-coming-to-netflix-october-16/', verified:'Oct 1'},
+  {title:'Nobody Wants This — Season 3', plat:'netflix', date:'2026-10-22', source:'Netflix', sourceUrl:'https://deadline.com/2026/09/nobody-wants-this-season-3-release-date-first-look-photos-1237072856/', verified:'Oct 1'},
+  {title:'Paralyzed by Hope: The Maria Bamford Story', plat:'netflix', date:'2026-10-23', status:'corroborated', source:'Netflix Tudum', sourceUrl:'https://theplaylist.net/paralyzed-by-hope-maria-bamford-story-trailer-judd-apatow-20260928/', verified:'Oct 1'},
+  {title:'The One About Matthew Perry', plat:'netflix', date:'2026-10-27', status:'corroborated', source:'Deadline', sourceUrl:'https://deadline.com/2026/09/the-one-about-matthew-perry-netflix-premiere-trailer-1237116154/', verified:'Oct 1'},
+  {title:'SCTV: The Greatest Show You\'ve Never Heard Of', plat:'netflix', date:'2026-10-30', source:'Netflix', sourceUrl:'https://filmthreat.com/news/take-off-eh-netflixs-sctv-doc-finally-gives-the-greatest-show-youve-never-heard-of-its-due-on-october-30/', verified:'Oct 1'},
+  {title:'War', plat:'max', date:'2026-10-01', source:'WBD Pressroom', sourceUrl:'https://press.wbd.com/us/media-release/hbo-max/whats-new-hbo-max-october-1', verified:'Oct 1'},
+  {title:'90 Day Fiancé: The Other Way — Season 8', plat:'max', date:'2026-10-04', source:'TLC', sourceUrl:'https://www.tlc.com/shows/90-day-fiance-the-other-way/articles/90-day-fiance-before-the-90-days-first-look-trailer-video-premiere-date-announcement', verified:'Oct 1'},
+  {title:'The Housemaid', plat:'max', date:'2026-10-09', source:'WBD Pressroom', sourceUrl:'https://press.wbd.com/us/media-release/hbo-max/whats-new-hbo-max-october-1', verified:'Oct 1'},
+  {title:'Rage — Season 2', plat:'max', date:'2026-10-09', source:'WBD Pressroom', sourceUrl:'https://press.wbd.com/us/media-release/hbo-max/whats-new-hbo-max-october-1', verified:'Oct 1'},
+  {title:'The Pet Cemetery Murders: A Ghost Story', plat:'max', date:'2026-10-11', source:'WBD Pressroom', sourceUrl:'https://press.wbd.com/us/media-release/hbo-max/whats-new-hbo-max-october-1', verified:'Oct 1'},
+  {title:'The Death of Robin Hood', plat:'max', date:'2026-10-16', source:'WBD Pressroom', sourceUrl:'https://press.wbd.com/us/media-release/hbo-max/whats-new-hbo-max-october-1', verified:'Oct 1'},
+  {title:'The Invite', plat:'max', date:'2026-10-23', source:'WBD Pressroom', sourceUrl:'https://press.wbd.com/us/media-release/hbo-max/whats-new-hbo-max-october-1', verified:'Oct 1'},
+  {title:'Adventure Time: Side Quests — Season 2', plat:'disney', date:'2026-10-02', source:'Disney+', sourceUrl:'https://news.piratesandprincesses.net/p/adventure-time-side-quests-season', verified:'Oct 1'},
+  {title:'Vampirina: Teenage Vampire — Season 2', plat:'disney', date:'2026-10-07', source:'Disney+', sourceUrl:'https://www.laughingplace.com/disney-entertainment/vampirina-teenage-vampire-season-2-trailer/', verified:'Oct 1'},
+  {title:'Benefits with Friends — Season 2', plat:'disney', date:'2026-10-09', status:'corroborated', source:'Disney+ Press', sourceUrl:'https://press.disneyplus.com/news/next-on-disney-plus-october-2026', verified:'Oct 1'},
+  {title:'VisionQuest', plat:'disney', date:'2026-10-14', status:'corroborated', source:'Marvel.com', sourceUrl:'https://www.marvel.com/articles/tv-shows/marvel-television-visionquest-release-date', verified:'Oct 1'},
+  {title:'Chibi Tiny Tales — Season 8', plat:'disney', date:'2026-10-17', status:'corroborated', source:'D23', sourceUrl:'https://d23.com/everything-new-coming-to-disney-and-hulu-october-2026/', verified:'Oct 1'},
+  {title:'Locker Diaries: Coven Academy', plat:'disney', date:'2026-10-17', status:'corroborated', source:'D23', sourceUrl:'https://d23.com/everything-new-coming-to-disney-and-hulu-october-2026/', verified:'Oct 1'},
+  {title:'Super Scam Me', plat:'disney', date:'2026-10-17', status:'corroborated', source:'National Geographic / D23', sourceUrl:'https://www.laughingplace.com/disney-entertainment/super-scam-me-national-eographic/', verified:'Oct 1'},
+  {title:'Carrie', plat:'prime', date:'2026-10-07', source:'Amazon', sourceUrl:'https://www.aboutamazon.com/news/entertainment/carrie-stephen-king-mike-flanagan-prime-video', verified:'Oct 1'},
+  {title:'Love of Your Life', plat:'prime', date:'2026-10-14', source:'Amazon', sourceUrl:'https://press.amazonmgmstudios.com/us/en/original-movies/love-of-your-life', verified:'Oct 1'},
+  {title:'Helluva Boss — Season 3 (Part 1)', plat:'prime', date:'2026-10-14', source:'Prime Video', sourceUrl:'https://www.broadwayworld.com/bwwtv/article/HELLUVA-BOSS-Season-Three-to-Premiere-on-Prime-Video-20260916', verified:'Oct 1'},
+  {title:'Masterplan', plat:'prime', date:'2026-10-16', source:'Amazon', sourceUrl:'https://www.aboutamazon.com/news/entertainment/masterplan-stanley-tucci-prime-video', verified:'Oct 1'},
+  {title:'The Terminal List — Season 2', plat:'prime', date:'2026-10-21', source:'Amazon', sourceUrl:'https://www.aboutamazon.com/news/entertainment/terminal-list-prime-video-chris-pratt', verified:'Oct 1'},
+  {title:'Apocalypse Z: New World', plat:'prime', date:'2026-10-30', source:'Amazon', sourceUrl:'https://www.aboutamazon.com/news/entertainment/apocalypse-z-2-new-world-sequel-prime-video', verified:'Oct 1'}
 ];
 
 const STATS = {};
@@ -326,7 +384,9 @@ const LOG = [
   {date:'Sep 17', plat:'netflix', tag:'new-season', verified:'Sep 13', source:'Netflix Tudum', sourceUrl:'https://www.netflix.com/tudum/articles/new-on-netflix', text:'<b>Monster: The Lizzie Borden Story</b> premieres Sep 17', what:'Netflix confirmed the next installment of the Monster anthology, starring Ella Beatty as the accused axe murderer.', why:'Continues Ryan Murphy\'s high-profile true-crime anthology series.'},
   {date:'Sep 17', plat:'max', tag:'new-season', featured:true, verified:'Sep 13', source:'WBD Pressroom', sourceUrl:'https://press.wbd.com/us/media-release/hbo-max-brings-howard-stern-show-streaming-debuting-september-17', text:'<b>The Howard Stern Show</b> debuts globally on HBO Max Sep 17', what:'HBO Max partnered with Stern\'s production company and SiriusXM to release weekly filmed episodes, debuting worldwide Sep 17 with new episodes every Thursday.', why:'A major first-time streaming deal bringing one of radio\'s biggest names to HBO Max.'},
   {date:'Sep 11', plat:'prime', tag:'renewal', verified:'Sep 13', source:'Amazon News (aboutamazon.com)', sourceUrl:'https://www.aboutamazon.com/news/entertainment/off-campus-hockey-series-prime-video', text:'<b>Off Campus</b> officially renewed for Season 2', what:'Amazon updated its announcement confirming Off Campus has been renewed for a second season.', why:'Confirms the hockey series will continue after its debut season.'},
-  {date:'Sep 20', plat:'max', tag:'new-season', featured:true, verified:'Sep 16', source:'WBD Pressroom', sourceUrl:'https://press.wbd.com/us/media-release/hbo-original-comedy-series-youth-sharon-horgan-debuts-september-20', text:'<b>Youth</b> premieres on HBO Max Sep 20', what:'HBO confirmed the Sharon Horgan comedy premieres its first two episodes Sunday, Sep 20 at 10pm ET/PT, with new episodes weekly through a Nov 1 finale.', why:'A notable new HBO Original starring and created by Sharon Horgan (Bad Sisters, Catastrophe).'}
+  {date:'Sep 20', plat:'max', tag:'new-season', featured:true, verified:'Sep 16', source:'WBD Pressroom', sourceUrl:'https://press.wbd.com/us/media-release/hbo-original-comedy-series-youth-sharon-horgan-debuts-september-20', text:'<b>Youth</b> premieres on HBO Max Sep 20', what:'HBO confirmed the Sharon Horgan comedy premieres its first two episodes Sunday, Sep 20 at 10pm ET/PT, with new episodes weekly through a Nov 1 finale.', why:'A notable new HBO Original starring and created by Sharon Horgan (Bad Sisters, Catastrophe).'},
+  {date:'Oct 21', plat:'disney', tag:'price', featured:true, verified:'Oct 1', source:'Disney+ Help Center', sourceUrl:'https://cord-cutters.gadgethacks.com/news/disney-and-hulu-price-increase-2026-new-costs-compared/', text:'Disney+ U.S. prices increase for existing subscribers starting billing cycles on/after <b>Oct 21</b>', what:'New-subscriber pricing ($12.49/mo with ads, $21.49/mo Premium, $214.99/yr) took effect Sep 23; existing subscribers see the new rates starting their first billing cycle on or after October 21.', why:'Anyone who joined before Sep 23 will see a higher charge starting that billing cycle.'},
+  {date:'Sep 24', plat:'netflix', tag:'release-date', featured:true, verified:'Oct 1', source:'Variety', sourceUrl:'https://variety.com/2026/music/global/gary-glitter-documentary-postponed-netflix-1236873429/', text:'Netflix postpones <b>Hunting Gary Glitter</b>, previously set for Oct 14', what:'Netflix pulled the three-part documentary three weeks before its planned release, citing "new legal information," and removed the trailer with no replacement date announced.', why:'A previously confirmed October 14 release is no longer happening and has no new date.'}
 ];
 
 // ── TITLES: consolidated per-title records for permanent title pages ────
