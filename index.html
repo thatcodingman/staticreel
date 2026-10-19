@@ -440,7 +440,7 @@
         </div>
         <div class="search-suggestions" id="searchSuggestions"></div>
       </div>
-      <span class="mock-note">RESEARCHED DATA — week of Aug 31–Sep 6, 2026 · Max/Prime/Disney+ removals not yet verified</span>
+      <span class="mock-note">RESEARCHED DATA — <span id="mockWeek"></span> · last checked <span id="mockChecked"></span></span>
     </div>
     <div class="live-panel">
       <div class="live-panel-head"><span class="live-dot"></span>LIVE CHANGES</div>
@@ -452,7 +452,7 @@
     <div class="section-head">
       <div>
         <h3 class="section-title"><span class="idx">01</span>This week</h3>
-        <p class="section-sub">Aug 31–Sep 6, 2026 · click a platform to filter the listings below</p>
+        <p class="section-sub"><span id="weekLabel"></span> · click a platform to filter the listings below</p>
       </div>
       <span class="section-meta"><span class="live-dot"></span>4 platforms tracked</span>
     </div>
@@ -485,7 +485,7 @@
     <div class="section-head">
       <div>
         <h3 class="section-title"><span class="idx">04</span>Just added</h3>
-        <p class="section-sub">New this week, across all four services</p>
+        <p class="section-sub">New and upcoming over the next two weeks, across all four services</p>
       </div>
       <div class="sort-toggle" id="addedSortToggle">sort: newest first <span id="addedSortArrow">↓</span></div>
     </div>
@@ -527,13 +527,26 @@ let sortAsc = true;
 let sortAscAdded = false;
 let searchQuery = '';
 
+function sortedLog(){
+  // newest first by verified date (fallback: event date); idx = original array index
+  return LOG.map((l, idx)=>({l, idx}))
+    .sort((a,b)=>{
+      const k=x=>logDateToISO(x.l.verified||x.l.date);
+      return k(b).localeCompare(k(a)) || logDateToISO(b.l.date).localeCompare(logDateToISO(a.l.date));
+    });
+}
+function weekRangeLabel(){
+  const f=d=>d.toLocaleDateString('en-US',{month:'short',day:'numeric'});
+  return f(WEEK_START)+' – '+f(WEEK_END)+', '+WEEK_END.getFullYear();
+}
+
 function renderBiggest(){
   // Show an entry as "this week's" if EITHER the event itself falls in the
   // current week (e.g. a premiere happening now) OR it was freshly verified
   // this week (e.g. a Dec premiere date confirmed today) — either one is
   // genuinely "this week's news," and relying on just one check misses cases
   // where research happens ahead of the event or the event is far out.
-  const featured = LOG.filter(l=>{
+  const featured = sortedLog().map(x=>x.l).filter(l=>{
     if(!l.featured) return false;
     const eventInWeek = inCurrentWeek(logDateToISO(l.date));
     const verifiedInWeek = l.verified && inCurrentWeek(logDateToISO(l.verified));
@@ -550,7 +563,7 @@ function renderBiggest(){
 }
 
 function renderTicker(){
-  const items = LOG.slice(0,8).map((l, idx)=>{
+  const items = sortedLog().slice(0,8).map(({l, idx})=>{
     const p = PLATFORMS[l.plat];
     const plainText = l.text.replace(/<\/?b>/g,'');
     return `<div class="ticker-item" onclick="jumpToLog(${idx})"><span class="plat-dot" style="background:${p.color}"></span><span class="ti-text">${plainText}</span><span class="ti-sep">·</span><span class="ti-date">${l.date}</span></div>`;
@@ -560,9 +573,7 @@ function renderTicker(){
 }
 
 function renderLivePanel(){
-  const sorted = [...LOG]
-    .map((l, idx) => ({l, idx}))
-    .sort((a,b) => logDateToISO(b.l.verified || b.l.date).localeCompare(logDateToISO(a.l.verified || a.l.date)));
+  const sorted = sortedLog();
   const top = sorted.slice(0, 4);
   const items = top.map(({l, idx}, i)=>{
     const p = PLATFORMS[l.plat];
@@ -634,7 +645,7 @@ function itemCard(item, isLeaving){
     ? `<a href="${item.sourceUrl}" target="_blank" rel="noopener" class="card-source" onclick="event.stopPropagation()">Source: ${item.source} →</a>`
     : '';
   const verifiedLine = item.verified
-    ? `<span class="card-verified">Verified ${item.verified}</span>`
+    ? `<span class="card-verified">${(item.status==='corroborated'||item.status==='unconfirmed')?'Checked':'Verified'} ${item.verified}</span>`
     : '';
   let dateLabel, scheduledClass = '';
   if(isLeaving){
@@ -702,8 +713,7 @@ function renderTagFilter(){
 
 function renderLog(){
   const list = document.getElementById('logList');
-  const rows = LOG
-    .map((l, idx)=>({l, idx}))
+  const rows = sortedLog()
     .filter(({l})=>{
       if(activePlat && l.plat!==activePlat) return false;
       if(activeTag!=='all' && l.tag!==activeTag) return false;
@@ -894,6 +904,8 @@ document.addEventListener('click', (e)=>{
   }
 });
 
+['mockWeek','weekLabel'].forEach(id=>{const e=document.getElementById(id); if(e) e.textContent=weekRangeLabel();});
+{const e=document.getElementById('mockChecked'); if(e) e.textContent=LAST_VERIFICATION_DATE;}
 document.getElementById('updatedLine').textContent = 'Updated ' + LAST_VERIFICATION_DATE;
 document.getElementById('dataStatusStrip').innerHTML = `Sources checked: Netflix · Max · Disney+ · Prime Video &nbsp;|&nbsp; Last verification: ${LAST_VERIFICATION_DATE}`;
 renderTicker();

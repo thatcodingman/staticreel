@@ -19,7 +19,7 @@ const POSTER_CACHE = {}; // title -> Promise<posterUrl|null>, dedupes repeated t
 
 function tmdbSearchKey(rawTitle){
   // Strip season/part suffixes so "Flex X Cop — Season 2" searches as "Flex X Cop"
-  return rawTitle.replace(/\s*[—–-]\s*(Season|Part)\s*\d+.*$/i, '').trim();
+  return rawTitle.replace(/\s*[—–-]\s*(Seasons?|Part)\s*\d+.*$/i, '').trim();
 }
 
 function fetchPoster(rawTitle){
@@ -118,7 +118,7 @@ const PLATFORMS = {
 const TODAY = new Date();
 TODAY.setHours(0, 0, 0, 0);
 
-const LAST_VERIFICATION_DATE = 'Oct 18, 2026'; // when this week's research pass was actually done —
+const LAST_VERIFICATION_DATE = 'Oct 19, 2026'; // when this week's research pass was actually done —
                                                  // use this for "when did we check this," never an
                                                  // event's own date (which can be in the future).
                                                  // Update this by hand each time you add new entries —
@@ -184,7 +184,13 @@ function logDateToISO(shortDate){
   const [mon, day] = shortDate.split(' ');
   const mm = MONTHS[mon];
   const dd = day.padStart(2, '0');
-  return mm ? `2026-${mm}-${dd}` : shortDate;
+  if(!mm) return shortDate;
+  // No year in LOG dates: pick the year that lands closest to today (handles Dec -> Jan rollover)
+  const y = TODAY.getFullYear();
+  const best = [y-1, y, y+1]
+    .map(yr => ({yr, diff: Math.abs(new Date(`${yr}-${mm}-${dd}T00:00:00`) - TODAY)}))
+    .sort((p,q) => p.diff - q.diff)[0].yr;
+  return `${best}-${mm}-${dd}`;
 }
 
 function linkifyLogText(text){
@@ -201,8 +207,8 @@ const STATS_OVERRIDES = {
 const LEAVING = [
   {title:'Going Varsity in Mariachi', plat:'netflix', date:'2026-08-29', status:'unconfirmed'},
   {title:'Undercover Law', plat:'netflix', date:'2026-08-31', status:'corroborated', source:'What\'s on Netflix', sourceUrl:'https://www.whats-on-netflix.com/leaving-soon/leaving-netflix-august-2026/', verified:'Aug 25'},
-  {title:'Crashing', plat:'netflix', date:'2026-09-01'},
-  {title:'Black Lightning', plat:'netflix', date:'2026-09-01'},
+  {title:'Crashing', plat:'netflix', date:'2026-09-01', status:'corroborated', source:'What\'s on Netflix', sourceUrl:'https://www.whats-on-netflix.com/leaving-soon/whats-leaving-netflix-in-september-2026/', verified:'Oct 19'},
+  {title:'Black Lightning', plat:'netflix', date:'2026-09-01', status:'corroborated', source:'What\'s on Netflix', sourceUrl:'https://www.whats-on-netflix.com/leaving-soon/whats-leaving-netflix-in-september-2026/', verified:'Oct 19'},
   {title:'Creed', plat:'netflix', date:'2026-09-01', source:'Netflix Tudum', sourceUrl:'https://www.netflix.com/tudum/articles/whats-leaving-netflix', verified:'Aug 26'},
   {title:'Creed II', plat:'netflix', date:'2026-09-01', source:'Netflix Tudum', sourceUrl:'https://www.netflix.com/tudum/articles/whats-leaving-netflix', verified:'Aug 26'},
   {title:'Creed III', plat:'netflix', date:'2026-09-01', source:'Netflix Tudum', sourceUrl:'https://www.netflix.com/tudum/articles/whats-leaving-netflix', verified:'Aug 26'},
@@ -210,9 +216,8 @@ const LEAVING = [
   {title:'Here and There (Dito at Doon)', plat:'netflix', date:'2026-09-02', status:'corroborated', source:'What\'s on Netflix', sourceUrl:'https://www.whats-on-netflix.com/leaving-soon/whats-leaving-netflix-in-september-2026/', verified:'Aug 26'},
   {title:'The Bling Ring', plat:'netflix', date:'2026-09-03', status:'corroborated', source:'What\'s on Netflix', sourceUrl:'https://www.whats-on-netflix.com/leaving-soon/whats-leaving-netflix-in-september-2026/', verified:'Aug 26'},
   {title:'Ginger & Rosa', plat:'netflix', date:'2026-09-05', status:'corroborated', source:'What\'s on Netflix', sourceUrl:'https://www.whats-on-netflix.com/leaving-soon/whats-leaving-netflix-in-september-2026/', verified:'Aug 26'},
-  {title:'Tokyo Revengers', plat:'max', date:'2026-08-28', status:'unconfirmed'},
-  {title:'Jandino: Whatever It Takes', plat:'netflix', date:'2026-09-09'},
-  {title:'Life', plat:'netflix', date:'2026-09-23'},
+  {title:'Jandino: Whatever It Takes', plat:'netflix', date:'2026-09-09', status:'corroborated', source:'What\'s on Netflix', sourceUrl:'https://www.whats-on-netflix.com/leaving-soon/whats-leaving-netflix-in-september-2026/', verified:'Oct 19'},
+  {title:'Life', plat:'netflix', date:'2026-09-23', status:'corroborated', source:'What\'s on Netflix', sourceUrl:'https://www.whats-on-netflix.com/leaving-soon/whats-leaving-netflix-in-september-2026/', verified:'Oct 19'},
   {title:'Poor Things', plat:'netflix', date:'2026-09-07', source:'Netflix Tudum', sourceUrl:'https://www.netflix.com/tudum/articles/whats-leaving-netflix', verified:'Sep 2'},
   {title:'Bombshell', plat:'netflix', date:'2026-09-10', source:'Netflix Tudum', sourceUrl:'https://www.netflix.com/tudum/articles/whats-leaving-netflix', verified:'Sep 2'},
   {title:'Nashville — Seasons 1–6', plat:'netflix', date:'2026-09-15', source:'Netflix Tudum', sourceUrl:'https://www.netflix.com/tudum/articles/whats-leaving-netflix', verified:'Sep 2'},
@@ -238,14 +243,13 @@ const LEAVING = [
 ];
 
 const ADDED = [
-  {title:'M3GAN', plat:'netflix', date:'2026-08-24'},
-  {title:'Revival — Season 1', plat:'netflix', date:'2026-08-24'},
+  {title:'M3GAN', plat:'netflix', date:'2026-08-24', status:'corroborated', source:'What\'s on Netflix', sourceUrl:'https://www.whats-on-netflix.com/coming-soon/whats-coming-to-netflix-in-august-2026/', verified:'Oct 19'},
+  {title:'Revival — Season 1', plat:'netflix', date:'2026-08-24', status:'corroborated', source:'What\'s on Netflix', sourceUrl:'https://www.whats-on-netflix.com/coming-soon/whats-coming-to-netflix-in-august-2026/', verified:'Oct 19'},
   {title:'Stamptown', plat:'netflix', date:'2026-08-25', source:'Netflix Tudum', sourceUrl:'https://www.netflix.com/tudum/articles/new-on-netflix', verified:'Aug 25'},
   {title:'Leanne — Season 2', plat:'netflix', date:'2026-08-27', source:'Netflix Tudum', sourceUrl:'https://www.netflix.com/tudum/articles/leanne-morgan-comedy-series-season-2', verified:'Aug 25'},
-  {title:'All the Truth in My Lies', plat:'netflix', date:'2026-08-28'},
+  {title:'All the Truth in My Lies', plat:'netflix', date:'2026-08-28', status:'corroborated', source:'What\'s on Netflix', sourceUrl:'https://www.whats-on-netflix.com/coming-soon/whats-coming-to-netflix-in-august-2026/', verified:'Oct 19'},
   {title:'The Whisper Man', plat:'netflix', date:'2026-08-28', source:'Netflix Tudum', sourceUrl:'https://www.netflix.com/tudum/articles/the-whisper-man-release-date-cast-news', verified:'Aug 25'},
   {title:'Margarita: Make Your Story Count S3', plat:'max', date:'2026-08-24', source:'WBD Pressroom', sourceUrl:'https://press.wbd.com/us/media-release/whats-new-hbo-max-august-1', verified:'Aug 25'},
-  {title:'Tracked — Season 1', plat:'max', date:'2026-08-25'},
   {title:'1000-lb Roomies — Season 2', plat:'max', date:'2026-08-26', source:'WBD Pressroom', sourceUrl:'https://press.wbd.com/us/media-release/whats-new-hbo-max-august-1', verified:'Aug 25'},
   {title:'Bobby\'s Triple Threat — Season 5', plat:'max', date:'2026-08-26', source:'WBD Pressroom', sourceUrl:'https://press.wbd.com/us/media-release/whats-new-hbo-max-august-1', verified:'Aug 25'},
   {title:'Homestead Rescue: Intervention', plat:'max', date:'2026-08-26', source:'WBD Pressroom', sourceUrl:'https://press.wbd.com/us/media-release/whats-new-hbo-max-august-1', verified:'Aug 25'},
@@ -264,8 +268,8 @@ const ADDED = [
   {title:'Project Runway — Season 22', plat:'disney', date:'2026-08-27', source:'Disney+ Press', sourceUrl:'https://press.disneyplus.com/news/next-on-disney-plus-august-2026', verified:'Aug 25'},
   {title:'Flex X Cop — Season 2', plat:'disney', date:'2026-08-28', source:'Disney+ Press', sourceUrl:'https://press.disneyplus.com/news/next-on-disney-plus-august-2026', verified:'Aug 25'},
   {title:'Flex X Cop — Season 2', plat:'disney', date:'2026-08-29', source:'Disney+ Press', sourceUrl:'https://press.disneyplus.com/news/next-on-disney-plus-august-2026', verified:'Aug 25'},
-  {title:'The Last Sunrise', plat:'prime', date:'2026-08-26'},
-  {title:'Nickel Boys', plat:'prime', date:'2026-08-27'},
+  {title:'The Last Sunrise', plat:'prime', date:'2026-08-26', status:'corroborated', source:'TheWrap', sourceUrl:'https://www.thewrap.com/creative-content/what-to-watch/everything-new-on-amazon-prime-video-august-2026/', verified:'Oct 19'},
+  {title:'Nickel Boys', plat:'prime', date:'2026-08-27', status:'corroborated', source:'TheWrap', sourceUrl:'https://www.thewrap.com/creative-content/what-to-watch/everything-new-on-amazon-prime-video-august-2026/', verified:'Oct 19'},
   {title:'17 Again', plat:'netflix', date:'2026-09-01', status:'corroborated', source:'What\'s on Netflix', sourceUrl:'https://www.whats-on-netflix.com/coming-soon/whats-coming-to-netflix-in-september-2026/', verified:'Aug 26'},
   {title:'Ready or Not', plat:'netflix', date:'2026-09-01', status:'corroborated', source:'What\'s on Netflix', sourceUrl:'https://www.whats-on-netflix.com/coming-soon/whats-coming-to-netflix-in-september-2026/', verified:'Aug 26'},
   {title:'Straight Outta Compton', plat:'netflix', date:'2026-09-01', status:'corroborated', source:'What\'s on Netflix', sourceUrl:'https://www.whats-on-netflix.com/coming-soon/whats-coming-to-netflix-in-september-2026/', verified:'Aug 26'},
@@ -328,14 +332,14 @@ const ADDED = [
   {title:'Halloween Wars — Season 16', plat:'max', date:'2026-09-14', source:'Food Network', sourceUrl:'https://www.foodnetwork.com/shows/articles/food-network-serves-up-a-frightful-fall-season-2026', verified:'Sep 16'},
   {title:'Halloween Baking Championship — Season 12', plat:'max', date:'2026-09-15', source:'Food Network', sourceUrl:'https://www.foodnetwork.com/shows/articles/food-network-serves-up-a-frightful-fall-season-2026', verified:'Sep 16'},
   {title:'Youth', plat:'max', date:'2026-09-20', source:'WBD Pressroom', sourceUrl:'https://press.wbd.com/us/media-release/hbo-original-comedy-series-youth-sharon-horgan-debuts-september-20', verified:'Sep 16'},
-  {title:'Tyler Perry\'s Doing Life', plat:'netflix', date:'2026-10-02', source:'Netflix', sourceUrl:'https://www.whats-on-netflix.com/news/doing-life-tyler-perry-netflix-movie-release-date/', verified:'Oct 1'},
-  {title:'Who Is Martin Mull?', plat:'netflix', date:'2026-10-07', source:'Netflix', sourceUrl:'https://www.movieinsider.com/m25719/who-is-martin-mull', verified:'Oct 1'},
+  {title:'Tyler Perry\'s Doing Life', plat:'netflix', date:'2026-10-02', status:'corroborated', source:'What\'s on Netflix', sourceUrl:'https://www.whats-on-netflix.com/news/doing-life-tyler-perry-netflix-movie-release-date/', verified:'Oct 1'},
+  {title:'Who Is Martin Mull?', plat:'netflix', date:'2026-10-07', status:'corroborated', source:'Movie Insider', sourceUrl:'https://www.movieinsider.com/m25719/who-is-martin-mull', verified:'Oct 1'},
   {title:'The Diplomat — Season 4', plat:'netflix', date:'2026-10-15', source:'Netflix Tudum', sourceUrl:'https://www.netflix.com/tudum/articles/new-on-netflix', verified:'Oct 18'},
-  {title:'Norm: The Tale of Norm Macdonald', plat:'netflix', date:'2026-10-16', source:'Netflix', sourceUrl:'https://eyecrave.net/news/norm-the-tale-of-norm-macdonald-judd-apatow-documentary-coming-to-netflix-october-16/', verified:'Oct 1'},
+  {title:'Norm: The Tale of Norm Macdonald', plat:'netflix', date:'2026-10-16', status:'corroborated', source:'EyeCrave', sourceUrl:'https://eyecrave.net/news/norm-the-tale-of-norm-macdonald-judd-apatow-documentary-coming-to-netflix-october-16/', verified:'Oct 1'},
   {title:'Nobody Wants This — Season 3', plat:'netflix', date:'2026-10-22', source:'Netflix Tudum', sourceUrl:'https://www.netflix.com/tudum/articles/new-on-netflix', verified:'Oct 18'},
   {title:'Paralyzed by Hope: The Maria Bamford Story', plat:'netflix', date:'2026-10-23', status:'corroborated', source:'Netflix Tudum', sourceUrl:'https://theplaylist.net/paralyzed-by-hope-maria-bamford-story-trailer-judd-apatow-20260928/', verified:'Oct 1'},
   {title:'The One About Matthew Perry', plat:'netflix', date:'2026-10-27', status:'corroborated', source:'Deadline', sourceUrl:'https://deadline.com/2026/09/the-one-about-matthew-perry-netflix-premiere-trailer-1237116154/', verified:'Oct 1'},
-  {title:'SCTV: The Greatest Show You\'ve Never Heard Of', plat:'netflix', date:'2026-10-30', source:'Netflix', sourceUrl:'https://filmthreat.com/news/take-off-eh-netflixs-sctv-doc-finally-gives-the-greatest-show-youve-never-heard-of-its-due-on-october-30/', verified:'Oct 1'},
+  {title:'SCTV: The Greatest Show You\'ve Never Heard Of', plat:'netflix', date:'2026-10-30', status:'corroborated', source:'Film Threat', sourceUrl:'https://filmthreat.com/news/take-off-eh-netflixs-sctv-doc-finally-gives-the-greatest-show-youve-never-heard-of-its-due-on-october-30/', verified:'Oct 1'},
   {title:'War', plat:'max', date:'2026-10-01', source:'WBD Pressroom', sourceUrl:'https://press.wbd.com/us/media-release/hbo-max/whats-new-hbo-max-october-1', verified:'Oct 1'},
   {title:'90 Day Fiancé: The Other Way — Season 8', plat:'max', date:'2026-10-04', source:'TLC', sourceUrl:'https://www.tlc.com/shows/90-day-fiance-the-other-way/articles/90-day-fiance-before-the-90-days-first-look-trailer-video-premiere-date-announcement', verified:'Oct 1'},
   {title:'The Housemaid', plat:'max', date:'2026-10-09', source:'WBD Pressroom', sourceUrl:'https://press.wbd.com/us/media-release/hbo-max/whats-new-hbo-max-october-1', verified:'Oct 1'},
@@ -343,19 +347,19 @@ const ADDED = [
   {title:'The Pet Cemetery Murders: A Ghost Story', plat:'max', date:'2026-10-11', source:'WBD Pressroom', sourceUrl:'https://press.wbd.com/us/media-release/hbo-max/whats-new-hbo-max-october-1', verified:'Oct 1'},
   {title:'The Death of Robin Hood', plat:'max', date:'2026-10-16', source:'WBD Pressroom', sourceUrl:'https://press.wbd.com/us/media-release/hbo-max/whats-new-hbo-max-october-1', verified:'Oct 1'},
   {title:'The Invite', plat:'max', date:'2026-10-23', source:'WBD Pressroom', sourceUrl:'https://press.wbd.com/us/media-release/hbo-max/whats-new-hbo-max-october-1', verified:'Oct 1'},
-  {title:'Adventure Time: Side Quests — Season 2', plat:'disney', date:'2026-10-02', source:'Disney+', sourceUrl:'https://news.piratesandprincesses.net/p/adventure-time-side-quests-season', verified:'Oct 1'},
-  {title:'Vampirina: Teenage Vampire — Season 2', plat:'disney', date:'2026-10-07', source:'Disney+', sourceUrl:'https://www.laughingplace.com/disney-entertainment/vampirina-teenage-vampire-season-2-trailer/', verified:'Oct 1'},
-  {title:'Benefits with Friends — Season 2', plat:'disney', date:'2026-10-09', status:'corroborated', source:'Disney+ Press', sourceUrl:'https://press.disneyplus.com/news/next-on-disney-plus-october-2026', verified:'Oct 1'},
-  {title:'VisionQuest', plat:'disney', date:'2026-10-14', status:'corroborated', source:'Marvel.com', sourceUrl:'https://www.marvel.com/articles/tv-shows/marvel-television-visionquest-release-date', verified:'Oct 1'},
-  {title:'Chibi Tiny Tales — Season 8', plat:'disney', date:'2026-10-17', status:'corroborated', source:'D23', sourceUrl:'https://d23.com/everything-new-coming-to-disney-and-hulu-october-2026/', verified:'Oct 1'},
-  {title:'Locker Diaries: Coven Academy', plat:'disney', date:'2026-10-17', status:'corroborated', source:'D23', sourceUrl:'https://d23.com/everything-new-coming-to-disney-and-hulu-october-2026/', verified:'Oct 1'},
-  {title:'Super Scam Me', plat:'disney', date:'2026-10-17', status:'corroborated', source:'National Geographic / D23', sourceUrl:'https://www.laughingplace.com/disney-entertainment/super-scam-me-national-eographic/', verified:'Oct 1'},
+  {title:'Adventure Time: Side Quests — Season 2', plat:'disney', date:'2026-10-02', source:'D23 (Disney)', sourceUrl:'https://d23.com/everything-new-coming-to-disney-and-hulu-october-2026/', verified:'Oct 19'},
+  {title:'Vampirina: Teenage Vampire — Season 2', plat:'disney', date:'2026-10-07', source:'D23 (Disney)', sourceUrl:'https://d23.com/everything-new-coming-to-disney-and-hulu-october-2026/', verified:'Oct 19'},
+  {title:'Benefits with Friends — Season 2', plat:'disney', date:'2026-10-09', source:'D23 (Disney)', sourceUrl:'https://d23.com/everything-new-coming-to-disney-and-hulu-october-2026/', verified:'Oct 19'},
+  {title:'VisionQuest', plat:'disney', date:'2026-10-14', source:'D23 (Disney)', sourceUrl:'https://d23.com/everything-new-coming-to-disney-and-hulu-october-2026/', verified:'Oct 19'},
+  {title:'Chibi Tiny Tales — Season 8', plat:'disney', date:'2026-10-17', source:'D23 (Disney)', sourceUrl:'https://d23.com/everything-new-coming-to-disney-and-hulu-october-2026/', verified:'Oct 19'},
+  {title:'Locker Diaries: Coven Academy', plat:'disney', date:'2026-10-17', source:'D23 (Disney)', sourceUrl:'https://d23.com/everything-new-coming-to-disney-and-hulu-october-2026/', verified:'Oct 19'},
+  {title:'Super Scam Me', plat:'disney', date:'2026-10-17', source:'D23 (Disney)', sourceUrl:'https://d23.com/everything-new-coming-to-disney-and-hulu-october-2026/', verified:'Oct 19'},
   {title:'Carrie', plat:'prime', date:'2026-10-07', source:'Amazon', sourceUrl:'https://www.aboutamazon.com/news/entertainment/carrie-stephen-king-mike-flanagan-prime-video', verified:'Oct 1'},
-  {title:'Love of Your Life', plat:'prime', date:'2026-10-14', source:'Amazon', sourceUrl:'https://press.amazonmgmstudios.com/us/en/original-movies/love-of-your-life', verified:'Oct 1'},
-  {title:'Helluva Boss — Season 3 (Part 1)', plat:'prime', date:'2026-10-14', source:'Prime Video', sourceUrl:'https://www.broadwayworld.com/bwwtv/article/HELLUVA-BOSS-Season-Three-to-Premiere-on-Prime-Video-20260916', verified:'Oct 1'},
+  {title:'Love of Your Life', plat:'prime', date:'2026-10-14', source:'Amazon MGM Studios', sourceUrl:'https://press.amazonmgmstudios.com/us/en/original-movies/love-of-your-life', verified:'Oct 19'},
+  {title:'Helluva Boss — Season 3 (Part 1)', plat:'prime', date:'2026-10-14', status:'corroborated', source:'BroadwayWorld', sourceUrl:'https://www.broadwayworld.com/bwwtv/article/HELLUVA-BOSS-Season-Three-to-Premiere-on-Prime-Video-20260916', verified:'Oct 1'},
   {title:'Masterplan', plat:'prime', date:'2026-10-16', source:'Amazon', sourceUrl:'https://www.aboutamazon.com/news/entertainment/masterplan-stanley-tucci-prime-video', verified:'Oct 1'},
   {title:'The Terminal List — Season 2', plat:'prime', date:'2026-10-21', source:'Amazon', sourceUrl:'https://www.aboutamazon.com/news/entertainment/terminal-list-prime-video-chris-pratt', verified:'Oct 1'},
-  {title:'Apocalypse Z: New World', plat:'prime', date:'2026-10-30', source:'Amazon', sourceUrl:'https://www.aboutamazon.com/news/entertainment/apocalypse-z-2-new-world-sequel-prime-video', verified:'Oct 1'},
+  {title:'Apocalypse Z: New World', plat:'prime', date:'2026-10-30', status:'corroborated', source:'Amazon', sourceUrl:'https://www.aboutamazon.com/news/entertainment/apocalypse-z-2-new-world-sequel-prime-video', verified:'Oct 19'},
   {title:'Blindspotting — Seasons 1–2', plat:'netflix', date:'2026-10-20', source:'Netflix Tudum', sourceUrl:'https://www.netflix.com/tudum/articles/new-on-netflix', verified:'Oct 18'},
   {title:'Cyberpunk: Edgerunners 2', plat:'netflix', date:'2026-10-20', source:'Netflix Tudum', sourceUrl:'https://www.netflix.com/tudum/articles/cyberpunk-edgerunners-2-release-date-news', verified:'Oct 18'},
   {title:'Emily', plat:'netflix', date:'2026-10-21', source:'Netflix Tudum', sourceUrl:'https://www.netflix.com/tudum/articles/new-on-netflix', verified:'Oct 18'},
@@ -365,18 +369,28 @@ const ADDED = [
   {title:'Possible Love', plat:'netflix', date:'2026-11-06', source:'Netflix Tudum', sourceUrl:'https://www.netflix.com/tudum/articles/possible-love-cast-release-date-photos', verified:'Oct 18'},
   {title:'Avedon', plat:'netflix', date:'2026-11-11', source:'Netflix Tudum', sourceUrl:'https://www.netflix.com/tudum/articles/avedon-release-date-news', verified:'Oct 18'},
   {title:'Heartland', plat:'netflix', date:'2026-11-13', source:'Netflix Tudum', sourceUrl:'https://www.netflix.com/tudum/articles/heartland-release-date-photos-news', verified:'Oct 18'},
-  {title:'Anyone But You', plat:'max', date:'2026-10-20', status:'corroborated', source:'TheWrap', sourceUrl:'https://www.thewrap.com/creative-content/what-to-watch/new-on-hbo-max-october-2026/', verified:'Oct 18'},
-  {title:'The Flores Massacre', plat:'max', date:'2026-10-22', status:'corroborated', source:'TheWrap', sourceUrl:'https://www.thewrap.com/creative-content/what-to-watch/new-on-hbo-max-october-2026/', verified:'Oct 18'},
-  {title:'Kordell Stewart: Slash & Burn', plat:'max', date:'2026-10-27', source:'WBD Pressroom', sourceUrl:'https://press.wbd.com/us/media-release/hbo-max/whats-new-hbo-max-october-1', verified:'Oct 18'},
-  {title:'Cannibal Poet', plat:'max', date:'2026-10-29', status:'corroborated', source:'TheWrap', sourceUrl:'https://www.thewrap.com/creative-content/what-to-watch/new-on-hbo-max-october-2026/', verified:'Oct 18'},
-  {title:'Ariel: Dolphin Cove Tales — Season 1', plat:'disney', date:'2026-11-04', status:'corroborated', source:'WDW News Today', sourceUrl:'https://wdwnt.com/2026/10/full-list-of-whats-coming-to-disney-in-november-2026/', verified:'Oct 18'},
-  {title:'Wolves Up Close with Bertie Gregory', plat:'disney', date:'2026-11-06', status:'corroborated', source:'WDW News Today', sourceUrl:'https://wdwnt.com/2026/10/full-list-of-whats-coming-to-disney-in-november-2026/', verified:'Oct 18'},
-  {title:'Pokémon the Series: The Beginning — Season 2', plat:'disney', date:'2026-11-11', status:'corroborated', source:'WDW News Today', sourceUrl:'https://wdwnt.com/2026/10/full-list-of-whats-coming-to-disney-in-november-2026/', verified:'Oct 18'},
-  {title:'A Proud Family Wizmas', plat:'disney', date:'2026-11-14', status:'corroborated', source:'WDW News Today', sourceUrl:'https://wdwnt.com/2026/10/full-list-of-whats-coming-to-disney-in-november-2026/', verified:'Oct 18'},
+  {title:'Anyone But You', plat:'max', date:'2026-10-20', source:'WBD Press', sourceUrl:'https://press.wbd.com/us/media-release/hbo-max/whats-new-hbo-max-october-1', verified:'Oct 19'},
+  {title:'The Flores Massacre', plat:'max', date:'2026-10-22', source:'WBD Press', sourceUrl:'https://press.wbd.com/us/media-release/hbo-max/whats-new-hbo-max-october-1', verified:'Oct 19'},
+  {title:'Kordell Stewart: Slash & Burn', plat:'max', date:'2026-10-27', source:'WBD Pressroom', sourceUrl:'https://press.wbd.com/us/media-release/hbo-max/whats-new-hbo-max-october-1', verified:'Oct 1'},
+  {title:'Cannibal Poet', plat:'max', date:'2026-10-29', source:'WBD Press', sourceUrl:'https://press.wbd.com/us/media-release/hbo-max/whats-new-hbo-max-october-1', verified:'Oct 19'},
+  {title:'Ariel: Dolphin Cove Tales — Season 1', plat:'disney', date:'2026-11-04', source:'Disney+ Press', sourceUrl:'https://press.disneyplus.com/news/next-on-disney-plus-november-2026', verified:'Oct 19'},
+  {title:'Wolves Up Close with Bertie Gregory', plat:'disney', date:'2026-11-06', source:'Disney+ Press', sourceUrl:'https://press.disneyplus.com/news/next-on-disney-plus-november-2026', verified:'Oct 19'},
+  {title:'Pokémon the Series: The Beginning — Season 2', plat:'disney', date:'2026-11-11', source:'Disney+ Press', sourceUrl:'https://press.disneyplus.com/news/next-on-disney-plus-november-2026', verified:'Oct 19'},
+  {title:'A Proud Family Wizmas', plat:'disney', date:'2026-11-14', source:'Disney+ Press', sourceUrl:'https://press.disneyplus.com/news/next-on-disney-plus-november-2026', verified:'Oct 19'},
   {title:'Love in Disguise', plat:'prime', date:'2026-10-19', status:'corroborated', source:'TheWrap', sourceUrl:'https://www.thewrap.com/creative-content/what-to-watch/everything-new-prime-video-october-2026/', verified:'Oct 18'},
   {title:'The Bride!', plat:'prime', date:'2026-10-23', status:'corroborated', source:'TheWrap', sourceUrl:'https://www.thewrap.com/creative-content/what-to-watch/everything-new-prime-video-october-2026/', verified:'Oct 18'},
   {title:'Final Table', plat:'prime', date:'2026-10-24', status:'corroborated', source:'TheWrap', sourceUrl:'https://www.thewrap.com/creative-content/what-to-watch/everything-new-prime-video-october-2026/', verified:'Oct 18'},
-  {title:'The Greatest', plat:'prime', date:'2026-11-04', source:'Amazon MGM Studios', sourceUrl:'https://press.amazonmgmstudios.com/us/en/press-release/prime-video-announces-november-4-premiere-date-for', verified:'Oct 18'}
+  {title:'The Greatest', plat:'prime', date:'2026-11-04', source:'Amazon MGM Studios', sourceUrl:'https://press.amazonmgmstudios.com/us/en/press-release/prime-video-announces-november-4-premiere-date-for', verified:'Oct 18'},
+  {title:'Madden', plat:'prime', date:'2026-11-18', source:'Amazon News', sourceUrl:'https://www.aboutamazon.com/news/entertainment/madden-movie-nicolas-cage-prime-video', verified:'Oct 19'},
+  {title:'Blade Runner 2099', plat:'prime', date:'2026-11-25', source:'Amazon News', sourceUrl:'https://www.aboutamazon.com/news/entertainment/blade-runner-2099-prime-video', verified:'Oct 19'},
+  {title:'VisionQuest', plat:'disney', date:'2026-11-04', source:'Disney+ Press', sourceUrl:'https://press.disneyplus.com/news/next-on-disney-plus-november-2026', verified:'Oct 19'},
+  {title:'Pupstruction — Season 3', plat:'disney', date:'2026-11-11', source:'Disney+ Press', sourceUrl:'https://press.disneyplus.com/news/next-on-disney-plus-november-2026', verified:'Oct 19'},
+  {title:'Gracie\'s Corner — Season 2', plat:'disney', date:'2026-11-13', source:'Disney+ Press', sourceUrl:'https://press.disneyplus.com/news/next-on-disney-plus-november-2026', verified:'Oct 19'},
+  {title:'Mickey Mouse Clubhouse+ — Season 2', plat:'disney', date:'2026-11-18', source:'Disney+ Press', sourceUrl:'https://press.disneyplus.com/news/next-on-disney-plus-november-2026', verified:'Oct 19'},
+  {title:'Miraculous: Tales of Ladybug & Cat Noir — Season 7', plat:'disney', date:'2026-11-21', source:'Disney+ Press', sourceUrl:'https://press.disneyplus.com/news/next-on-disney-plus-november-2026', verified:'Oct 19'},
+  {title:'Percy Jackson and the Olympians — Season 3', plat:'disney', date:'2026-11-20', source:'Disney+ Press', sourceUrl:'https://press.disneyplus.com/news/next-on-disney-plus-november-2026', verified:'Oct 19'},
+  {title:'Big City Greens — Season 5', plat:'disney', date:'2026-11-25', source:'Disney+ Press', sourceUrl:'https://press.disneyplus.com/news/next-on-disney-plus-november-2026', verified:'Oct 19'},
+  {title:'Dasher', plat:'disney', date:'2026-11-28', source:'Disney+ Press', sourceUrl:'https://press.disneyplus.com/news/next-on-disney-plus-november-2026', verified:'Oct 19'}
 ];
 
 const STATS = {};
