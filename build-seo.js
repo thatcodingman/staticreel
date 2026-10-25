@@ -30,6 +30,9 @@ for (const t of titles) {
       {"@type":"ListItem","position":1,"name":"StaticReel","item":SITE+"/"},
       {"@type":"ListItem","position":2,"name":p.name,"item":`${SITE}/${p.page}`},
       {"@type":"ListItem","position":3,"name":t.title,"item":url}]}]};
+  const rel = titles.filter(o => o.slug !== t.slug && o.events.some(e => e.plat === latest.plat))
+    .sort((x,y)=>Math.abs(new Date(x.events[x.events.length-1].date)-new Date(latest.date))-Math.abs(new Date(y.events[y.events.length-1].date)-new Date(latest.date))).slice(0,8);
+  const related = rel.length ? `<h2>More on ${esc(p.name)}</h2>\n<ul>${rel.map(o=>`<li><a href="/title/${o.slug}/">${esc(o.title)}</a></li>`).join('')}</ul>` : '';
   const html = `<!DOCTYPE html>
 <html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>${esc(pageTitle)}</title>
@@ -62,7 +65,8 @@ ul{padding-left:20px}li{margin:10px 0}
       ${rows}
 </ul>
 <p class="note">StaticReel labels every claim <b>Verified</b> (read on the service's own page), <b>Corroborated</b> (reported by reliable outlets) or <b>Unconfirmed</b>. Dates can change; see the source linked above.</p>
-<p><a href="/">← This week on streaming</a> · <a href="/${p.page}">All ${esc(p.name)} changes</a></p>
+${related}
+<p><a href="/titles/">Browse all tracked titles</a> · <a href="/">← This week on streaming</a> · <a href="/${p.page}">All ${esc(p.name)} changes</a></p>
 </main></body></html>`;
   const dir = path.join(__dirname, 'title', t.slug);
   fs.mkdirSync(dir, { recursive: true });
@@ -70,7 +74,23 @@ ul{padding-left:20px}li{margin:10px 0}
   count++;
 }
 
-const pages = ['', ...Object.values(D.PLATFORMS).map(p => p.page)];
+const sections = Object.keys(D.PLATFORMS).map(k => {
+  const list = titles.filter(t => t.plat === k).sort((x,y)=>x.title.localeCompare(y.title));
+  return `<h2>${esc(D.PLATFORMS[k].name)} (${list.length})</h2>\n<ul>${list.map(t=>`<li><a href="/title/${t.slug}/">${esc(t.title)}</a></li>`).join('')}</ul>`;
+}).join('\n');
+fs.mkdirSync(path.join(__dirname,'titles'),{recursive:true});
+fs.writeFileSync(path.join(__dirname,'titles','index.html'),`<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>All tracked titles on Netflix, Max, Disney+ and Prime Video | StaticReel</title>
+<meta name="description" content="Every title StaticReel tracks across Netflix, Max, Disney+ and Prime Video, with verified add and removal dates.">
+<link rel="canonical" href="${SITE}/titles/"><meta name="robots" content="index,follow">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<style>body{margin:0;background:#0A0C0F;color:#ECEEF1;font:16px/1.6 Inter,system-ui,sans-serif}main{max-width:720px;margin:0 auto;padding:32px 16px}a{color:#00E5C7}h1{font-size:28px}li{margin:4px 0}</style></head>
+<body><main><p><a href="/">← StaticReel</a></p><h1>All tracked titles</h1>
+<p>${titles.length} titles across four services. Each page shows add and removal dates with source and status.</p>
+${sections}
+</main></body></html>`);
+const pages = ['', 'titles/', ...Object.values(D.PLATFORMS).map(p => p.page)];
 const urls = [...pages.map(p => `${SITE}/${p}`), ...titles.map(t => `${SITE}/title/${t.slug}/`)];
 fs.writeFileSync(path.join(__dirname, 'sitemap.xml'),
 `<?xml version="1.0" encoding="UTF-8"?>
