@@ -15,6 +15,15 @@
 <link rel="alternate" type="application/rss+xml" title="StaticReel — Signal Log" href="https://staticreel.com/rss.xml">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="canonical" href="https://staticreel.com/">
+<meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large">
+<meta name="theme-color" content="#0A0C0F">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+{"@type":"WebSite","@id":"https://staticreel.com/#site","url":"https://staticreel.com/","name":"StaticReel","description":"Weekly tracker of verified changes on Netflix, Max, Disney+ and Prime Video: titles leaving and added, price changes, and policy updates.","inLanguage":"en-US","publisher":{"@id":"https://staticreel.com/#org"}},
+{"@type":"Organization","@id":"https://staticreel.com/#org","name":"StaticReel","url":"https://staticreel.com/","logo":"https://staticreel.com/assets/icon-512.png"}
+]}
+</script>
+
 
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
@@ -401,6 +410,7 @@
 </style>
 </head>
 <body>
+<noscript><p style="padding:16px;color:#ECEEF1">StaticReel tracks what is leaving and arriving on Netflix, Max, Disney+ and Prime Video, with every claim labeled Verified, Corroborated or Unconfirmed. Turn on JavaScript to see this week's listings.</p></noscript>
 
 <div class="nav">
   <div class="nav-inner">
@@ -526,6 +536,7 @@ let activeTag = 'all';
 let sortAsc = true;
 let sortAscAdded = false;
 let searchQuery = '';
+const normSearch = v => String(v||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[’']/g,'').toLowerCase();
 
 function sortedLog(){
   // newest first by verified date (fallback: event date); idx = original array index
@@ -626,7 +637,7 @@ function renderStats(){
 function matchesSearch(item){
   if(!searchQuery) return true;
   const p = PLATFORMS[item.plat];
-  return item.title.toLowerCase().includes(searchQuery) || p.name.toLowerCase().includes(searchQuery);
+  return normSearch(item.title).includes(searchQuery) || normSearch(p.name).includes(searchQuery);
 }
 
 function itemCard(item, isLeaving){
@@ -718,7 +729,7 @@ function renderLog(){
       if(activePlat && l.plat!==activePlat) return false;
       if(activeTag!=='all' && l.tag!==activeTag) return false;
       if(searchQuery){
-        const hay = (l.text+' '+PLATFORMS[l.plat].name+' '+l.tag).toLowerCase();
+        const hay = normSearch(l.text+' '+PLATFORMS[l.plat].name+' '+l.tag);
         if(!hay.includes(searchQuery)) return false;
       }
       return true;
@@ -823,11 +834,11 @@ function renderSearchSuggestions(query){
   }
 
   const titleMatches = Object.values(TITLES)
-    .filter(t => t.title.toLowerCase().includes(query))
+    .filter(t => normSearch(t.title).includes(query))
     .slice(0, 6);
 
   const platMatches = Object.keys(PLATFORMS)
-    .filter(k => PLATFORMS[k].name.toLowerCase().includes(query))
+    .filter(k => normSearch(PLATFORMS[k].name).includes(query))
     .slice(0, 2);
 
   if(titleMatches.length === 0 && platMatches.length === 0){
@@ -873,7 +884,7 @@ function renderQuickChips(){
 
 function applyQuickChip(term){
   heroSearchInput.value = term;
-  searchQuery = term.toLowerCase();
+  searchQuery = normSearch(term);
   renderLeaving();
   renderAdded();
   renderLog();
@@ -883,7 +894,7 @@ function applyQuickChip(term){
 
 const heroSearchInput = document.getElementById('heroSearch');
 heroSearchInput.addEventListener('input', (e)=>{
-  searchQuery = e.target.value.trim().toLowerCase();
+  searchQuery = normSearch(e.target.value.trim());
   renderLeaving();
   renderAdded();
   renderLog();
