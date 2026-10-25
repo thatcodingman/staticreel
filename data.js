@@ -266,8 +266,6 @@ const ADDED = [
   {title:'Miraculous — Season 6', plat:'disney', date:'2026-08-26', source:'Disney+ Press', sourceUrl:'https://press.disneyplus.com/news/next-on-disney-plus-august-2026', verified:'Aug 25'},
   {title:'The Simpsons: Yellow Mirror', plat:'disney', date:'2026-08-26', source:'Disney+ Press', sourceUrl:'https://press.disneyplus.com/news/next-on-disney-plus-august-2026', verified:'Aug 25'},
   {title:'Project Runway — Season 22', plat:'disney', date:'2026-08-27', source:'Disney+ Press', sourceUrl:'https://press.disneyplus.com/news/next-on-disney-plus-august-2026', verified:'Aug 25'},
-  {title:'Flex X Cop — Season 2', plat:'disney', date:'2026-08-28', source:'Disney+ Press', sourceUrl:'https://press.disneyplus.com/news/next-on-disney-plus-august-2026', verified:'Aug 25'},
-  {title:'Flex X Cop — Season 2', plat:'disney', date:'2026-08-29', source:'Disney+ Press', sourceUrl:'https://press.disneyplus.com/news/next-on-disney-plus-august-2026', verified:'Aug 25'},
   {title:'The Last Sunrise', plat:'prime', date:'2026-08-26', status:'corroborated', source:'TheWrap', sourceUrl:'https://www.thewrap.com/creative-content/what-to-watch/everything-new-on-amazon-prime-video-august-2026/', verified:'Oct 19'},
   {title:'Nickel Boys', plat:'prime', date:'2026-08-27', status:'corroborated', source:'TheWrap', sourceUrl:'https://www.thewrap.com/creative-content/what-to-watch/everything-new-on-amazon-prime-video-august-2026/', verified:'Oct 19'},
   {title:'17 Again', plat:'netflix', date:'2026-09-01', status:'corroborated', source:'What\'s on Netflix', sourceUrl:'https://www.whats-on-netflix.com/coming-soon/whats-coming-to-netflix-in-september-2026/', verified:'Aug 26'},
@@ -383,13 +381,8 @@ const ADDED = [
   {title:'The Greatest', plat:'prime', date:'2026-11-04', source:'Amazon MGM Studios', sourceUrl:'https://press.amazonmgmstudios.com/us/en/press-release/prime-video-announces-november-4-premiere-date-for', verified:'Oct 18'},
   {title:'Madden', plat:'prime', date:'2026-11-18', source:'Amazon News', sourceUrl:'https://www.aboutamazon.com/news/entertainment/madden-movie-nicolas-cage-prime-video', verified:'Oct 19'},
   {title:'Blade Runner 2099', plat:'prime', date:'2026-11-25', source:'Amazon News', sourceUrl:'https://www.aboutamazon.com/news/entertainment/blade-runner-2099-prime-video', verified:'Oct 19'},
-  {title:'VisionQuest', plat:'disney', date:'2026-11-04', source:'Disney+ Press', sourceUrl:'https://press.disneyplus.com/news/next-on-disney-plus-november-2026', verified:'Oct 19'},
-  {title:'Pupstruction — Season 3', plat:'disney', date:'2026-11-11', source:'Disney+ Press', sourceUrl:'https://press.disneyplus.com/news/next-on-disney-plus-november-2026', verified:'Oct 19'},
-  {title:'Gracie\'s Corner — Season 2', plat:'disney', date:'2026-11-13', source:'Disney+ Press', sourceUrl:'https://press.disneyplus.com/news/next-on-disney-plus-november-2026', verified:'Oct 19'},
-  {title:'Mickey Mouse Clubhouse+ — Season 2', plat:'disney', date:'2026-11-18', source:'Disney+ Press', sourceUrl:'https://press.disneyplus.com/news/next-on-disney-plus-november-2026', verified:'Oct 19'},
   {title:'Miraculous: Tales of Ladybug & Cat Noir — Season 7', plat:'disney', date:'2026-11-21', source:'Disney+ Press', sourceUrl:'https://press.disneyplus.com/news/next-on-disney-plus-november-2026', verified:'Oct 19'},
   {title:'Percy Jackson and the Olympians — Season 3', plat:'disney', date:'2026-11-20', source:'Disney+ Press', sourceUrl:'https://press.disneyplus.com/news/next-on-disney-plus-november-2026', verified:'Oct 19'},
-  {title:'Big City Greens — Season 5', plat:'disney', date:'2026-11-25', source:'Disney+ Press', sourceUrl:'https://press.disneyplus.com/news/next-on-disney-plus-november-2026', verified:'Oct 19'},
   {title:'Dasher', plat:'disney', date:'2026-11-28', source:'Disney+ Press', sourceUrl:'https://press.disneyplus.com/news/next-on-disney-plus-november-2026', verified:'Oct 19'}
 ];
 
