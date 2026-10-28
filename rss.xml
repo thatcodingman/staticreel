@@ -1,74 +1,129 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<rss version="2.0">
-  <channel>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel>
     <title>StaticReel — Signal Log</title>
     <link>https://staticreel.com/</link>
-    <description>Verified weekly changes across Netflix, Max, Disney+, and Prime Video — price changes, cancellations, renewals, and policy updates.</description>
+    <atom:link href="https://staticreel.com/rss.xml" rel="self" type="application/rss+xml"/>
+    <description>Verified changes on Netflix, Max, Disney+ and Prime Video.</description>
     <language>en-us</language>
-    <lastBuildDate>Thu, 03 Sep 2026 00:08:22 GMT</lastBuildDate>
+    <lastBuildDate>Wed, 28 Oct 2026 18:58:22 GMT</lastBuildDate>
     <item>
-      <title>Netflix confirms The Gentlemen Season 2 premieres Sep 3</title>
-      <link>https://staticreel.com/title.html?t=the-gentlemen</link>
-      <guid isPermaLink="false">Sep 3-netflix-the-gentlemen</guid>
-      <pubDate>Wed, 26 Aug 2026 12:00:00 GMT</pubDate>
-      <category>new-season</category>
-      <description>Netflix released the full trailer and confirmed Season 2&apos;s September 3 launch, alongside news of an already-confirmed third season. — Gives fans a firm date for the long-awaited second season. [Verified · Netflix (About Netflix)]</description>
+      <title>Disney+: Disney+ U.S. prices increase for existing subscribers starting billing cycles on/after Oct 21</title>
+      <link>https://staticreel.com/#log-13</link>
+      <guid isPermaLink="false">staticreel-2026-10-18-13</guid>
+      <pubDate>Sun, 18 Oct 2026 12:00:00 GMT</pubDate>
+      <category>price</category>
+      <description>Anyone who joined before Sep 23 will see a higher charge starting that billing cycle. [Corroborated]</description>
     </item>
     <item>
-      <title>Prime Video sets Maxton Hall Season 3 premiere for Dec 9, confirmed as the final season</title>
-      <link>https://staticreel.com/title.html?t=maxton-hall</link>
-      <guid isPermaLink="false">Dec 9-prime-maxton-hall</guid>
+      <title>Netflix: Netflix postpones Hunting Gary Glitter, previously set for Oct 14</title>
+      <link>https://staticreel.com/#log-14</link>
+      <guid isPermaLink="false">staticreel-2026-10-01-14</guid>
+      <pubDate>Thu, 01 Oct 2026 12:00:00 GMT</pubDate>
+      <category>release-date</category>
+      <description>A previously confirmed October 14 release is no longer happening and has no new date. [Verified]</description>
+    </item>
+    <item>
+      <title>Max: Youth premieres on HBO Max Sep 20</title>
+      <link>https://staticreel.com/#log-12</link>
+      <guid isPermaLink="false">staticreel-2026-09-16-12</guid>
+      <pubDate>Wed, 16 Sep 2026 12:00:00 GMT</pubDate>
+      <category>new-season</category>
+      <description>A notable new HBO Original starring and created by Sharon Horgan (Bad Sisters, Catastrophe). [Verified]</description>
+    </item>
+    <item>
+      <title>Netflix: Stranger Things: Tales From '85 Season 2 premieres Sep 17</title>
+      <link>https://staticreel.com/#log-8</link>
+      <guid isPermaLink="false">staticreel-2026-09-13-8</guid>
+      <pubDate>Sun, 13 Sep 2026 12:00:00 GMT</pubDate>
+      <category>new-season</category>
+      <description>Extends one of Netflix's flagship franchises with a new animated installment. [Verified]</description>
+    </item>
+    <item>
+      <title>Netflix: Monster: The Lizzie Borden Story premieres Sep 17</title>
+      <link>https://staticreel.com/#log-9</link>
+      <guid isPermaLink="false">staticreel-2026-09-13-9</guid>
+      <pubDate>Sun, 13 Sep 2026 12:00:00 GMT</pubDate>
+      <category>new-season</category>
+      <description>Continues Ryan Murphy's high-profile true-crime anthology series. [Verified]</description>
+    </item>
+    <item>
+      <title>Max: The Howard Stern Show debuts globally on HBO Max Sep 17</title>
+      <link>https://staticreel.com/#log-10</link>
+      <guid isPermaLink="false">staticreel-2026-09-13-10</guid>
+      <pubDate>Sun, 13 Sep 2026 12:00:00 GMT</pubDate>
+      <category>new-season</category>
+      <description>A major first-time streaming deal bringing one of radio's biggest names to HBO Max. [Verified]</description>
+    </item>
+    <item>
+      <title>Prime Video: Off Campus officially renewed for Season 2</title>
+      <link>https://staticreel.com/#log-11</link>
+      <guid isPermaLink="false">staticreel-2026-09-13-11</guid>
+      <pubDate>Sun, 13 Sep 2026 12:00:00 GMT</pubDate>
+      <category>renewal</category>
+      <description>Confirms the hockey series will continue after its debut season. [Verified]</description>
+    </item>
+    <item>
+      <title>Prime Video: Prime Video sets Maxton Hall Season 3 premiere for Dec 9, confirmed as the final season</title>
+      <link>https://staticreel.com/#log-7</link>
+      <guid isPermaLink="false">staticreel-2026-09-02-7</guid>
       <pubDate>Wed, 02 Sep 2026 12:00:00 GMT</pubDate>
       <category>release-date</category>
-      <description>Amazon confirmed the third and final season of Maxton Hall premieres December 9, 2026, concluding Ruby and James&apos; story. — Gives fans a confirmed final-season date for one of Prime Video&apos;s most successful international originals. [Verified · Amazon News (aboutamazon.com)]</description>
+      <description>Gives fans a confirmed final-season date for one of Prime Video's most successful international originals. [Verified]</description>
     </item>
     <item>
-      <title>Netflix renews The Gentlemen for Season 3 ahead of Season 2&apos;s premiere</title>
-      <link>https://staticreel.com/title.html?t=the-gentlemen</link>
-      <guid isPermaLink="false">Aug 24-netflix-the-gentlemen</guid>
+      <title>Netflix: Netflix confirms The Gentlemen Season 2 premieres Sep 3</title>
+      <link>https://staticreel.com/#log-6</link>
+      <guid isPermaLink="false">staticreel-2026-08-26-6</guid>
+      <pubDate>Wed, 26 Aug 2026 12:00:00 GMT</pubDate>
+      <category>new-season</category>
+      <description>Gives fans a firm date for the long-awaited second season. [Verified]</description>
+    </item>
+    <item>
+      <title>Netflix: Netflix renews The Gentlemen for Season 3 ahead of Season 2's premiere</title>
+      <link>https://staticreel.com/#log-0</link>
+      <guid isPermaLink="false">staticreel-2026-08-25-0</guid>
       <pubDate>Tue, 25 Aug 2026 12:00:00 GMT</pubDate>
       <category>renewal</category>
-      <description>Netflix confirmed a third season before Season 2 (streaming Sept 3) has even released. — An early renewal signals strong internal confidence in the show ahead of its next season debut. [Verified · Netflix Tudum]</description>
+      <description>An early renewal signals strong internal confidence in the show ahead of its next season debut. [Verified]</description>
     </item>
     <item>
-      <title>Netflix confirms Outer Banks Season 5 is the final season</title>
-      <link>https://staticreel.com/title.html?t=outer-banks</link>
-      <guid isPermaLink="false">Aug 20-netflix-outer-banks</guid>
+      <title>Netflix: Netflix confirms Outer Banks Season 5 is the final season</title>
+      <link>https://staticreel.com/#log-1</link>
+      <guid isPermaLink="false">staticreel-2026-08-25-1</guid>
       <pubDate>Tue, 25 Aug 2026 12:00:00 GMT</pubDate>
       <category>cancellation</category>
-      <description>Tudum&apos;s official August 2026 roundup explicitly describes Season 5, which premiered Aug 20, as &quot;the final season&quot; of Outer Banks. — One of Netflix&apos;s flagship YA franchises is ending after five seasons — likely the single biggest story of the week. [Verified · Netflix Tudum]</description>
+      <description>One of Netflix's flagship YA franchises is ending after five seasons — likely the single biggest story of the week. [Verified]</description>
     </item>
     <item>
-      <title>Prime Video renews Sterling Point for Season 2</title>
-      <link>https://staticreel.com/title.html?t=sterling-point</link>
-      <guid isPermaLink="false">Aug 20-prime-sterling-point</guid>
+      <title>Prime Video: Prime Video renews Sterling Point for Season 2</title>
+      <link>https://staticreel.com/#log-2</link>
+      <guid isPermaLink="false">staticreel-2026-08-25-2</guid>
       <pubDate>Tue, 25 Aug 2026 12:00:00 GMT</pubDate>
       <category>renewal</category>
-      <description>Amazon confirmed a second season order for Sterling Point. — One of the platform&apos;s newer originals gets a fast renewal, signaling strong internal confidence. [Verified · Amazon News (aboutamazon.com)]</description>
+      <description>One of the platform's newer originals gets a fast renewal, signaling strong internal confidence. [Verified]</description>
     </item>
     <item>
-      <title>Prime Video&apos;s Reacher Season 5 renewal confirmed/updated Aug 12</title>
-      <link>https://staticreel.com/title.html?t=reacher</link>
-      <guid isPermaLink="false">Aug 12-prime-reacher</guid>
+      <title>Prime Video: Prime Video's Reacher Season 5 renewal confirmed/updated Aug 12</title>
+      <link>https://staticreel.com/#log-3</link>
+      <guid isPermaLink="false">staticreel-2026-08-25-3</guid>
       <pubDate>Tue, 25 Aug 2026 12:00:00 GMT</pubDate>
       <category>renewal</category>
-      <description>Amazon&apos;s article confirming Reacher Season 5 was originally published May 11 and updated Aug 12 with streaming details — the renewal itself was not first announced on this date. — Confirms Prime&apos;s biggest action franchise continues, with Neagley and Terminal List S2 also on the way. [Verified · Amazon News (aboutamazon.com)]</description>
+      <description>Confirms Prime's biggest action franchise continues, with Neagley and Terminal List S2 also on the way. [Verified]</description>
     </item>
     <item>
-      <title>Prime Video sets Neagley premiere for Sep 16</title>
-      <link>https://staticreel.com/title.html?t=neagley</link>
-      <guid isPermaLink="false">Sep 16-prime-neagley</guid>
+      <title>Prime Video: Prime Video sets Neagley premiere for Sep 16</title>
+      <link>https://staticreel.com/#log-4</link>
+      <guid isPermaLink="false">staticreel-2026-08-25-4</guid>
       <pubDate>Tue, 25 Aug 2026 12:00:00 GMT</pubDate>
       <category>release-date</category>
-      <description>All eight episodes of the Reacher spinoff premiere Sep 16, per Amazon&apos;s official page. — First concrete date for the spinoff since it was announced, giving fans a target. [Verified · Amazon News (aboutamazon.com)]</description>
+      <description>First concrete date for the spinoff since it was announced, giving fans a target. [Verified]</description>
     </item>
     <item>
-      <title>Prime Video sets The Terminal List: Season 2 premiere for Oct 21</title>
-      <link>https://staticreel.com/title.html?t=the-terminal-list-season-2</link>
-      <guid isPermaLink="false">Oct 21-prime-the-terminal-list-season-2</guid>
+      <title>Prime Video: Prime Video sets The Terminal List: Season 2 premiere for Oct 21</title>
+      <link>https://staticreel.com/#log-5</link>
+      <guid isPermaLink="false">staticreel-2026-08-25-5</guid>
       <pubDate>Tue, 25 Aug 2026 12:00:00 GMT</pubDate>
       <category>release-date</category>
-      <description>All eight episodes premiere Oct 21, per Amazon&apos;s official page. — One of Prime&apos;s highest-profile originals returns after a multi-year gap. [Verified · Amazon News (aboutamazon.com)]</description>
+      <description>One of Prime's highest-profile originals returns after a multi-year gap. [Verified]</description>
     </item>
-  </channel>
-</rss>
+</channel></rss>

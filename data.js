@@ -164,7 +164,7 @@ function isScheduled(item){
 }
 
 function slugify(title){
-  return title.toLowerCase()
+  return title.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase()
     .replace(/[—–]/g, '-')
     .replace(/[^a-z0-9]+/g, '-')
     .replace(/(^-|-$)/g, '');
@@ -436,6 +436,8 @@ function buildTitles(){
   LEAVING.forEach(item => addEvent(item, 'leaving'));
   ADDED.forEach(item => addEvent(item, 'added'));
   LOG.forEach(entry => {
+    // price/policy entries bold a date or amount, not a title, so they get no title page
+    if(entry.tag === 'price' || entry.tag === 'policy') return;
     const m = entry.text.match(/<b>(.*?)<\/b>/);
     if(!m) return;
     const titleName = m[1];
