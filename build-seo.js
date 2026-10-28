@@ -2,6 +2,8 @@
 // Generates /title/<slug>/index.html for every tracked title, sitemap.xml and robots.txt.
 const fs = require('fs'), path = require('path');
 const SITE = 'https://staticreel.com';
+try { require('child_process').execFileSync(process.execPath, [path.join(__dirname, 'check-data.js')], { stdio: 'inherit' }); }
+catch (e) { console.error('\nBuild stopped: fix the data errors above, then run again.'); process.exit(1); }
 const src = fs.readFileSync(path.join(__dirname, 'data.js'), 'utf8');
 const D = new Function(src + ';return {TITLES, PLATFORMS, LOG, logDateToISO};')();
 const esc = s => String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
