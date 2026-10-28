@@ -118,7 +118,7 @@ const PLATFORMS = {
 const TODAY = new Date();
 TODAY.setHours(0, 0, 0, 0);
 
-const LAST_VERIFICATION_DATE = 'Oct 19, 2026'; // when this week's research pass was actually done —
+const LAST_VERIFICATION_DATE = 'Oct 28, 2026'; // when this week's research pass was actually done —
                                                  // use this for "when did we check this," never an
                                                  // event's own date (which can be in the future).
                                                  // Update this by hand each time you add new entries —
@@ -239,7 +239,38 @@ const LEAVING = [
   {title:'Clueless', plat:'netflix', date:'2026-10-01', status:'corroborated', source:'Forbes', sourceUrl:'https://www.forbes.com/sites/erikkain/2026/09/30/15-great-movies-leaving-netflix-this-week/', verified:'Oct 1'},
   {title:'Fargo', plat:'netflix', date:'2026-10-01', status:'corroborated', source:'Forbes', sourceUrl:'https://www.forbes.com/sites/erikkain/2026/09/30/15-great-movies-leaving-netflix-this-week/', verified:'Oct 1'},
   {title:'Ghostbusters', plat:'netflix', date:'2026-10-01', status:'corroborated', source:'Forbes', sourceUrl:'https://www.forbes.com/sites/erikkain/2026/09/30/15-great-movies-leaving-netflix-this-week/', verified:'Oct 1'},
-  {title:'Gone Girl', plat:'netflix', date:'2026-10-01', status:'corroborated', source:'Forbes', sourceUrl:'https://www.forbes.com/sites/erikkain/2026/09/30/15-great-movies-leaving-netflix-this-week/', verified:'Oct 1'}
+  {title:'Gone Girl', plat:'netflix', date:'2026-10-01', status:'corroborated', source:'Forbes', sourceUrl:'https://www.forbes.com/sites/erikkain/2026/09/30/15-great-movies-leaving-netflix-this-week/', verified:'Oct 1'},
+  {title:'Black Adam', plat:'netflix', date:'2026-11-01', source:'Netflix Tudum', sourceUrl:'https://www.netflix.com/tudum/articles/whats-leaving-netflix', verified:'Oct 28'},
+  {title:'American Sniper', plat:'netflix', date:'2026-11-01', source:'Netflix Tudum', sourceUrl:'https://www.netflix.com/tudum/articles/whats-leaving-netflix', verified:'Oct 28'},
+  {title:'Angels & Demons', plat:'netflix', date:'2026-11-01', status:'corroborated', source:'What\'s on Netflix', sourceUrl:'https://www.whats-on-netflix.com/leaving-soon/whats-leaving-netflix-in-november-2026/', verified:'Oct 28'},
+  {title:'Jumanji', plat:'netflix', date:'2026-11-01', source:'Netflix Tudum', sourceUrl:'https://www.netflix.com/tudum/articles/whats-leaving-netflix', verified:'Oct 28'},
+  {title:'Minions', plat:'netflix', date:'2026-11-01', status:'corroborated', source:'What\'s on Netflix', sourceUrl:'https://www.whats-on-netflix.com/leaving-soon/whats-leaving-netflix-in-november-2026/', verified:'Oct 28'},
+  {title:'Selma', plat:'netflix', date:'2026-11-01', status:'corroborated', source:'What\'s on Netflix', sourceUrl:'https://www.whats-on-netflix.com/leaving-soon/whats-leaving-netflix-in-november-2026/', verified:'Oct 28'},
+  {title:'Speed', plat:'netflix', date:'2026-11-01', source:'Netflix Tudum', sourceUrl:'https://www.netflix.com/tudum/articles/whats-leaving-netflix', verified:'Oct 28'},
+  {title:'Nightcrawler', plat:'netflix', date:'2026-11-01', source:'Netflix Tudum', sourceUrl:'https://www.netflix.com/tudum/articles/whats-leaving-netflix', verified:'Oct 28'},
+  {title:'Smallfoot', plat:'netflix', date:'2026-11-01', status:'corroborated', source:'What\'s on Netflix', sourceUrl:'https://www.whats-on-netflix.com/leaving-soon/whats-leaving-netflix-in-november-2026/', verified:'Oct 28'},
+  {title:'Fast Five', plat:'netflix', date:'2026-11-01', source:'Netflix Tudum', sourceUrl:'https://www.netflix.com/tudum/articles/whats-leaving-netflix', verified:'Oct 28'},
+  {title:'Furious 7', plat:'netflix', date:'2026-11-01', status:'corroborated', source:'What\'s on Netflix', sourceUrl:'https://www.whats-on-netflix.com/leaving-soon/whats-leaving-netflix-in-november-2026/', verified:'Oct 28'},
+  {title:'The Fast and the Furious', plat:'netflix', date:'2026-11-01', status:'corroborated', source:'What\'s on Netflix', sourceUrl:'https://www.whats-on-netflix.com/leaving-soon/whats-leaving-netflix-in-november-2026/', verified:'Oct 28'},
+  {title:'Hitch', plat:'netflix', date:'2026-11-01', status:'corroborated', source:'What\'s on Netflix', sourceUrl:'https://www.whats-on-netflix.com/leaving-soon/whats-leaving-netflix-in-november-2026/', verified:'Oct 28'},
+  {title:'13 Going on 30', plat:'netflix', date:'2026-11-01', source:'Netflix Tudum', sourceUrl:'https://www.netflix.com/tudum/articles/whats-leaving-netflix', verified:'Oct 28'},
+  {title:'Broadchurch — Seasons 1–3', plat:'netflix', date:'2026-11-01', source:'Netflix Tudum', sourceUrl:'https://www.netflix.com/tudum/articles/whats-leaving-netflix', verified:'Oct 28'},
+  {title:'Minx — Seasons 1–3', plat:'netflix', date:'2026-11-04', status:'corroborated', source:'What\'s on Netflix', sourceUrl:'https://www.whats-on-netflix.com/leaving-soon/whats-leaving-netflix-in-november-2026/', verified:'Oct 28'},
+  {title:'The End of the F***ing World — Seasons 1–2', plat:'netflix', date:'2026-11-05', source:'Netflix Tudum', sourceUrl:'https://www.netflix.com/tudum/articles/whats-leaving-netflix', verified:'Oct 28'},
+  {title:'Heart Eyes', plat:'netflix', date:'2026-11-08', status:'corroborated', source:'What\'s on Netflix', sourceUrl:'https://www.whats-on-netflix.com/leaving-soon/whats-leaving-netflix-in-november-2026/', verified:'Oct 28'},
+  {title:'The Lost City', plat:'netflix', date:'2026-11-09', source:'Netflix Tudum', sourceUrl:'https://www.netflix.com/tudum/articles/whats-leaving-netflix', verified:'Oct 28'},
+  {title:'Survivor\'s Remorse — Seasons 1–4', plat:'netflix', date:'2026-11-11', status:'corroborated', source:'What\'s on Netflix', sourceUrl:'https://www.whats-on-netflix.com/leaving-soon/whats-leaving-netflix-in-november-2026/', verified:'Oct 28'},
+  {title:'Firestarter', plat:'netflix', date:'2026-11-12', status:'corroborated', source:'What\'s on Netflix', sourceUrl:'https://www.whats-on-netflix.com/leaving-soon/whats-leaving-netflix-in-november-2026/', verified:'Oct 28'},
+  {title:'The Big C — Seasons 1–4', plat:'netflix', date:'2026-11-14', source:'Netflix Tudum', sourceUrl:'https://www.netflix.com/tudum/articles/whats-leaving-netflix', verified:'Oct 28'},
+  {title:'Paddington in Peru', plat:'netflix', date:'2026-11-15', status:'corroborated', source:'What\'s on Netflix', sourceUrl:'https://www.whats-on-netflix.com/leaving-soon/whats-leaving-netflix-in-november-2026/', verified:'Oct 28'},
+  {title:'The Girl with the Dragon Tattoo', plat:'netflix', date:'2026-11-15', source:'Netflix Tudum', sourceUrl:'https://www.netflix.com/tudum/articles/whats-leaving-netflix', verified:'Oct 28'},
+  {title:'The Shallows', plat:'netflix', date:'2026-11-15', source:'Netflix Tudum', sourceUrl:'https://www.netflix.com/tudum/articles/whats-leaving-netflix', verified:'Oct 28'},
+  {title:'I\'m Still Here', plat:'netflix', date:'2026-11-17', status:'corroborated', source:'What\'s on Netflix', sourceUrl:'https://www.whats-on-netflix.com/leaving-soon/whats-leaving-netflix-in-november-2026/', verified:'Oct 28'},
+  {title:'Saw X', plat:'netflix', date:'2026-11-19', source:'Netflix Tudum', sourceUrl:'https://www.netflix.com/tudum/articles/whats-leaving-netflix', verified:'Oct 28'},
+  {title:'True Romance', plat:'netflix', date:'2026-11-19', source:'Netflix Tudum', sourceUrl:'https://www.netflix.com/tudum/articles/whats-leaving-netflix', verified:'Oct 28'},
+  {title:'The Resident — Seasons 1–6', plat:'netflix', date:'2026-11-20', source:'Netflix Tudum', sourceUrl:'https://www.netflix.com/tudum/articles/whats-leaving-netflix', verified:'Oct 28'},
+  {title:'Gilmore Girls: A Year in the Life', plat:'netflix', date:'2026-11-25', source:'Netflix Tudum', sourceUrl:'https://www.netflix.com/tudum/articles/whats-leaving-netflix', verified:'Oct 28'},
+  {title:'M3GAN 2.0', plat:'netflix', date:'2026-11-26', status:'corroborated', source:'What\'s on Netflix', sourceUrl:'https://www.whats-on-netflix.com/leaving-soon/whats-leaving-netflix-in-november-2026/', verified:'Oct 28'}
 ];
 
 const ADDED = [
@@ -383,7 +414,21 @@ const ADDED = [
   {title:'Blade Runner 2099', plat:'prime', date:'2026-11-25', source:'Amazon News', sourceUrl:'https://www.aboutamazon.com/news/entertainment/blade-runner-2099-prime-video', verified:'Oct 19'},
   {title:'Miraculous: Tales of Ladybug & Cat Noir — Season 7', plat:'disney', date:'2026-11-21', source:'Disney+ Press', sourceUrl:'https://press.disneyplus.com/news/next-on-disney-plus-november-2026', verified:'Oct 19'},
   {title:'Percy Jackson and the Olympians — Season 3', plat:'disney', date:'2026-11-20', source:'Disney+ Press', sourceUrl:'https://press.disneyplus.com/news/next-on-disney-plus-november-2026', verified:'Oct 19'},
-  {title:'Dasher', plat:'disney', date:'2026-11-28', source:'Disney+ Press', sourceUrl:'https://press.disneyplus.com/news/next-on-disney-plus-november-2026', verified:'Oct 19'}
+  {title:'Dasher', plat:'disney', date:'2026-11-28', source:'Disney+ Press', sourceUrl:'https://press.disneyplus.com/news/next-on-disney-plus-november-2026', verified:'Oct 19'},
+  {title:'Black Bag', plat:'disney', date:'2026-11-02', source:'Disney+ Press', sourceUrl:'https://press.disneyplus.com/news/next-on-disney-plus-november-2026', verified:'Oct 19'},
+  {title:'Heart Eyes', plat:'disney', date:'2026-11-08', source:'Disney+ Press', sourceUrl:'https://press.disneyplus.com/news/next-on-disney-plus-november-2026', verified:'Oct 19'},
+  {title:'Love Hurts', plat:'disney', date:'2026-11-09', source:'Disney+ Press', sourceUrl:'https://press.disneyplus.com/news/next-on-disney-plus-november-2026', verified:'Oct 19'},
+  {title:'Paddington in Peru', plat:'disney', date:'2026-11-15', source:'Disney+ Press', sourceUrl:'https://press.disneyplus.com/news/next-on-disney-plus-november-2026', verified:'Oct 19'},
+  {title:'Mickey 17', plat:'disney', date:'2026-11-23', source:'Disney+ Press', sourceUrl:'https://press.disneyplus.com/news/next-on-disney-plus-november-2026', verified:'Oct 19'},
+  {title:'Mummies', plat:'disney', date:'2026-11-26', source:'Disney+ Press', sourceUrl:'https://press.disneyplus.com/news/next-on-disney-plus-november-2026', verified:'Oct 19'},
+  {title:'Meg 2: The Trench', plat:'disney', date:'2026-11-01', source:'Disney+ Press', sourceUrl:'https://press.disneyplus.com/news/next-on-disney-plus-november-2026', verified:'Oct 19'},
+  {title:'The Banshees of Inisherin', plat:'disney', date:'2026-11-01', source:'Disney+ Press', sourceUrl:'https://press.disneyplus.com/news/next-on-disney-plus-november-2026', verified:'Oct 19'},
+  {title:'Rivals — Season 2 Part 2', plat:'disney', date:'2026-11-11', source:'Disney+ Press', sourceUrl:'https://press.disneyplus.com/news/next-on-disney-plus-november-2026', verified:'Oct 19'},
+  {title:'Expedition: Saving Our Seas', plat:'disney', date:'2026-11-14', source:'Disney+ Press', sourceUrl:'https://press.disneyplus.com/news/next-on-disney-plus-november-2026', verified:'Oct 19'},
+  {title:'Bluey: Fancy Restaurant', plat:'disney', date:'2026-11-16', source:'Disney+ Press', sourceUrl:'https://press.disneyplus.com/news/next-on-disney-plus-november-2026', verified:'Oct 19'},
+  {title:'How The Tudors Lost Their Heads', plat:'disney', date:'2026-11-17', source:'Disney+ Press', sourceUrl:'https://press.disneyplus.com/news/next-on-disney-plus-november-2026', verified:'Oct 19'},
+  {title:'Mickey\'s Home Alone', plat:'disney', date:'2026-11-27', source:'Disney+ Press', sourceUrl:'https://press.disneyplus.com/news/next-on-disney-plus-november-2026', verified:'Oct 19'},
+  {title:'The Lord of the Rings: The Rings of Power — Season 3', plat:'prime', date:'2026-11-11', source:'Amazon News (aboutamazon.com)', sourceUrl:'https://www.aboutamazon.com/news/entertainment/lord-of-the-rings-rings-of-power-season-3-prime-video', verified:'Oct 28'}
 ];
 
 const STATS = {};
