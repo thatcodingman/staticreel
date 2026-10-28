@@ -428,7 +428,28 @@ const ADDED = [
   {title:'Bluey: Fancy Restaurant', plat:'disney', date:'2026-11-16', source:'Disney+ Press', sourceUrl:'https://press.disneyplus.com/news/next-on-disney-plus-november-2026', verified:'Oct 19'},
   {title:'How The Tudors Lost Their Heads', plat:'disney', date:'2026-11-17', source:'Disney+ Press', sourceUrl:'https://press.disneyplus.com/news/next-on-disney-plus-november-2026', verified:'Oct 19'},
   {title:'Mickey\'s Home Alone', plat:'disney', date:'2026-11-27', source:'Disney+ Press', sourceUrl:'https://press.disneyplus.com/news/next-on-disney-plus-november-2026', verified:'Oct 19'},
-  {title:'The Lord of the Rings: The Rings of Power — Season 3', plat:'prime', date:'2026-11-11', source:'Amazon News (aboutamazon.com)', sourceUrl:'https://www.aboutamazon.com/news/entertainment/lord-of-the-rings-rings-of-power-season-3-prime-video', verified:'Oct 28'}
+  {title:'The Lord of the Rings: The Rings of Power — Season 3', plat:'prime', date:'2026-11-11', source:'Amazon News (aboutamazon.com)', sourceUrl:'https://www.aboutamazon.com/news/entertainment/lord-of-the-rings-rings-of-power-season-3-prime-video', verified:'Oct 28'},
+  {title:'The Gilded Age — Season 4', plat:'max', date:'2026-11-01', status:'corroborated', source:'ScreenCrush', sourceUrl:'https://screencrush.com/new-hbo-max-november-2026/', verified:'Oct 28'},
+  {title:'Elf', plat:'max', date:'2026-11-01', status:'corroborated', source:'ScreenCrush', sourceUrl:'https://screencrush.com/new-hbo-max-november-2026/', verified:'Oct 28'},
+  {title:'Scream', plat:'max', date:'2026-11-01', status:'corroborated', source:'ScreenCrush', sourceUrl:'https://screencrush.com/new-hbo-max-november-2026/', verified:'Oct 28'},
+  {title:'The Polar Express', plat:'max', date:'2026-11-01', status:'corroborated', source:'ScreenCrush', sourceUrl:'https://screencrush.com/new-hbo-max-november-2026/', verified:'Oct 28'},
+  {title:'Jurassic World: Fallen Kingdom', plat:'max', date:'2026-11-01', status:'corroborated', source:'ScreenCrush', sourceUrl:'https://screencrush.com/new-hbo-max-november-2026/', verified:'Oct 28'},
+  {title:'Rise of the Planet of the Apes', plat:'max', date:'2026-11-02', status:'corroborated', source:'ScreenCrush', sourceUrl:'https://screencrush.com/new-hbo-max-november-2026/', verified:'Oct 28'},
+  {title:'Kingdom of the Planet of the Apes', plat:'max', date:'2026-11-02', status:'corroborated', source:'ScreenCrush', sourceUrl:'https://screencrush.com/new-hbo-max-november-2026/', verified:'Oct 28'},
+  {title:'Smallfoot', plat:'max', date:'2026-11-04', status:'corroborated', source:'ScreenCrush', sourceUrl:'https://screencrush.com/new-hbo-max-november-2026/', verified:'Oct 28'},
+  {title:'Harry Potter: Wizards of Baking — Season 3', plat:'max', date:'2026-11-04', status:'corroborated', source:'ScreenCrush', sourceUrl:'https://screencrush.com/new-hbo-max-november-2026/', verified:'Oct 28'},
+  {title:'City of God: The Fight Rages On — Season 2', plat:'max', date:'2026-11-08', status:'corroborated', source:'ScreenCrush', sourceUrl:'https://screencrush.com/new-hbo-max-november-2026/', verified:'Oct 28'},
+  {title:'Clangold — Season 1', plat:'max', date:'2026-11-13', status:'corroborated', source:'ScreenCrush', sourceUrl:'https://screencrush.com/new-hbo-max-november-2026/', verified:'Oct 28'},
+  {title:'Maniacs of the Truth — Season 1', plat:'max', date:'2026-11-13', status:'corroborated', source:'ScreenCrush', sourceUrl:'https://screencrush.com/new-hbo-max-november-2026/', verified:'Oct 28'},
+  {title:'Silent Night', plat:'max', date:'2026-11-13', status:'corroborated', source:'ScreenCrush', sourceUrl:'https://screencrush.com/new-hbo-max-november-2026/', verified:'Oct 28'},
+  {title:'Madame Web', plat:'max', date:'2026-11-14', status:'corroborated', source:'ScreenCrush', sourceUrl:'https://screencrush.com/new-hbo-max-november-2026/', verified:'Oct 28'},
+  {title:'When a Witness Recants', plat:'max', date:'2026-11-17', status:'corroborated', source:'ScreenCrush', sourceUrl:'https://screencrush.com/new-hbo-max-november-2026/', verified:'Oct 28'},
+  {title:'The Hotline', plat:'max', date:'2026-11-18', status:'corroborated', source:'ScreenCrush', sourceUrl:'https://screencrush.com/new-hbo-max-november-2026/', verified:'Oct 28'},
+  {title:'The Roses', plat:'max', date:'2026-11-20', status:'corroborated', source:'ScreenCrush', sourceUrl:'https://screencrush.com/new-hbo-max-november-2026/', verified:'Oct 28'},
+  {title:'Tony', plat:'max', date:'2026-11-20', status:'corroborated', source:'ScreenCrush', sourceUrl:'https://screencrush.com/new-hbo-max-november-2026/', verified:'Oct 28'},
+  {title:'The Buffalo Miracle', plat:'max', date:'2026-11-24', status:'corroborated', source:'ScreenCrush', sourceUrl:'https://screencrush.com/new-hbo-max-november-2026/', verified:'Oct 28'},
+  {title:'The Slightest Touch', plat:'max', date:'2026-11-25', status:'corroborated', source:'ScreenCrush', sourceUrl:'https://screencrush.com/new-hbo-max-november-2026/', verified:'Oct 28'},
+  {title:'The Magic Faraway Tree', plat:'max', date:'2026-11-27', status:'corroborated', source:'ScreenCrush', sourceUrl:'https://screencrush.com/new-hbo-max-november-2026/', verified:'Oct 28'}
 ];
 
 const STATS = {};

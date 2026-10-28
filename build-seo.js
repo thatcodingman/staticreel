@@ -38,7 +38,7 @@ h2{font:700 18px 'Space Grotesk',sans-serif;margin:32px 0 12px}
 .note{color:var(--text-dim);font-size:13.5px;margin-top:30px;border-top:1px solid var(--line);padding-top:16px}
 footer{max-width:760px;margin:0 auto;padding:0 16px 40px;color:var(--text-dim);font:12.5px 'JetBrains Mono',monospace}
 @media(max-width:520px){h1{font-size:25px}.nav{gap:12px}}`;
-const HEADER = `<header class="top"><div class="top-in"><a class="brand" href="/">Static<span>Reel</span></a><nav class="nav"><a href="/titles/">All titles</a><a href="/rss.xml">RSS</a></nav></div></header>`;
+const HEADER = `<header class="top"><div class="top-in"><a class="brand" href="/">Static<span>Reel</span></a><nav class="nav"><a href="/guide/">Monthly guides</a><a href="/titles/">All titles</a><a href="/rss.xml">RSS</a></nav></div></header>`;
 const FOOTER = `<footer>StaticReel · not affiliated with Netflix, Max, Disney+ or Amazon · <a href="/privacy.html">Privacy</a> · <a href="/terms.html">Terms</a></footer>`;
 const today = new Date().toISOString().slice(0,10);
 
@@ -109,7 +109,67 @@ fs.writeFileSync(path.join(__dirname,'titles','index.html'),`<!DOCTYPE html>
 <p class="lede">${titles.length} titles across four services. Each page shows add and removal dates with source and status.</p>
 ${sections}
 </main>${FOOTER}</body></html>`);
-const pages = ['', 'titles/', ...Object.values(D.PLATFORMS).map(p => p.page)];
+
+// ---- Monthly guide pages: /guide/<service>-<month>-<year>/ ----
+const MONTH_NAMES = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+const guides = [];
+for (const k of Object.keys(D.PLATFORMS)) {
+  const p = D.PLATFORMS[k];
+  const pslug = p.page.replace(/\.html$/, '');
+  const evAll = [];
+  for (const t of titles) for (const e of t.events) if (e.plat === k && (e.type === 'leaving' || e.type === 'added')) evAll.push({ t, e });
+  const months = [...new Set(evAll.map(x => x.e.date.slice(0,7)))].sort();
+  for (const ym of months) {
+    const list = evAll.filter(x => x.e.date.startsWith(ym)).sort((a,b)=>a.e.date.localeCompare(b.e.date) || a.t.title.localeCompare(b.t.title));
+    if (list.length < 3) continue;
+    const [yy, mm] = ym.split('-').map(Number);
+    const mname = MONTH_NAMES[mm-1];
+    const slug = `${pslug}-${mname.toLowerCase()}-${yy}`;
+    const gurl = `${SITE}/guide/${slug}/`;
+    const leaving = list.filter(x => x.e.type === 'leaving'), added = list.filter(x => x.e.type === 'added');
+    const section = (name, arr) => arr.length ? `<h2>${name} (${arr.length})</h2>\n` + arr.map(({t,e}) => `<div class="event"><div class="event-top"><span class="event-date"><a href="/title/${t.slug}/">${esc(t.title)}</a></span><span class="tag ${e.status||'verified'}">${statusLabel(e)}</span></div><div class="event-meta">${pretty(e.date)}${e.sourceUrl ? ` · <a href="${esc(e.sourceUrl)}" rel="noopener">Source: ${esc(e.source)} →</a>` : ''}</div></div>`).join('\n') : '';
+    const gtitle = `What's leaving and coming to ${p.name} in ${mname} ${yy}`;
+    const gdesc = `${leaving.length} titles leaving and ${added.length} arriving on ${p.name} in ${mname} ${yy}, each labeled Verified, Corroborated or Unconfirmed with its source.`;
+    const ld = {"@context":"https://schema.org","@graph":[
+      {"@type":"CollectionPage","@id":gurl,"url":gurl,"name":gtitle,"description":gdesc,"isPartOf":{"@id":SITE+"/#site"},"dateModified":today,
+       "mainEntity":{"@type":"ItemList","itemListElement":list.map(({t},i)=>({"@type":"ListItem","position":i+1,"url":`${SITE}/title/${t.slug}/`,"name":t.title}))}},
+      {"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"StaticReel","item":SITE+"/"},{"@type":"ListItem","position":2,"name":"Monthly guides","item":SITE+"/guide/"},{"@type":"ListItem","position":3,"name":gtitle,"item":gurl}]}]};
+    const dir = path.join(__dirname, 'guide', slug);
+    fs.mkdirSync(dir, { recursive: true });
+    fs.writeFileSync(path.join(dir, 'index.html'), `<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>${esc(gtitle)} | StaticReel</title>
+<meta name="description" content="${esc(gdesc)}">
+<link rel="canonical" href="${gurl}"><meta name="robots" content="index,follow,max-snippet:-1">
+<meta property="og:type" content="article"><meta property="og:site_name" content="StaticReel"><meta property="og:title" content="${esc(gtitle)}"><meta property="og:description" content="${esc(gdesc)}"><meta property="og:url" content="${gurl}"><meta property="og:image" content="${SITE}/assets/og-image.png">
+<meta name="twitter:card" content="summary_large_image"><link rel="icon" href="/favicon.ico" sizes="any">
+<script type="application/ld+json">${JSON.stringify(ld)}</script>
+<style>${BASE_CSS}</style>${FONTS}</head><body>${HEADER}<main>
+<p class="crumbs"><a href="/">StaticReel</a> / <a href="/guide/">Monthly guides</a> / ${esc(p.name)} ${mname} ${yy}</p>
+<span class="plat"><i class="dot" style="background:${p.color}"></i>${esc(p.name)}</span>
+<h1>${esc(gtitle)}</h1>
+<p class="lede">${esc(gdesc)}</p>
+${section('Leaving ' + p.name, leaving)}
+${section('Arriving on ' + p.name, added)}
+<p class="note">Lists are not exhaustive and dates can change. <b>Verified</b> means we read the date on the service's own page; <b>Corroborated</b> means reliable outlets report it; <b>Unconfirmed</b> means we haven't found a reliable source. Last built ${pretty(today)}.</p>
+</main>${FOOTER}</body></html>`);
+    guides.push({ slug, url: gurl, name: gtitle, ym, plat: k, n: list.length });
+  }
+}
+guides.sort((a,b)=>b.ym.localeCompare(a.ym) || a.plat.localeCompare(b.plat));
+fs.mkdirSync(path.join(__dirname, 'guide'), { recursive: true });
+fs.writeFileSync(path.join(__dirname, 'guide', 'index.html'), `<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Monthly streaming guides: what's leaving and arriving | StaticReel</title>
+<meta name="description" content="Month-by-month lists of what is leaving and arriving on Netflix, Max, Disney+ and Prime Video, with every date labeled by how well it is sourced.">
+<link rel="canonical" href="${SITE}/guide/"><meta name="robots" content="index,follow"><link rel="icon" href="/favicon.ico" sizes="any">
+<style>${BASE_CSS}</style>${FONTS}</head><body>${HEADER}<main>
+<h1>Monthly streaming guides</h1>
+<p class="lede">What is leaving and arriving each month, by service.</p>
+<ul class="pills">${guides.map(g => `<li><a href="/guide/${g.slug}/">${esc(D.PLATFORMS[g.plat].name)} · ${MONTH_NAMES[Number(g.ym.slice(5))-1]} ${g.ym.slice(0,4)}</a></li>`).join('')}</ul>
+</main>${FOOTER}</body></html>`);
+
+const pages = ['', 'titles/', 'guide/', ...guides.map(g => `guide/${g.slug}/`), ...Object.values(D.PLATFORMS).map(p => p.page)];
 const urls = [...pages.map(p => `${SITE}/${p}`), ...titles.map(t => `${SITE}/title/${t.slug}/`)];
 fs.writeFileSync(path.join(__dirname, 'sitemap.xml'),
 `<?xml version="1.0" encoding="UTF-8"?>
@@ -141,4 +201,4 @@ fs.writeFileSync(path.join(__dirname,'rss.xml'),`<?xml version="1.0" encoding="U
 ${rssItems}
 </channel></rss>
 `);
-console.log(`Built ${count} title pages, sitemap.xml (${urls.length} URLs), robots.txt`);
+console.log(`Built ${count} title pages, ${guides.length} guides, sitemap.xml (${urls.length} URLs), robots.txt`);
