@@ -118,7 +118,7 @@ const PLATFORMS = {
 const TODAY = new Date();
 TODAY.setHours(0, 0, 0, 0);
 
-const LAST_VERIFICATION_DATE = 'Oct 28, 2026'; // when this week's research pass was actually done —
+const LAST_VERIFICATION_DATE = 'Nov 3, 2026'; // when this week's research pass was actually done —
                                                  // use this for "when did we check this," never an
                                                  // event's own date (which can be in the future).
                                                  // Update this by hand each time you add new entries —
@@ -270,7 +270,8 @@ const LEAVING = [
   {title:'True Romance', plat:'netflix', date:'2026-11-19', source:'Netflix Tudum', sourceUrl:'https://www.netflix.com/tudum/articles/whats-leaving-netflix', verified:'Oct 28'},
   {title:'The Resident — Seasons 1–6', plat:'netflix', date:'2026-11-20', source:'Netflix Tudum', sourceUrl:'https://www.netflix.com/tudum/articles/whats-leaving-netflix', verified:'Oct 28'},
   {title:'Gilmore Girls: A Year in the Life', plat:'netflix', date:'2026-11-25', source:'Netflix Tudum', sourceUrl:'https://www.netflix.com/tudum/articles/whats-leaving-netflix', verified:'Oct 28'},
-  {title:'M3GAN 2.0', plat:'netflix', date:'2026-11-26', status:'corroborated', source:'What\'s on Netflix', sourceUrl:'https://www.whats-on-netflix.com/leaving-soon/whats-leaving-netflix-in-november-2026/', verified:'Oct 28'}
+  {title:'M3GAN 2.0', plat:'netflix', date:'2026-11-26', status:'corroborated', source:'What\'s on Netflix', sourceUrl:'https://www.whats-on-netflix.com/leaving-soon/whats-leaving-netflix-in-november-2026/', verified:'Oct 28'},
+  {title:'Safe Haven', plat:'netflix', date:'2026-11-06', status:'corroborated', source:'Netflix Tudum', sourceUrl:'https://www.netflix.com/tudum/articles/whats-leaving-netflix', verified:'Nov 3'}
 ];
 
 const ADDED = [
@@ -415,15 +416,7 @@ const ADDED = [
   {title:'Miraculous: Tales of Ladybug & Cat Noir — Season 7', plat:'disney', date:'2026-11-21', source:'Disney+ Press', sourceUrl:'https://press.disneyplus.com/news/next-on-disney-plus-november-2026', verified:'Oct 19'},
   {title:'Percy Jackson and the Olympians — Season 3', plat:'disney', date:'2026-11-20', source:'Disney+ Press', sourceUrl:'https://press.disneyplus.com/news/next-on-disney-plus-november-2026', verified:'Oct 19'},
   {title:'Dasher', plat:'disney', date:'2026-11-28', source:'Disney+ Press', sourceUrl:'https://press.disneyplus.com/news/next-on-disney-plus-november-2026', verified:'Oct 19'},
-  {title:'Black Bag', plat:'disney', date:'2026-11-02', source:'Disney+ Press', sourceUrl:'https://press.disneyplus.com/news/next-on-disney-plus-november-2026', verified:'Oct 19'},
-  {title:'Heart Eyes', plat:'disney', date:'2026-11-08', source:'Disney+ Press', sourceUrl:'https://press.disneyplus.com/news/next-on-disney-plus-november-2026', verified:'Oct 19'},
-  {title:'Love Hurts', plat:'disney', date:'2026-11-09', source:'Disney+ Press', sourceUrl:'https://press.disneyplus.com/news/next-on-disney-plus-november-2026', verified:'Oct 19'},
-  {title:'Paddington in Peru', plat:'disney', date:'2026-11-15', source:'Disney+ Press', sourceUrl:'https://press.disneyplus.com/news/next-on-disney-plus-november-2026', verified:'Oct 19'},
-  {title:'Mickey 17', plat:'disney', date:'2026-11-23', source:'Disney+ Press', sourceUrl:'https://press.disneyplus.com/news/next-on-disney-plus-november-2026', verified:'Oct 19'},
-  {title:'Mummies', plat:'disney', date:'2026-11-26', source:'Disney+ Press', sourceUrl:'https://press.disneyplus.com/news/next-on-disney-plus-november-2026', verified:'Oct 19'},
-  {title:'Meg 2: The Trench', plat:'disney', date:'2026-11-01', source:'Disney+ Press', sourceUrl:'https://press.disneyplus.com/news/next-on-disney-plus-november-2026', verified:'Oct 19'},
-  {title:'The Banshees of Inisherin', plat:'disney', date:'2026-11-01', source:'Disney+ Press', sourceUrl:'https://press.disneyplus.com/news/next-on-disney-plus-november-2026', verified:'Oct 19'},
-  {title:'Rivals — Season 2 Part 2', plat:'disney', date:'2026-11-11', source:'Disney+ Press', sourceUrl:'https://press.disneyplus.com/news/next-on-disney-plus-november-2026', verified:'Oct 19'},
+  {title:'Heart Eyes', plat:'disney', date:'2026-11-08', status:'unconfirmed'},
   {title:'Expedition: Saving Our Seas', plat:'disney', date:'2026-11-14', source:'Disney+ Press', sourceUrl:'https://press.disneyplus.com/news/next-on-disney-plus-november-2026', verified:'Oct 19'},
   {title:'Bluey: Fancy Restaurant', plat:'disney', date:'2026-11-16', source:'Disney+ Press', sourceUrl:'https://press.disneyplus.com/news/next-on-disney-plus-november-2026', verified:'Oct 19'},
   {title:'How The Tudors Lost Their Heads', plat:'disney', date:'2026-11-17', source:'Disney+ Press', sourceUrl:'https://press.disneyplus.com/news/next-on-disney-plus-november-2026', verified:'Oct 19'},
@@ -449,7 +442,24 @@ const ADDED = [
   {title:'Tony', plat:'max', date:'2026-11-20', status:'corroborated', source:'ScreenCrush', sourceUrl:'https://screencrush.com/new-hbo-max-november-2026/', verified:'Oct 28'},
   {title:'The Buffalo Miracle', plat:'max', date:'2026-11-24', status:'corroborated', source:'ScreenCrush', sourceUrl:'https://screencrush.com/new-hbo-max-november-2026/', verified:'Oct 28'},
   {title:'The Slightest Touch', plat:'max', date:'2026-11-25', status:'corroborated', source:'ScreenCrush', sourceUrl:'https://screencrush.com/new-hbo-max-november-2026/', verified:'Oct 28'},
-  {title:'The Magic Faraway Tree', plat:'max', date:'2026-11-27', status:'corroborated', source:'ScreenCrush', sourceUrl:'https://screencrush.com/new-hbo-max-november-2026/', verified:'Oct 28'}
+  {title:'The Magic Faraway Tree', plat:'max', date:'2026-11-27', status:'corroborated', source:'ScreenCrush', sourceUrl:'https://screencrush.com/new-hbo-max-november-2026/', verified:'Oct 28'},
+  {title:'Black Doves — Season 2', plat:'netflix', date:'2026-11-05', status:'corroborated', source:'Netflix Tudum', sourceUrl:'https://www.netflix.com/tudum/articles/new-on-netflix', verified:'Nov 3'},
+  {title:'North of North — Season 2', plat:'netflix', date:'2026-11-05', status:'corroborated', source:'Netflix Tudum', sourceUrl:'https://www.netflix.com/tudum/articles/new-on-netflix', verified:'Nov 3'},
+  {title:'The Devil\'s Plan — Season 3', plat:'netflix', date:'2026-11-10', status:'corroborated', source:'Netflix Tudum', sourceUrl:'https://www.netflix.com/tudum/articles/new-on-netflix', verified:'Nov 3'},
+  {title:'Last One Standing — Season 4', plat:'netflix', date:'2026-11-10', status:'corroborated', source:'Netflix Tudum', sourceUrl:'https://www.netflix.com/tudum/articles/new-on-netflix', verified:'Nov 3'},
+  {title:'Bros — Season 2', plat:'netflix', date:'2026-11-12', status:'corroborated', source:'Netflix Tudum', sourceUrl:'https://www.netflix.com/tudum/articles/new-on-netflix', verified:'Nov 3'},
+  {title:'The Empress — Season 3', plat:'netflix', date:'2026-11-12', status:'corroborated', source:'Netflix Tudum', sourceUrl:'https://www.netflix.com/tudum/articles/new-on-netflix', verified:'Nov 3'},
+  {title:'Ethos — Season 2', plat:'netflix', date:'2026-11-12', status:'corroborated', source:'Netflix Tudum', sourceUrl:'https://www.netflix.com/tudum/articles/new-on-netflix', verified:'Nov 3'},
+  {title:'Love Is Blind: Habibi — Season 2', plat:'netflix', date:'2026-11-12', status:'corroborated', source:'Netflix Tudum', sourceUrl:'https://www.netflix.com/tudum/articles/new-on-netflix', verified:'Nov 3'},
+  {title:'A Merry Christmas Wish', plat:'netflix', date:'2026-11-13', status:'corroborated', source:'Netflix Tudum', sourceUrl:'https://www.netflix.com/tudum/articles/new-on-netflix', verified:'Nov 3'},
+  {title:'Sesame Street — Vol. 4', plat:'netflix', date:'2026-11-23', status:'corroborated', source:'Netflix Tudum', sourceUrl:'https://www.netflix.com/tudum/articles/new-on-netflix', verified:'Nov 3'},
+  {title:'In a Holidaze', plat:'netflix', date:'2026-12-02', status:'corroborated', source:'Netflix Tudum', sourceUrl:'https://www.netflix.com/tudum/features/new-fall-movies-on-netflix-2026', verified:'Nov 3'},
+  {title:'Terrell & T.O.', plat:'prime', date:'2026-11-05', status:'corroborated', source:'Amazon News', sourceUrl:'https://www.aboutamazon.com/news/entertainment/prime-video-november-films-shows-sports-2026', verified:'Nov 3'},
+  {title:'Campus Drivers', plat:'prime', date:'2026-11-06', status:'corroborated', source:'Amazon News', sourceUrl:'https://www.aboutamazon.com/news/entertainment/prime-video-november-films-shows-sports-2026', verified:'Nov 3'},
+  {title:'Chosen — Season 6', plat:'prime', date:'2026-11-15', status:'corroborated', source:'Amazon News', sourceUrl:'https://www.aboutamazon.com/news/entertainment/prime-video-november-films-shows-sports-2026', verified:'Nov 3'},
+  {title:'Perfect Liars', plat:'prime', date:'2026-11-20', status:'corroborated', source:'Amazon News', sourceUrl:'https://www.aboutamazon.com/news/entertainment/prime-video-november-films-shows-sports-2026', verified:'Nov 3'},
+  {title:'Clashing Through the Snow', plat:'prime', date:'2026-11-23', status:'corroborated', source:'Amazon News', sourceUrl:'https://www.aboutamazon.com/news/entertainment/prime-video-november-films-shows-sports-2026', verified:'Nov 3'},
+  {title:'The Boy Who Stole Billions', plat:'prime', date:'2026-11-30', status:'corroborated', source:'Amazon News', sourceUrl:'https://www.aboutamazon.com/news/entertainment/prime-video-november-films-shows-sports-2026', verified:'Nov 3'}
 ];
 
 const STATS = {};
