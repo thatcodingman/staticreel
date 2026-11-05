@@ -1,24 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-VTFSN95XB7"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag("js", new Date());
-  gtag("config", "G-VTFSN95XB7");
-</script>
 <meta charset="UTF-8">
-<title>About — StaticReel</title>
-<meta name="description" content="What StaticReel is, how entries get verified, and how to get in touch.">
+<title>About StaticReel — an independent streaming-changes tracker</title>
+<meta name="description" content="About StaticReel: who we are, how we source and label every date, how we handle corrections, and how the site is funded.">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="canonical" href="https://staticreel.com/about.html">
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="StaticReel">
-<meta property="og:title" content="About — StaticReel">
+<meta property="og:title" content="About StaticReel — an independent streaming-changes tracker">
 <meta property="og:image" content="https://staticreel.com/assets/og-image.png">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -53,13 +45,13 @@
   .page-head{padding:56px 0 24px;border-bottom:1px solid var(--line);}
   .eyebrow{font-family:var(--font-mono);font-size:12px;letter-spacing:0.12em;color:var(--signal);text-transform:uppercase;margin:0 0 14px;}
   h1{font-family:var(--font-display);font-weight:700;font-size:34px;margin:0 0 12px;}
+  .updated{font-family:var(--font-mono);font-size:12.5px;color:var(--text-dim);margin:0 0 32px;}
   .content{padding:40px 0 80px;line-height:1.75;font-size:15px;color:var(--text-mid);}
   .content h2{font-family:var(--font-display);font-weight:700;font-size:19px;color:var(--text);margin:36px 0 12px;}
   .content h2:first-child{margin-top:0;}
   .content p{margin:0 0 14px;}
-  .status-pill{display:inline-flex;align-items:center;gap:8px;font-family:var(--font-mono);font-size:11.5px;
-    color:var(--signal);border:1px solid var(--signal);padding:5px 12px;border-radius:20px;margin-bottom:24px;}
-  .status-pill span{width:6px;height:6px;border-radius:50%;background:var(--signal);}
+  .content ul{margin:0 0 14px;padding-left:20px;}
+  .content li{margin-bottom:6px;}
   footer{padding:36px 0 60px;color:var(--text-dim);font-size:12.5px;font-family:var(--font-mono);border-top:1px solid var(--line);
     display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;max-width:1180px;margin:0 auto;padding-left:32px;padding-right:32px;}
   .footer-links{display:flex;gap:18px;}
@@ -80,6 +72,7 @@
       <a href="explore.html">Explore</a>
       <a href="index.html#log">Log</a>
       <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
     </div>
   </div>
 </div>
@@ -87,29 +80,42 @@
 <div class="wrap">
   <div class="page-head">
     <p class="eyebrow">About</p>
-    <h1>Track the change, don't just report the news.</h1>
+    <h1>About StaticReel</h1>
+    <p class="updated">Independent tracker of Netflix, Max, Disney+ and Prime Video changes</p>
   </div>
 
   <div class="content">
-    <span class="status-pill"><span></span>Early build — verified data, still expanding weekly coverage</span>
-
-    <h2>What StaticReel does</h2>
-    <p>Netflix, Max, Disney+, and Prime Video all change constantly — titles disappear and appear, prices shift, shows get cancelled or renewed, and account policies change with little to no announcement. StaticReel exists to catch those changes and log them in one place, verified against an official source wherever possible.</p>
-
-    <h2>How verification works</h2>
-    <p>Every entry in the Signal Log carries a status. <strong style="color:var(--text)">Verified</strong> means the change has been confirmed against an official source — a service's own newsroom, press page, help center, or billing page. <strong style="color:var(--text)">Unconfirmed</strong> means the information comes from user reports or unofficial sources that haven't been confirmed by the platform itself. We'd rather label something unconfirmed than overstate our certainty.</p>
-
-    <h2>What's next</h2>
-    <p>The site publishes real, sourced weekly research, expanding coverage and depth each week. Coming next: dedicated pages per streaming service, permanent pages per title with full change history, and a "Where is it streaming?" search.</p>
-
-    <h2>Get in touch</h2>
-    <p>Spotted something wrong, or have a change we missed? Reach out at <a href="mailto:hello@staticreel.com">hello@staticreel.com</a>.</p>
+    <h2>What StaticReel is</h2>
+    <p>Netflix, Max, Disney+ and Prime Video change constantly. Titles leave and arrive, prices shift, shows are renewed or cancelled, and account rules change, often with little notice. StaticReel is an independent project that gathers these changes in one place so you can see what is leaving before it's gone and what is new before you go looking.</p>
+    <h2>What you will find here</h2>
+    <ul>
+      <li><b>This week:</b> a rolling view of titles leaving and arriving over the next few weeks.</li>
+      <li><b>Title pages:</b> one page per tracked title with its dated history on each service.</li>
+      <li><b>Monthly guides:</b> what is leaving and arriving on each service, month by month.</li>
+      <li><b>Signal Log:</b> price changes, renewals, cancellations and release-date news.</li>
+    </ul>
+    <h2>How we source and label information</h2>
+    <p>Every entry carries a label that says how well it is sourced:</p>
+    <ul>
+      <li><b>Verified</b> means we read the date or claim on the streaming service's own page, such as its newsroom, press site or help center.</li>
+      <li><b>Corroborated</b> means reliable news outlets report it, but we have not seen it on the service's own page.</li>
+      <li><b>Unconfirmed</b> means we have not found a reliable source, so treat it with caution.</li>
+    </ul>
+    <p>We would rather label something Corroborated or Unconfirmed than overstate our certainty. Each entry links to its source and shows when we last checked it.</p>
+    <h2>Corrections</h2>
+    <p>Catalogs change quickly and lists are not exhaustive. If you spot a mistake or a change we missed, email <a href="mailto:hello@staticreel.com">hello@staticreel.com</a> or use the <a href="report.html">report an issue</a> page. We correct errors as soon as we can confirm them and update the entry's source and checked date.</p>
+    <h2>Independence and funding</h2>
+    <p>StaticReel is not affiliated with, endorsed by or sponsored by Netflix, Max, Disney+, Amazon or any other service. The site is supported by advertising. Ads do not influence what we list or how we label it.</p>
+    <h2>Credits</h2>
+    <p>Title artwork is provided by TMDB. This product uses the TMDB API but is not endorsed or certified by TMDB. Service names and trademarks belong to their owners.</p>
+    <h2>Contact</h2>
+    <p>Reach us at <a href="mailto:hello@staticreel.com">hello@staticreel.com</a> or on the <a href="contact.html">contact page</a>.</p>
   </div>
 </div>
 
 <footer>
-  <span>StaticReel · homepage concept, interactive preview · not affiliated with Netflix, Max, Disney+ or Amazon</span>
-  <span class="footer-links"><a href="report.html">Report an issue</a><a href="rss.xml">RSS</a><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a></span>
+  <span>StaticReel · independent streaming-changes tracker · not affiliated with Netflix, Max, Disney+ or Amazon</span>
+  <span class="footer-links"><a href="about.html">About</a><a href="contact.html">Contact</a><a href="rss.xml">RSS</a><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a></span>
 </footer>
 
 </body>
