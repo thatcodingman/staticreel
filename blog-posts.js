@@ -2,6 +2,88 @@
 // In body, [[Exact Title]] auto-links to that title's StaticReel page when it exists.
 module.exports = [
 {
+ slug: 'what-leaves-on-the-15th-means',
+ date: '2026-11-05',
+ title: 'What "leaves on the 15th" really means',
+ desc: 'Why a removal date is not always the last day you can watch, and how to plan around the wording.',
+ body: `
+<p>You see "leaving November 15" and plan to watch on the 15th. Then the title is gone when you open the app that evening. Removal dates are less precise than they look.</p>
+
+<h2>Two ways to read a date</h2>
+<ul>
+<li><strong>Last day to watch.</strong> Some lists use the date as the final full day you can stream the title.</li>
+<li><strong>Day it is removed.</strong> Others use the date the title disappears, which can mean it is already gone by that evening.</li>
+</ul>
+<p>Even sources that use the first meaning note that titles can come down overnight, which is the night <em>before</em> the listed date in some time zones. The safest assumption is that a title may be unavailable at any point on its listed date.</p>
+
+<h2>Why the time zone matters</h2>
+<p>Streaming services often make changes at midnight Pacific time. That is 3 a.m. Eastern. If you live on the East Coast, a title can vanish in the early hours of the date you thought was your last day.</p>
+
+<h2>A simple rule</h2>
+<p>Treat the day <em>before</em> the listed date as your real deadline. If you finish early, you lose nothing, and if the date was the last full day, you simply have a spare evening.</p>
+
+<h2>Check the wording</h2>
+<p>Look at how the source describes its dates. Netflix's announcements, for instance, are the original wording. Third-party lists may add their own convention. That is one reason StaticReel links the source for every date, so you can read the exact wording yourself. See <a href="/blog/is-this-streaming-date-reliable/">our checklist for judging a date</a> and <a href="/blog/finish-a-series-before-it-leaves/">how to plan a binge before a removal</a>.</p>
+`},
+{
+ slug: 'why-a-title-may-still-be-on-your-netflix',
+ date: '2026-11-05',
+ title: 'Why a "leaving" title may still be on your Netflix',
+ desc: 'Regional catalogs, rolling changes and late updates: reasons a removal list may not match what you see.',
+ body: `
+<p>You check a removal list, search the app, and the title is still there. Or the reverse: it is gone and no list mentioned it. Here is why lists and apps do not always agree.</p>
+
+<h2>Catalogs differ by country</h2>
+<p>Netflix's library is different in each country. Most lists, including ours, focus on the U.S. A title leaving the U.S. may stay in Canada or the U.K., and the other way around. If you are outside the U.S., treat any list as a guide, not a guarantee.</p>
+
+<h2>Changes do not all land at once</h2>
+<p>Removals roll out over hours, and sometimes a day or two. A title may be visible to you after the list says it is gone, particularly if you started watching before the cutoff.</p>
+
+<h2>Lists are published early</h2>
+<p>Removal lists are often compiled weeks ahead and updated as deals change. A date can move, and a title may be extended or added to the list late. That is why we mark each entry <strong>Verified</strong>, <strong>Corroborated</strong> or <strong>Unconfirmed</strong>.</p>
+
+<h2>Partial removals</h2>
+<p>Some notices apply to only some seasons of a show. If a series is still in the app but an early season is missing, see <a href="/blog/what-partial-series-removals-mean/">what partial removals mean</a>.</p>
+
+<h2>What to do</h2>
+<ol>
+<li>Search the exact title in your app.</li>
+<li>Check the date and the country the list covers.</li>
+<li>If it differs from what you see, send us the details on the <a href="/report.html">report page</a>.</li>
+</ol>
+`},
+{
+ slug: 'renewals-cancellations-delays-fall-2026',
+ date: '2026-11-05',
+ title: 'Renewals, final seasons and delays we logged this fall',
+ desc: 'A look at the renewals, cancellations and date changes in the StaticReel Signal Log from August to December 2026.',
+ body: `
+<p>Besides titles arriving and leaving, StaticReel keeps a Signal Log of changes that affect what you can look forward to. Here is a look at what has been logged since late summer. Every entry below is labeled in the log with its source.</p>
+
+<h2>Final seasons</h2>
+<ul>
+<li><strong>Outer Banks (Netflix):</strong> Season 5 was confirmed as the final season on August 20.</li>
+<li><strong>Maxton Hall (Prime Video):</strong> Season 3 is set for December 9 and is confirmed as the final season.</li>
+</ul>
+
+<h2>Renewals</h2>
+<ul>
+<li><strong>The Gentlemen (Netflix):</strong> renewed for Season 3 ahead of Season 2's September 3 premiere.</li>
+<li><strong>Sterling Point (Prime Video):</strong> renewed for Season 2 in August.</li>
+<li><strong>Reacher (Prime Video):</strong> a Season 5 renewal was confirmed and updated on August 12.</li>
+<li><strong>Off Campus (Prime Video):</strong> officially renewed for Season 2 in September.</li>
+</ul>
+
+<h2>Dates that moved</h2>
+<ul>
+<li><strong>Hunting Gary Glitter (Netflix):</strong> postponed from its October 14 date, announced September 24.</li>
+</ul>
+
+<h2>Why we log these</h2>
+<p>A renewal tells you a show is worth starting. A final-season notice tells you how long the commitment is. A postponement saves you from waiting for a date that no longer holds. Each of these comes from an announcement we link in the log.</p>
+<p>You can browse every entry in the <a href="/#log">Signal Log</a>, filter by type, and subscribe to the <a href="/rss.xml">RSS feed</a> to get new ones as we add them. For how we label sources, see <a href="/blog/how-staticreel-verifies-streaming-changes/">how we verify changes</a>.</p>
+`},
+{
  slug: 'before-you-cancel-a-streaming-service',
  date: '2026-11-05',
  title: 'Before you cancel a streaming service: a 5-minute checklist',
