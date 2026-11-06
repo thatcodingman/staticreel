@@ -2,6 +2,111 @@
 // In body, [[Exact Title]] auto-links to that title's StaticReel page when it exists.
 module.exports = [
 {
+ slug: 'before-you-cancel-a-streaming-service',
+ date: '2026-11-05',
+ title: 'Before you cancel a streaming service: a 5-minute checklist',
+ desc: 'What to check so you do not cancel just before a show you wanted arrives, or lose a title you have not finished.',
+ body: `
+<p>Canceling and resubscribing is a smart way to cut costs, but timing matters. A few minutes of checking can save you from paying for a month you do not need, or from leaving right before something good lands.</p>
+
+<h2>1. Look at what is leaving</h2>
+<p>If you still have unfinished shows, check the service's removal list first. Anything with a date in the next few weeks is worth finishing or deliberately letting go. Our <a href="/guide/">monthly guides</a> list what is leaving each service.</p>
+
+<h2>2. Look at what is arriving</h2>
+<p>A premiere you want may be only days away. If so, wait, watch it, and then cancel. Premiere dates come from the service's own announcements, so read the source link before planning around one.</p>
+
+<h2>3. Check the billing date</h2>
+<p>Most services let you keep access until the end of the billing period after you cancel. Cancel early in the period and you lose nothing, but check your account page to confirm it applies to you.</p>
+
+<h2>4. Plan the return</h2>
+<p>If you are pausing rather than leaving, note the date a big title arrives and set a reminder. Subscribing for a single month to binge a finished season is often cheaper than staying all year.</p>
+
+<h2>5. Remember what does not come back</h2>
+<p>Titles that leave a service can return later, move elsewhere, or never come back. If something matters to you, finish it before the date rather than hoping it will return. <a href="/blog/why-titles-leave-netflix/">Why shows leave Netflix</a> explains how that works.</p>
+`},
+{
+ slug: 'why-new-movies-leave-netflix-fast',
+ date: '2026-11-05',
+ title: 'Why some recent movies leave Netflix within weeks',
+ desc: 'First-window deals explained, and what they mean for films like Paddington in Peru and M3GAN 2.0 that are listed to leave this month.',
+ body: `
+<p>It seems odd: a movie from last year arrives on Netflix and is gone a few weeks later. That is usually not a mistake. It is how first-window licensing works.</p>
+
+<h2>What a first window is</h2>
+<p>After a film's theatrical run, a studio often grants one streaming service the first chance to show it for a limited period. When that period ends, the film can move to another service, a different pay window, or a free ad-supported channel. Some lists mark these titles with the studio, such as "Sony first-window" or "Universal first-window."</p>
+
+<h2>Examples this month</h2>
+<p>This November's removal lists include several recent films that appear to follow this pattern, such as [[Heart Eyes]], [[Paddington in Peru]], [[I'm Still Here]] and [[M3GAN 2.0]]. The labeling comes from What's on Netflix's removal list, so these entries are marked <strong>Corroborated</strong> in StaticReel rather than Verified.</p>
+
+<h2>What it means for viewers</h2>
+<ul>
+<li>A recent movie on Netflix may have a shorter stay than an older catalog film.</li>
+<li>If a film leaves, it may reappear on another service, so check before assuming it is gone for good.</li>
+<li>Look at the date. A title that arrived recently may already have an exit date.</li>
+</ul>
+
+<h2>Why it is hard to predict</h2>
+<p>These contracts are private, so the length of a window is rarely announced in advance. The reliable signal is the removal notice itself. See <a href="/blog/where-to-find-official-streaming-announcements/">where to find official announcements</a>, and the <a href="/guide/netflix-november-2026/">Netflix November guide</a> for the full list.</p>
+<p class="meta">General description of how windows work. Specific terms for individual films are not public.</p>
+`},
+{
+ slug: 'what-partial-series-removals-mean',
+ date: '2026-11-05',
+ title: 'What "Seasons 1–3 leaving" really means for a series',
+ desc: 'How to read removal notices that list only some seasons, and what to do when a show is only partly leaving.',
+ body: `
+<p>Removal lists do not always say "the show is leaving." Many say something narrower, like "Seasons 1–3" or "Season 1 only." Misreading that can make you panic, or miss a real deadline.</p>
+
+<h2>Reading the wording</h2>
+<ul>
+<li><strong>"Seasons 1–4":</strong> those seasons leave. If the show has more seasons, they may remain.</li>
+<li><strong>"Season 1 only":</strong> a single season leaves. Later seasons stay.</li>
+<li><strong>"All seasons":</strong> the whole series is leaving.</li>
+<li><strong>No season mentioned:</strong> usually the whole series or a movie, but check the source.</li>
+</ul>
+
+<h2>Why partial removals happen</h2>
+<p>Licenses are often separate for different seasons. A service can renew one block of episodes and let another expire. Watching a show out of order is rarely a good idea, so partial removals matter even when the show does not completely disappear.</p>
+
+<h2>Examples from the current lists</h2>
+<p>This month's Netflix removals include multi-season series such as [[The Big C — Seasons 1–4]] and [[Survivor's Remorse — Seasons 1–4]], both of which list specific seasons. In December, shows like [[Teen Wolf — Seasons 1–6]] and [[Scandal — Seasons 1–7]] are listed the same way.</p>
+
+<h2>What to do</h2>
+<ol>
+<li>Check how many seasons the show has in total.</li>
+<li>Check which seasons are listed.</li>
+<li>If you are mid-series, finish the listed seasons first.</li>
+</ol>
+<p>Our <a href="/blog/finish-a-series-before-it-leaves/">plan for finishing a series</a> helps with the math.</p>
+`},
+{
+ slug: 'netflix-leaving-december-2026',
+ date: '2026-11-05',
+ title: 'Leaving Netflix in December 2026: early look',
+ desc: 'An early look at what is listed to leave Netflix in December 2026, from the big December 1 batch to late-month exits.',
+ body: `
+<p>December's removal list is already taking shape, and it starts with a big batch on December 1. Everything below is <strong>Corroborated</strong>, meaning reliable outlets report it but we have not read it on Netflix's own page, and lists often change before the date. We last checked on November 5, 2026.</p>
+
+<h2>December 1: the big batch</h2>
+<p>The first of the month carries dozens of films. Names that stand out include [[Alien]], [[Aliens]], [[Point Break]], [[Sleepless in Seattle]], [[Zero Dark Thirty]] and [[The Wedding Planner]]. The whole Karate Kid film series is listed as well: [[The Karate Kid (1984)]], [[The Karate Kid Part II]], [[The Karate Kid Part III]] and [[The Karate Kid (2010)]].</p>
+<p>Series on the list include [[Teen Wolf — Seasons 1–6]], [[Grantchester — Seasons 1–4]] and [[Victoria — Seasons 1–3]].</p>
+
+<h2>Early and mid December</h2>
+<ul>
+<li><strong>December 3:</strong> [[Hunters — Seasons 1–2]] and [[Honey Don't]].</li>
+<li><strong>December 7:</strong> [[Becoming Led Zeppelin]].</li>
+<li><strong>December 9:</strong> [[The Last Kingdom — Seasons 1–5]], which the source marks as unconfirmed, so we mark it Unconfirmed too.</li>
+<li><strong>December 14:</strong> [[Bonus Family — Seasons 1–4]].</li>
+<li><strong>December 17:</strong> [[Scandal — Seasons 1–7]].</li>
+</ul>
+
+<h2>Late December</h2>
+<p>[[Jurassic World: Rebirth]] is listed for December 26.</p>
+
+<h2>What to do now</h2>
+<p>Most of the pressure is on December 1, so if there is a film or series you want from that group, plan to watch before then. The rest of the month is lighter. We will update this as lists are confirmed. The full list with sources is in the <a href="/guide/netflix-december-2026/">Netflix December 2026 guide</a>, and if you are still working through November, see <a href="/blog/netflix-leaving-november-2026/">what leaves this month</a>.</p>
+`},
+{
  slug: 'is-this-streaming-date-reliable',
  date: '2026-11-05',
  title: 'Is that streaming date reliable? A quick checklist',

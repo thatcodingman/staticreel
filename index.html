@@ -686,7 +686,7 @@ function itemCard(item, isLeaving){
     : initials;
   const thumbClass = item.posterUrl ? 'item-thumb has-poster' : 'item-thumb';
   const slug = slugify(item.title);
-  return `<div class="item-card ${dimClass} ${urgent?'urgent':''}" data-plat="${item.plat}" onclick="location.href='title.html?t=${slug}'">
+  return `<div class="item-card ${dimClass} ${urgent?'urgent':''}" data-plat="${item.plat}" onclick="location.href='/title/${slug}/'">
     <div class="${thumbClass}">${thumbInner}</div>
     <div class="item-body">
       <p class="item-title">${item.title}</p>
@@ -876,7 +876,7 @@ function renderSearchSuggestions(query){
     const p = PLATFORMS[t.plat];
     const latest = t.events[t.events.length-1];
     const tag = latest.type === 'leaving' ? 'Leaving soon' : latest.type === 'added' ? 'Added' : eventTypeLabelForSearch(latest.type);
-    return `<div class="suggestion-item" onclick="location.href='title.html?t=${t.slug}'">
+    return `<div class="suggestion-item" onclick="location.href='/title/${t.slug}/'">
       <span class="suggestion-left">${dot(p.color)}<span>${t.title}</span></span>
       <span class="suggestion-meta">${tag}</span>
     </div>`;
