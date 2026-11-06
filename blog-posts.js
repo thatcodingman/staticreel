@@ -2,6 +2,120 @@
 // In body, [[Exact Title]] auto-links to that title's StaticReel page when it exists.
 module.exports = [
 {
+ slug: 'is-this-streaming-date-reliable',
+ date: '2026-11-05',
+ title: 'Is that streaming date reliable? A quick checklist',
+ desc: 'Five questions to ask before you plan around a premiere or removal date you saw online.',
+ body: `
+<p>Every week a date goes viral: a show "arrives Friday" or a movie "leaves on the 15th." Some of those dates are solid. Others are guesses repeated until they look like facts. Here is how we sort them, and how you can too.</p>
+
+<h2>1. Who published it first?</h2>
+<p>The most reliable source is the service itself: a press release, a "coming soon" page, or an official social post. A news article that links to one of those is a good sign. An article that links only to other articles is a chain, and every link in it may be copying the first.</p>
+
+<h2>2. Is the date specific?</h2>
+<p>"November" and "this fall" are intentions. "November 12" is a commitment. Exact dates are more reliable, but only when they come from the right source.</p>
+
+<h2>3. Is it the right service?</h2>
+<p>Shared press pages often cover more than one service. A title that arrives on a sister service is easy to mistake for the one you pay for. Check the service name next to the date.</p>
+
+<h2>4. Is the date still current?</h2>
+<p>Dates move, especially premieres. A listing from a few months ago may describe a schedule that has since changed. Look at when the source was last updated.</p>
+
+<h2>5. Does it say what time zone or region?</h2>
+<p>Arrival times and even days can differ outside the U.S. A title that "arrives Friday" in the U.S. may show up a day earlier or later elsewhere.</p>
+
+<h2>How StaticReel handles this</h2>
+<p>We put these questions into a label. Dates we read on the service's own page are <strong>Verified</strong>. Dates reported by reliable outlets are <strong>Corroborated</strong>. Leads we cannot source are <strong>Unconfirmed</strong>. The full method is in <a href="/blog/how-staticreel-verifies-streaming-changes/">how we verify streaming changes</a>.</p>
+`},
+{
+ slug: 'how-different-services-handle-removals',
+ date: '2026-11-05',
+ title: 'Netflix, Max, Disney+ and Prime Video: how each handles removals',
+ desc: 'Why a title disappears from one service quickly, from another rarely, and how to judge your risk on each.',
+ body: `
+<p>"It left streaming" means different things depending on the service. The business model behind each catalog changes how often titles disappear and how much warning you get. These are general patterns, not guarantees, and individual titles vary.</p>
+
+<h2>Netflix</h2>
+<p>Netflix mixes its own productions with a large licensed library. Licensed films and older series rotate out regularly, and Netflix usually announces upcoming exits. Its own originals are less likely to leave, though they can. For the licensing background, see <a href="/blog/why-titles-leave-netflix/">why shows leave Netflix</a>.</p>
+
+<h2>Max</h2>
+<p>Max draws heavily on the catalog of its parent company, which makes some of its library more stable than a pure licensing model. It still carries films from outside studios, and those can rotate. Max tends to list arrivals more prominently than departures, so check dates before starting a long series.</p>
+
+<h2>Disney+</h2>
+<p>Disney+ leans on Disney's own catalog, so fewer titles disappear because a license ended. Changes are often additions, scheduled premieres and moves between Disney's services. If you pay for Disney+ specifically, confirm the service name next to a date, because Disney publishes announcements that cover several of its services at once.</p>
+
+<h2>Prime Video</h2>
+<p>Prime Video combines titles included with Prime and titles that cost extra to rent or buy. A movie "leaving Prime" may simply move from included to paid. When you see a removal, check whether it is gone entirely or just no longer free with your subscription.</p>
+
+<h2>What to do with this</h2>
+<ul>
+<li>On any service, check the date before starting a long series.</li>
+<li>On Netflix, expect more movement near the start of each month.</li>
+<li>On Prime Video, confirm whether a title is included or paid.</li>
+</ul>
+<p>Our <a href="/guide/">monthly guides</a> show what is leaving and arriving on each service, labeled by source quality.</p>
+<p class="meta">General description of industry patterns. Individual licensing deals are not public.</p>
+`},
+{
+ slug: 'finish-a-series-before-it-leaves',
+ date: '2026-11-05',
+ title: 'How to finish a long series before it leaves',
+ desc: 'A simple way to turn a removal date and an episode count into a daily viewing plan.',
+ body: `
+<p>A show is leaving in two weeks and it has six seasons. Is it doable? A bit of arithmetic answers that before you start.</p>
+
+<h2>The quick formula</h2>
+<p>Divide the total runtime by the days you have. Total runtime is episodes multiplied by average episode length. For example, 100 episodes at 45 minutes is 4,500 minutes, or 75 hours. Over 14 days that is about 5.4 hours a day, which is not realistic for most people.</p>
+
+<h2>Decide if it is worth it</h2>
+<ul>
+<li>Under 1.5 hours a day: easy, start tonight.</li>
+<li>1.5 to 3 hours a day: doable if it is a priority.</li>
+<li>Over 3 hours a day: skip it, or sample the first few episodes and decide.</li>
+</ul>
+
+<h2>Make it fit</h2>
+<ol>
+<li><strong>Count the exact episodes.</strong> A season count hides large differences between seasons.</li>
+<li><strong>Add buffer.</strong> Plan to finish a day or two before the date, since removals can happen early in the day.</li>
+<li><strong>Use dead time.</strong> Commutes and chores handle the audio-heavy episodes.</li>
+<li><strong>Watch the end first for movies.</strong> For a film, you only need one evening, so leave films for last.</li>
+</ol>
+
+<h2>A note on dates</h2>
+<p>Leaving dates can move, so confirm on the source before committing. Our <a href="/guide/">monthly guides</a> link the source for each date, and the <a href="/blog/netflix-leaving-november-2026/">November Netflix post</a> sorts removals by deadline to help you pick.</p>
+`},
+{
+ slug: 'where-to-find-official-streaming-announcements',
+ date: '2026-11-05',
+ title: 'Where to find official streaming announcements yourself',
+ desc: 'The official pages and newsrooms where Netflix, Max, Disney+ and Prime Video post arrivals, so you can check any date for yourself.',
+ body: `
+<p>Trackers, including ours, are only as good as the sources behind them. If a date matters to you, go to the source. Here is where each service posts.</p>
+
+<h2>Netflix</h2>
+<p>Netflix's editorial site, Tudum, publishes "new on Netflix" lists and monthly roundups. This is the first place we look for confirmed Netflix dates.</p>
+
+<h2>Max</h2>
+<p>Warner Bros. Discovery posts Max announcements through its press site, often as a monthly highlights release. Press pages are sometimes restricted to certain users, so a news outlet may repeat the list before you can read it directly.</p>
+
+<h2>Disney+</h2>
+<p>Disney publishes announcements through its press pages. A single release can list titles for several Disney services, so always check which service each title is for.</p>
+
+<h2>Prime Video</h2>
+<p>Amazon posts Prime Video announcements on its news site, including monthly lineups. Prime also separates included titles from paid ones, so read the details.</p>
+
+<h2>Tips for reading these pages</h2>
+<ul>
+<li>Use the page's own date to judge how current it is.</li>
+<li>Look for the region, since many announcements are U.S.-only.</li>
+<li>Be careful with "premieres" versus "all episodes available," which are different things.</li>
+</ul>
+
+<h2>When you cannot reach a source</h2>
+<p>Sometimes a page is down, blocked or only partly available. In that case we label the date <strong>Corroborated</strong> instead of <strong>Verified</strong>, and we say so. See <a href="/blog/is-this-streaming-date-reliable/">our reliability checklist</a> for how to judge a date yourself, or <a href="/blog/how-staticreel-verifies-streaming-changes/">how we verify changes</a>.</p>
+`},
+{
  slug: 'netflix-leaving-november-2026',
  date: '2026-11-05',
  title: 'Leaving Netflix in November 2026: what to watch first',
