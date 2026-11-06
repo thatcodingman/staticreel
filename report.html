@@ -93,7 +93,9 @@
       <a href="index.html#added">Added</a>
       <a href="explore.html">Explore</a>
       <a href="index.html#log">Log</a>
+      <a href="/blog/">Blog</a>
       <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
     </div>
   </div>
 </div>
@@ -129,7 +131,7 @@
 
     <div class="field">
       <label for="pageUrl">Page or title in question</label>
-      <input type="text" name="pageUrl" id="pageUrl" placeholder="e.g. staticreel.com/title.html?t=m3gan, or just the title name">
+      <input type="text" name="pageUrl" id="pageUrl" placeholder="e.g. the title name, or the page address">
     </div>
 
     <div class="field">
@@ -148,8 +150,8 @@
 </div>
 
 <footer>
-  <span>StaticReel · homepage concept, interactive preview · not affiliated with Netflix, Max, Disney+ or Amazon · title artwork provided by <a href="https://www.themoviedb.org/" target="_blank" rel="noopener" style="color:var(--text-dim);">TMDB</a>, not endorsed or certified by TMDB</span>
-  <span class="footer-links"><a href="report.html">Report an issue</a><a href="rss.xml">RSS</a><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a></span>
+  <span>StaticReel · independent streaming-changes tracker · not affiliated with Netflix, Max, Disney+ or Amazon · title artwork provided by <a href="https://www.themoviedb.org/" target="_blank" rel="noopener" style="color:var(--text-dim);">TMDB</a>, not endorsed or certified by TMDB</span>
+  <span class="footer-links"><a href="/blog/">Blog</a><a href="report.html">Report an issue</a><a href="about.html">About</a><a href="contact.html">Contact</a><a href="rss.xml">RSS</a><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a></span>
 </footer>
 
 <script>
@@ -165,7 +167,7 @@ document.getElementById('issueForm').addEventListener('submit', function(e){
     form.style.display = 'none';
     document.getElementById('successMsg').classList.add('show');
   }).catch(()=>{
-    alert('Something went wrong submitting this — try again, or reach out via the About page.');
+    alert('Something went wrong submitting this — try again, or use the Contact page.');
   });
 });
 </script>
