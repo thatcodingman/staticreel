@@ -35,7 +35,7 @@ module.exports = [
 {
  slug: 'why-titles-leave-netflix',
  date: '2026-11-04',
- title: 'Why movies and shows leave Netflix (and why it is usually the first of the month)',
+ title: 'Why shows leave Netflix (and why it is usually the 1st)',
  desc: 'A plain-English explanation of streaming licensing windows, why removals cluster on the 1st, and which titles are most likely to stay.',
  body: `
 <p>Almost everyone has had the experience: you add a movie to your list, come back a month later, and it is gone. Nothing broke. The title left because of how streaming rights work.</p>
@@ -61,7 +61,7 @@ module.exports = [
 {
  slug: 'how-staticreel-verifies-streaming-changes',
  date: '2026-11-03',
- title: 'How StaticReel verifies streaming changes: Verified, Corroborated, Unconfirmed',
+ title: 'How StaticReel verifies streaming changes',
  desc: 'Our sourcing standard explained: what each label means, where our dates come from, and how we handle conflicts between sources.',
  body: `
 <p>Streaming dates are easy to get wrong. A news site repeats a rumor, a date moves, or a list mixes up two services. StaticReel uses a three-level label so you can see how much weight each date deserves.</p>
@@ -88,7 +88,7 @@ module.exports = [
 {
  slug: 'never-miss-a-title-leaving',
  date: '2026-11-02',
- title: 'How to never miss a show before it leaves your streaming service',
+ title: 'How to never miss a show before it leaves',
  desc: 'Five simple habits for catching removal dates in time, plus how to use RSS and StaticReel\'s monthly guides.',
  body: `
 <p>Nobody wants to find out a show is gone the night they planned to watch it. A few habits make surprises rare.</p>

@@ -37,7 +37,7 @@ h2{font:700 18px 'Space Grotesk',sans-serif;margin:32px 0 12px}
 .pills a:hover{border-color:var(--signal-dim);text-decoration:none}
 .note{color:var(--text-dim);font-size:13.5px;margin-top:30px;border-top:1px solid var(--line);padding-top:16px}
 footer{max-width:760px;margin:0 auto;padding:0 16px 40px;color:var(--text-dim);font:12.5px 'JetBrains Mono',monospace}
-@media(max-width:520px){h1{font-size:25px}.nav{gap:12px}}`;
+@media(max-width:520px){h1{font-size:25px}.top-in{flex-wrap:wrap}.nav{gap:6px 12px;flex-wrap:wrap}}`;
 const HEADER = `<header class="top"><div class="top-in"><a class="brand" href="/">Static<span>Reel</span></a><nav class="nav"><a href="/blog/">Blog</a><a href="/guide/">Monthly guides</a><a href="/titles/">All titles</a><a href="/about.html">About</a><a href="/rss.xml">RSS</a></nav></div></header>`;
 const FOOTER = `<footer>StaticReel · independent streaming-changes tracker · not affiliated with Netflix, Max, Disney+ or Amazon · <a href="/blog/">Blog</a> · <a href="/about.html">About</a> · <a href="/contact.html">Contact</a> · <a href="/rss.xml">RSS</a> · <a href="/privacy.html">Privacy</a> · <a href="/terms.html">Terms</a></footer>`;
 const today = new Date().toISOString().slice(0,10);
