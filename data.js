@@ -118,7 +118,7 @@ const PLATFORMS = {
 const TODAY = new Date();
 TODAY.setHours(0, 0, 0, 0);
 
-const LAST_VERIFICATION_DATE = 'Nov 3, 2026'; // when this week's research pass was actually done —
+const LAST_VERIFICATION_DATE = 'Nov 5, 2026'; // when this week's research pass was actually done —
                                                  // use this for "when did we check this," never an
                                                  // event's own date (which can be in the future).
                                                  // Update this by hand each time you add new entries —
@@ -271,7 +271,39 @@ const LEAVING = [
   {title:'The Resident — Seasons 1–6', plat:'netflix', date:'2026-11-20', source:'Netflix Tudum', sourceUrl:'https://www.netflix.com/tudum/articles/whats-leaving-netflix', verified:'Oct 28'},
   {title:'Gilmore Girls: A Year in the Life', plat:'netflix', date:'2026-11-25', source:'Netflix Tudum', sourceUrl:'https://www.netflix.com/tudum/articles/whats-leaving-netflix', verified:'Oct 28'},
   {title:'M3GAN 2.0', plat:'netflix', date:'2026-11-26', status:'corroborated', source:'What\'s on Netflix', sourceUrl:'https://www.whats-on-netflix.com/leaving-soon/whats-leaving-netflix-in-november-2026/', verified:'Oct 28'},
-  {title:'Safe Haven', plat:'netflix', date:'2026-11-06', status:'corroborated', source:'Netflix Tudum', sourceUrl:'https://www.netflix.com/tudum/articles/whats-leaving-netflix', verified:'Nov 3'}
+  {title:'Safe Haven', plat:'netflix', date:'2026-11-06', status:'corroborated', source:'Netflix Tudum', sourceUrl:'https://www.netflix.com/tudum/articles/whats-leaving-netflix', verified:'Nov 3'},
+  {title:'Alien', plat:'netflix', date:'2026-12-01', status:'corroborated', source:'What\'s on Netflix', sourceUrl:'https://www.whats-on-netflix.com/leaving-soon/whats-leaving-netflix-december-2026/', verified:'Nov 5'},
+  {title:'Aliens', plat:'netflix', date:'2026-12-01', status:'corroborated', source:'What\'s on Netflix', sourceUrl:'https://www.whats-on-netflix.com/leaving-soon/whats-leaving-netflix-december-2026/', verified:'Nov 5'},
+  {title:'Point Break', plat:'netflix', date:'2026-12-01', status:'corroborated', source:'What\'s on Netflix', sourceUrl:'https://www.whats-on-netflix.com/leaving-soon/whats-leaving-netflix-december-2026/', verified:'Nov 5'},
+  {title:'The Karate Kid (1984)', plat:'netflix', date:'2026-12-01', status:'corroborated', source:'What\'s on Netflix', sourceUrl:'https://www.whats-on-netflix.com/leaving-soon/whats-leaving-netflix-december-2026/', verified:'Nov 5'},
+  {title:'The Karate Kid Part II', plat:'netflix', date:'2026-12-01', status:'corroborated', source:'What\'s on Netflix', sourceUrl:'https://www.whats-on-netflix.com/leaving-soon/whats-leaving-netflix-december-2026/', verified:'Nov 5'},
+  {title:'The Karate Kid Part III', plat:'netflix', date:'2026-12-01', status:'corroborated', source:'What\'s on Netflix', sourceUrl:'https://www.whats-on-netflix.com/leaving-soon/whats-leaving-netflix-december-2026/', verified:'Nov 5'},
+  {title:'The Karate Kid (2010)', plat:'netflix', date:'2026-12-01', status:'corroborated', source:'What\'s on Netflix', sourceUrl:'https://www.whats-on-netflix.com/leaving-soon/whats-leaving-netflix-december-2026/', verified:'Nov 5'},
+  {title:'Sleepless in Seattle', plat:'netflix', date:'2026-12-01', status:'corroborated', source:'What\'s on Netflix', sourceUrl:'https://www.whats-on-netflix.com/leaving-soon/whats-leaving-netflix-december-2026/', verified:'Nov 5'},
+  {title:'xXx', plat:'netflix', date:'2026-12-01', status:'corroborated', source:'What\'s on Netflix', sourceUrl:'https://www.whats-on-netflix.com/leaving-soon/whats-leaving-netflix-december-2026/', verified:'Nov 5'},
+  {title:'Zero Dark Thirty', plat:'netflix', date:'2026-12-01', status:'corroborated', source:'What\'s on Netflix', sourceUrl:'https://www.whats-on-netflix.com/leaving-soon/whats-leaving-netflix-december-2026/', verified:'Nov 5'},
+  {title:'The Wedding Planner', plat:'netflix', date:'2026-12-01', status:'corroborated', source:'What\'s on Netflix', sourceUrl:'https://www.whats-on-netflix.com/leaving-soon/whats-leaving-netflix-december-2026/', verified:'Nov 5'},
+  {title:'Those Who Wish Me Dead', plat:'netflix', date:'2026-12-01', status:'corroborated', source:'What\'s on Netflix', sourceUrl:'https://www.whats-on-netflix.com/leaving-soon/whats-leaving-netflix-december-2026/', verified:'Nov 5'},
+  {title:'Hellboy (2019)', plat:'netflix', date:'2026-12-01', status:'corroborated', source:'What\'s on Netflix', sourceUrl:'https://www.whats-on-netflix.com/leaving-soon/whats-leaving-netflix-december-2026/', verified:'Nov 5'},
+  {title:'Resident Evil: Retribution', plat:'netflix', date:'2026-12-01', status:'corroborated', source:'What\'s on Netflix', sourceUrl:'https://www.whats-on-netflix.com/leaving-soon/whats-leaving-netflix-december-2026/', verified:'Nov 5'},
+  {title:'Law Abiding Citizens', plat:'netflix', date:'2026-12-01', status:'corroborated', source:'What\'s on Netflix', sourceUrl:'https://www.whats-on-netflix.com/leaving-soon/whats-leaving-netflix-december-2026/', verified:'Nov 5'},
+  {title:'Concussion', plat:'netflix', date:'2026-12-01', status:'corroborated', source:'What\'s on Netflix', sourceUrl:'https://www.whats-on-netflix.com/leaving-soon/whats-leaving-netflix-december-2026/', verified:'Nov 5'},
+  {title:'Keanu', plat:'netflix', date:'2026-12-01', status:'corroborated', source:'What\'s on Netflix', sourceUrl:'https://www.whats-on-netflix.com/leaving-soon/whats-leaving-netflix-december-2026/', verified:'Nov 5'},
+  {title:'Green Room', plat:'netflix', date:'2026-12-01', status:'corroborated', source:'What\'s on Netflix', sourceUrl:'https://www.whats-on-netflix.com/leaving-soon/whats-leaving-netflix-december-2026/', verified:'Nov 5'},
+  {title:'Crawl', plat:'netflix', date:'2026-12-01', status:'corroborated', source:'What\'s on Netflix', sourceUrl:'https://www.whats-on-netflix.com/leaving-soon/whats-leaving-netflix-december-2026/', verified:'Nov 5'},
+  {title:'17 Again', plat:'netflix', date:'2026-12-01', status:'corroborated', source:'What\'s on Netflix', sourceUrl:'https://www.whats-on-netflix.com/leaving-soon/whats-leaving-netflix-december-2026/', verified:'Nov 5'},
+  {title:'9 to 5', plat:'netflix', date:'2026-12-01', status:'corroborated', source:'What\'s on Netflix', sourceUrl:'https://www.whats-on-netflix.com/leaving-soon/whats-leaving-netflix-december-2026/', verified:'Nov 5'},
+  {title:'Teen Wolf — Seasons 1–6', plat:'netflix', date:'2026-12-01', status:'corroborated', source:'What\'s on Netflix', sourceUrl:'https://www.whats-on-netflix.com/leaving-soon/whats-leaving-netflix-december-2026/', verified:'Nov 5'},
+  {title:'Grantchester — Seasons 1–4', plat:'netflix', date:'2026-12-01', status:'corroborated', source:'What\'s on Netflix', sourceUrl:'https://www.whats-on-netflix.com/leaving-soon/whats-leaving-netflix-december-2026/', verified:'Nov 5'},
+  {title:'Victoria — Seasons 1–3', plat:'netflix', date:'2026-12-01', status:'corroborated', source:'What\'s on Netflix', sourceUrl:'https://www.whats-on-netflix.com/leaving-soon/whats-leaving-netflix-december-2026/', verified:'Nov 5'},
+  {title:'Hunters — Seasons 1–2', plat:'netflix', date:'2026-12-03', status:'corroborated', source:'What\'s on Netflix', sourceUrl:'https://www.whats-on-netflix.com/leaving-soon/whats-leaving-netflix-december-2026/', verified:'Nov 5'},
+  {title:'Honey Don\'t', plat:'netflix', date:'2026-12-03', status:'corroborated', source:'What\'s on Netflix', sourceUrl:'https://www.whats-on-netflix.com/leaving-soon/whats-leaving-netflix-december-2026/', verified:'Nov 5'},
+  {title:'The Barrier — Season 1', plat:'netflix', date:'2026-12-04', status:'corroborated', source:'What\'s on Netflix', sourceUrl:'https://www.whats-on-netflix.com/leaving-soon/whats-leaving-netflix-december-2026/', verified:'Nov 5'},
+  {title:'Becoming Led Zeppelin', plat:'netflix', date:'2026-12-07', status:'corroborated', source:'What\'s on Netflix', sourceUrl:'https://www.whats-on-netflix.com/leaving-soon/whats-leaving-netflix-december-2026/', verified:'Nov 5'},
+  {title:'Bonus Family — Seasons 1–4', plat:'netflix', date:'2026-12-14', status:'corroborated', source:'What\'s on Netflix', sourceUrl:'https://www.whats-on-netflix.com/leaving-soon/whats-leaving-netflix-december-2026/', verified:'Nov 5'},
+  {title:'Scandal — Seasons 1–7', plat:'netflix', date:'2026-12-17', status:'corroborated', source:'What\'s on Netflix', sourceUrl:'https://www.whats-on-netflix.com/leaving-soon/whats-leaving-netflix-december-2026/', verified:'Nov 5'},
+  {title:'Jurassic World: Rebirth', plat:'netflix', date:'2026-12-26', status:'corroborated', source:'What\'s on Netflix', sourceUrl:'https://www.whats-on-netflix.com/leaving-soon/whats-leaving-netflix-december-2026/', verified:'Nov 5'},
+  {title:'The Last Kingdom — Seasons 1–5', plat:'netflix', date:'2026-12-09', status:'unconfirmed', source:'What\'s on Netflix', sourceUrl:'https://www.whats-on-netflix.com/leaving-soon/whats-leaving-netflix-december-2026/', verified:'Nov 5'},
 ];
 
 const ADDED = [
