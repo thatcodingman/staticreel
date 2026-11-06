@@ -38,8 +38,8 @@ h2{font:700 18px 'Space Grotesk',sans-serif;margin:32px 0 12px}
 .note{color:var(--text-dim);font-size:13.5px;margin-top:30px;border-top:1px solid var(--line);padding-top:16px}
 footer{max-width:760px;margin:0 auto;padding:0 16px 40px;color:var(--text-dim);font:12.5px 'JetBrains Mono',monospace}
 @media(max-width:520px){h1{font-size:25px}.nav{gap:12px}}`;
-const HEADER = `<header class="top"><div class="top-in"><a class="brand" href="/">Static<span>Reel</span></a><nav class="nav"><a href="/guide/">Monthly guides</a><a href="/titles/">All titles</a><a href="/about.html">About</a><a href="/rss.xml">RSS</a></nav></div></header>`;
-const FOOTER = `<footer>StaticReel · independent streaming-changes tracker · not affiliated with Netflix, Max, Disney+ or Amazon · <a href="/about.html">About</a> · <a href="/contact.html">Contact</a> · <a href="/rss.xml">RSS</a> · <a href="/privacy.html">Privacy</a> · <a href="/terms.html">Terms</a></footer>`;
+const HEADER = `<header class="top"><div class="top-in"><a class="brand" href="/">Static<span>Reel</span></a><nav class="nav"><a href="/blog/">Blog</a><a href="/guide/">Monthly guides</a><a href="/titles/">All titles</a><a href="/about.html">About</a><a href="/rss.xml">RSS</a></nav></div></header>`;
+const FOOTER = `<footer>StaticReel · independent streaming-changes tracker · not affiliated with Netflix, Max, Disney+ or Amazon · <a href="/blog/">Blog</a> · <a href="/about.html">About</a> · <a href="/contact.html">Contact</a> · <a href="/rss.xml">RSS</a> · <a href="/privacy.html">Privacy</a> · <a href="/terms.html">Terms</a></footer>`;
 const today = new Date().toISOString().slice(0,10);
 
 const titles = Object.values(D.TITLES).sort((a,b)=>a.slug.localeCompare(b.slug));
@@ -169,7 +169,54 @@ fs.writeFileSync(path.join(__dirname, 'guide', 'index.html'), `<!DOCTYPE html>
 <ul class="pills">${guides.map(g => `<li><a href="/guide/${g.slug}/">${esc(D.PLATFORMS[g.plat].name)} · ${MONTH_NAMES[Number(g.ym.slice(5))-1]} ${g.ym.slice(0,4)}</a></li>`).join('')}</ul>
 </main>${FOOTER}</body></html>`);
 
-const pages = ['', 'titles/', 'guide/', ...guides.map(g => `guide/${g.slug}/`), ...Object.values(D.PLATFORMS).map(p => p.page)];
+
+// ---- Blog: /blog/ and /blog/<slug>/ (posts live in blog-posts.js) ----
+const POSTS = require('./blog-posts.js').slice().sort((a,b)=>b.date.localeCompare(a.date));
+const byTitle = Object.fromEntries(titles.map(t => [t.title, t]));
+const missingLinks = [];
+const linkify = html => html.replace(/\[\[([^\]]+)\]\]/g, (_, name) => {
+  const t = byTitle[name];
+  if (!t) { missingLinks.push(name); return esc(name); }
+  return `<a href="/title/${t.slug}/">${esc(name)}</a>`;
+});
+const BLOG_CSS = `.post p,.post li{color:var(--text-mid)}.post ul{padding-left:20px}.post li{margin:6px 0}.post .meta{color:var(--text-dim);font-size:13.5px}.byline{color:var(--text-dim);font:500 12.5px 'JetBrains Mono',monospace;margin:0 0 20px}.plist{list-style:none;padding:0}.plist li{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px 18px;margin:12px 0}.plist a.t{font:700 18px 'Space Grotesk',sans-serif;color:var(--text)}.plist p{margin:6px 0 0;color:var(--text-mid);font-size:14.5px}`;
+for (const post of POSTS) {
+  const purl = `${SITE}/blog/${post.slug}/`;
+  const ld = {"@context":"https://schema.org","@graph":[
+    {"@type":"Article","@id":purl,"mainEntityOfPage":purl,"headline":post.title,"description":post.desc,"datePublished":post.date,"dateModified":post.date,"author":{"@type":"Organization","name":"StaticReel","url":SITE+"/"},"publisher":{"@id":SITE+"/#org"},"image":SITE+"/assets/og-image.png","inLanguage":"en-US"},
+    {"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"StaticReel","item":SITE+"/"},{"@type":"ListItem","position":2,"name":"Blog","item":SITE+"/blog/"},{"@type":"ListItem","position":3,"name":post.title,"item":purl}]}]};
+  const dir = path.join(__dirname, 'blog', post.slug);
+  fs.mkdirSync(dir, { recursive: true });
+  fs.writeFileSync(path.join(dir, 'index.html'), `<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>${esc(post.title)} | StaticReel</title>
+<meta name="description" content="${esc(post.desc)}">
+<link rel="canonical" href="${purl}"><meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large">
+<meta property="og:type" content="article"><meta property="og:site_name" content="StaticReel"><meta property="og:title" content="${esc(post.title)}"><meta property="og:description" content="${esc(post.desc)}"><meta property="og:url" content="${purl}"><meta property="og:image" content="${SITE}/assets/og-image.png">
+<meta name="twitter:card" content="summary_large_image"><link rel="icon" href="/favicon.ico" sizes="any">
+<script type="application/ld+json">${JSON.stringify(ld)}</script>
+<style>${BASE_CSS}${BLOG_CSS}</style>${FONTS}</head><body>${HEADER}<main class="post">
+<p class="crumbs"><a href="/">StaticReel</a> / <a href="/blog/">Blog</a> / ${esc(post.title)}</p>
+<h1>${esc(post.title)}</h1>
+<p class="byline">By StaticReel · ${pretty(post.date)}</p>
+${linkify(post.body)}
+<p class="note">StaticReel is an independent tracker and is not affiliated with Netflix, Max, Disney+ or Amazon. <a href="/blog/">More posts →</a></p>
+</main>${FOOTER}</body></html>`);
+}
+fs.mkdirSync(path.join(__dirname, 'blog'), { recursive: true });
+fs.writeFileSync(path.join(__dirname, 'blog', 'index.html'), `<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Blog: streaming changes explained | StaticReel</title>
+<meta name="description" content="Plain-English posts on what is leaving and arriving on Netflix, Max, Disney+ and Prime Video, and how to keep up with it.">
+<link rel="canonical" href="${SITE}/blog/"><meta name="robots" content="index,follow"><link rel="icon" href="/favicon.ico" sizes="any">
+<style>${BASE_CSS}${BLOG_CSS}</style>${FONTS}</head><body>${HEADER}<main>
+<h1>StaticReel blog</h1>
+<p class="lede">What is leaving, what is arriving, and how to keep up with it.</p>
+<ul class="plist">${POSTS.map(p => `<li><a class="t" href="/blog/${p.slug}/">${esc(p.title)}</a><p>${esc(p.desc)}</p><p class="byline">${pretty(p.date)}</p></li>`).join('')}</ul>
+</main>${FOOTER}</body></html>`);
+if (missingLinks.length) console.warn('Blog: no title page found for: ' + [...new Set(missingLinks)].join(' | '));
+
+const pages = ['', 'titles/', 'guide/', 'blog/', ...POSTS.map(p => `blog/${p.slug}/`), ...guides.map(g => `guide/${g.slug}/`), ...Object.values(D.PLATFORMS).map(p => p.page)];
 const urls = [...pages.map(p => `${SITE}/${p}`), ...titles.map(t => `${SITE}/title/${t.slug}/`)];
 fs.writeFileSync(path.join(__dirname, 'sitemap.xml'),
 `<?xml version="1.0" encoding="UTF-8"?>
@@ -201,4 +248,4 @@ fs.writeFileSync(path.join(__dirname,'rss.xml'),`<?xml version="1.0" encoding="U
 ${rssItems}
 </channel></rss>
 `);
-console.log(`Built ${count} title pages, ${guides.length} guides, sitemap.xml (${urls.length} URLs), robots.txt`);
+console.log(`Built ${count} title pages, ${guides.length} guides, ${POSTS.length} blog posts, sitemap.xml (${urls.length} URLs), robots.txt`);
